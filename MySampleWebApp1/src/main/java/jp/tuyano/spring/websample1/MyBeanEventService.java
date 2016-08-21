@@ -10,6 +10,8 @@ public class MyBeanEventService implements ApplicationEventPublisherAware {
 	private MyBean mybean;
 	// ApplicationEvent を発行する為の機能を提供
 	private ApplicationEventPublisher publisher;
+
+	private MyBeanEventService beanService;
 	
 	public void setApplicationEventPublisher(
 			ApplicationEventPublisher applicationEventPublisher) {

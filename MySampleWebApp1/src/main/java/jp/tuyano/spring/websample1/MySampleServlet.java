@@ -17,6 +17,8 @@ public class MySampleServlet extends HttpServlet {
 
 	@Autowired
 	private MyBean2 mybean2;
+	@Autowired
+	private MyBeanEventService beanService;
 	
 	@Override
 	public void init() throws ServletException {
@@ -36,7 +38,7 @@ public class MySampleServlet extends HttpServlet {
 			HttpServletResponse response) 
 			throws ServletException, IOException {
 		String message = request.getParameter("message");
-		mybean2.getBean().addMessage(message);
+		beanService.doService(message);
 		response.sendRedirect("sample");
 	}
 }
