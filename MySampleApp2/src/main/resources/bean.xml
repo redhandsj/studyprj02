@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder location="classpath:bean.properties"/>
+
+	<bean id="myBeanEditor" class="jp.tuyano.spring.sample2.MyBeanTypeEditor" />
+	<bean id="customPropertyEditorRegistrar" class="jp.tuyano.spring.sample2.CustomPropertyEditorRegistrar" />
+	
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="propertyEditorRegistrars">
+			<list>
+				<ref bean="customPropertyEditorRegistrar" />
+			</list>
+		</property>
+	</bean>
+<!--
+	<bean id="dateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor">
+		<constructor-arg>
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg value="yyyy-MM-dd" />
+			</bean>
+		</constructor-arg>
+		<constructor-arg value="true" />
+	</bean>
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.util.Date" value-ref="dateEditor" />
+				<entry key="jp.tuyano.spring.sample2.MyBean" value-ref="myBeanEditor" />
+			</map>
+		</property>
+	</bean>
+ -->	
+	<bean id="bean1" class="jp.tuyano.spring.sample2.MyBean">
+		<property name="message" value="${bean.message}" />
+		<property name="date" value="${bean.date}" />
+	</bean>
+	<!--
+	<bean id="mybeanprops"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location">
+			<value>classpath:bean.properties</value>
+		</property>
+	</bean>
+	-->
+	<bean id="beankeeper1" class="jp.tuyano.spring.sample2.MyBeanKeeper">
+		<constructor-arg type="jp.tuyano.spring.sample2.MyBean"
+			name="mybean" value="this is new MyBean!!" />
+		<constructor-arg type="String" name="from" value="${keeper.from}" />
+		<constructor-arg type="String" name="to" value="${keeper.to}" />
+	</bean>
+
+</beans>
