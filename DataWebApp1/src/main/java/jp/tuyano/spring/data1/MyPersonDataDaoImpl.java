@@ -4,15 +4,33 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-@SuppressWarnings("hiding")
-public class MyPersonDataDaoImpl<MyPersonData> implements MyPersonDataDao {
-	private EntityManager manager = null;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.stereotype.Service;
+
+/**
+ * 
+ */
+@Service
+public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
+	@Autowired
+	private ApplicationContext context;
+
+	@Autowired
+	private LocalContainerEntityManagerFactoryBean factory;
+
+	@PersistenceContext
+	private EntityManager manager;
 	
-	public MyPersonDataDaoImpl(EntityManager manager) {
-		super();
-		this.manager = manager;
+	/**
+	 * コンストラクタ
+	 */
+	public MyPersonDataDaoImpl() {
+		init();
 	}
 	
 	/**
@@ -35,22 +53,26 @@ public class MyPersonDataDaoImpl<MyPersonData> implements MyPersonDataDao {
 	 * エンティティ追加（insert）
 	 */
 	public void addEntity(Object entity) {
+		// エンティティ作成クラス
+		EntityManager manager = factory.getNativeEntityManagerFactory().createEntityManager();
 		// トランザクション管理用のインスタンスを取得
 		EntityTransaction transaction = manager.getTransaction();
 		// トランザクション開始
 		transaction.begin();
 		// キャッシュに処理が登録される
 		manager.persist(entity);
+		System.out.println("add:" + entity);
 		// キャッシュに残っている処理を実行
 		manager.flush();
 		// コミットしてトランザクションを終了
-		transaction.commit();		
+		transaction.commit();
 	}
 
 	/**
 	 * エンティティ更新(update)
 	 */
 	public void updateEntity(Object entity) {
+		EntityManager manager = factory.getNativeEntityManagerFactory().createEntityManager();
 		EntityTransaction transaction = manager.getTransaction();
 		transaction.begin();
 		manager.merge(entity);
@@ -62,6 +84,7 @@ public class MyPersonDataDaoImpl<MyPersonData> implements MyPersonDataDao {
 	 * エンティティ削除（delete）
 	 */
 	public void removeEntity(Object data) {
+		EntityManager manager = factory.getNativeEntityManagerFactory().createEntityManager();
 		EntityTransaction transaction = manager.getTransaction();
 		transaction.begin();
 		manager.remove(data);

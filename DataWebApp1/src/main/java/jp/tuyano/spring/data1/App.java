@@ -22,7 +22,7 @@ public class App {
 				context.getBean(LocalContainerEntityManagerFactoryBean.class);
 		manager = factory.getNativeEntityManagerFactory().createEntityManager();
 		
-		MyPersonDataDao<MyPersonData> dao = new MyPersonDataDaoImpl<MyPersonData>(manager);
+//		MyPersonDataDao<MyPersonData> dao = new MyPersonDataDaoImpl<MyPersonData>(manager);
 		
 		// insert
 //		MyPersonData personData = new MyPersonData("tuyano","syoda@tuyano.com",123);
@@ -36,20 +36,20 @@ public class App {
 //		// 登録
 //		dao.updateEntity(personData);
 
-		// 削除
-		dao.removeEntity(1L);
-		
-		// 全検索
-		List<MyPersonData> listAll = dao.getAllEntity();
-		for(MyPersonData person : listAll) {
-			System.out.println("listAll ： " + person);
-		}
-		
-		// 値指定検索
-		List<MyPersonData> lists = dao.findByField("name", "hanako");
-		for(MyPersonData person : lists) {
-			System.out.println("lists ： " + person);
-		}
+//		// 削除
+//		dao.removeEntity(1L);
+//		
+//		// 全検索
+//		List<MyPersonData> listAll = dao.getAllEntity();
+//		for(MyPersonData person : listAll) {
+//			System.out.println("listAll ： " + person);
+//		}
+//		
+//		// 値指定検索
+//		List<MyPersonData> lists = dao.findByField("name", "hanako");
+//		for(MyPersonData person : lists) {
+//			System.out.println("lists ： " + person);
+//		}
 
 		
 //		context = new ClassPathXmlApplicationContext("classpath:/bean.xml");
