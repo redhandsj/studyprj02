@@ -15,8 +15,10 @@ import org.springframework.stereotype.Service;
 /**
  * 
  */
+@SuppressWarnings("rawtypes")
 @Service
 public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
+	@SuppressWarnings("unused")
 	@Autowired
 	private ApplicationContext context;
 
@@ -36,20 +38,32 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 	/**
 	 * 検索（Select All）
 	 */
+	@SuppressWarnings("unchecked")
 	public List<MyPersonData> getAllEntity() {
-		Query query = manager.createQuery("from MyPersonData");
+		Query query = manager.createNamedQuery("MyPersonData.getAllEntity");
 		return query.getResultList();
 	}
 
 	/**
 	 * 検索(select)
 	 */
+	@SuppressWarnings("rawtypes")
 	public List findByField(String field, String find) {
 		Query query = manager.createQuery("from MyPersonData where " + field + " = '" + find + "'");
 		return query.getResultList();
 	}
 
 	/**
+	 * 検索
+	 * @param value 検索ワード（名前）
+	 * @return 検索結果エンティティ
+	 */
+	@SuppressWarnings("unchecked")
+	public List<MyPersonData> findByName(String value) {
+		Query query = manager.createNamedQuery("MyPersonData.findByName").setParameter("value", value);
+		return query.getResultList();
+	}
+		/**
 	 * エンティティ追加（insert）
 	 */
 	public void addEntity(Object entity) {
