@@ -30,7 +30,8 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		// /personにアクセスすると、現在のテーブル内容を表示する
 		//List<MyPersonData> list = dao.getAllEntity();
-		List<MyPersonData> list = repository.findAll(); //☆
+		//List<MyPersonData> list = repository.findAll(); //☆
+		List<String> list = repository.getAllName(); //☆
 		request.setAttribute("entities", list);
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}

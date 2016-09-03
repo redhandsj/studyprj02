@@ -3,6 +3,7 @@ package jp.tuyano.spring.data1;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,4 +18,8 @@ public interface MyPersonDataDaoRepository extends JpaRepository<MyPersonData, L
 	public List<MyPersonData> findByAgeGreaterThan(Integer age);
 	public List<MyPersonData> findByAgeLessThan(Integer age);
 	public List<MyPersonData> findByAgeGreaterThanOrAgeLessThan(Integer age0, Integer age1);
+
+	@Query("select name from MyPersonData")
+	public List<String> getAllName();
+
 }

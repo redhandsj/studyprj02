@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -40,8 +43,14 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<MyPersonData> getAllEntity() {
-		Query query = manager.createNamedQuery("MyPersonData.getAllEntity");
-		return query.getResultList();
+//		Query query = manager.createNamedQuery("MyPersonData.getAllEntity");
+//		return query.getResultList();		
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<MyPersonData> query = builder.createQuery(MyPersonData.class);
+		Root<MyPersonData> root = query.from(MyPersonData.class);
+		query.select(root);
+		List<MyPersonData> list = (List<MyPersonData>)manager.createQuery(query).getResultList();
+		return list;		
 	}
 
 	/**
