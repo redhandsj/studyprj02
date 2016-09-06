@@ -31,9 +31,9 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 		// /personにアクセスすると、現在のテーブル内容を表示する
 		//List<MyPersonData> list = dao.getAllEntity();
 		//List<MyPersonData> list = repository.findAll(); //☆
-		List<String> list = repository.getAllName(); //☆
-		request.setAttribute("entities", list);
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		
+		//this.List08_19_doGet(request,response);
+		this.list_08_21_doGet(request,response);
 	}
 
 	/**
@@ -44,8 +44,6 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 //		doGet(request, response);
 		// フォームからアクセスすると、データを追加する
 
-		String name = request.getParameter("name");
-		String mail = request.getParameter("mail");
 //		int age = 0;
 //		if(!("".equals(request.getParameter("age")))){
 //			age = Integer.parseInt(request.getParameter("age"));
@@ -55,13 +53,72 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 //		repository.saveAndFlush(entity); //☆
 //		// リダイレクト
 //		response.sendRedirect("person");
-		List<MyPersonData> list = repository.findByNameLikeOrMailLike("%" + name + "%", "%" + mail + "%");
-		request.setAttribute("entities", list);
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
 
 //		String name = request.getParameter("name");
 //		List<MyPersonData> list = dao.findByName(name);
 //		request.setAttribute("entities", list);
 //		request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+		//this.list_08_17_doPost(request,response);
+		this.list_08_23_doPost(request,response);
 	}
+	
+	//=======================================================================
+	// リスト別コード
+	//=======================================================================
+	/**
+	 * SpringFramework4_プログラミング入門 : P.398
+	 * @param request リクエスト
+	 * @param response レスポンス
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void list_08_17_doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		// 画面からのパラメータ取得
+		String name = request.getParameter("name");
+		String mail = request.getParameter("mail");
+		List<MyPersonData> list = repository.findByNameLikeOrMailLike("%" + name + "%", "%" + mail + "%");
+		request.setAttribute("entities", list);
+		request.getRequestDispatcher("/index.jsp").forward(request, response);		
+	}
+	/**
+	 * SpringFramework4_プログラミング入門 : P.406
+	 * @param request リクエスト
+	 * @param response レスポンス
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void list_08_19_doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		List<String> list = repository.getAllName(); //☆
+		request.setAttribute("entities", list);
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}
+	/**
+	 * SpringFramework4_プログラミング入門 : P.409
+	 * @param request リクエスト
+	 * @param response レスポンス
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void list_08_21_doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		List<MyPersonData> list = dao.getAllEntity(); //☆
+		request.setAttribute("entities", list);
+		request.getRequestDispatcher("/index.jsp").forward(request, response);			
+	}
+	/**
+	 * SpringFramework4_プログラミング入門 : P.412
+	 * @param request リクエスト
+	 * @param response レスポンス
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void list_08_23_doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		// 画面からのパラメータ取得
+		String name = request.getParameter("name");
+		String mail = request.getParameter("mail");
+		List<MyPersonData> list = dao.findByName(name);
+		request.setAttribute("entities", list);
+		request.getRequestDispatcher("/index.jsp").forward(request, response);		
+	}
+	
 }
