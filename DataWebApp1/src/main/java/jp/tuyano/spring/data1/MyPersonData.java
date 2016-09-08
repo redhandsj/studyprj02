@@ -8,6 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
 /**
  * 個人データ
  * <ul>
@@ -24,15 +29,21 @@ public class MyPersonData {
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@NotNull(message="必須項目です。")
 	private long id;
 	
 	@Column(length=50, nullable=false)
+	@NotNull(message="必須項目です。")
 	private String name;
 	
 	@Column(length=100, nullable=true)
+	@Email(message="メールアドレスが必要です")
 	private String mail;
 	
 	@Column(nullable=true)
+	@NotNull(message="必須項目です。")
+	@Min(value=0,message="{value}以上でなければいけません。")
+	@Max(value=150,message="{value}以下でなければいけません。")
 	private int age;
 
 	public MyPersonData() {

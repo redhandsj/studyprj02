@@ -52,4 +52,8 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
+	<!-- list_08_25 Validator用のBeanを登録 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	
+	
 </beans>

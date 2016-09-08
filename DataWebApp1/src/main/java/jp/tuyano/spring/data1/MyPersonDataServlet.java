@@ -2,11 +2,14 @@ package jp.tuyano.spring.data1;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +26,12 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 	private MyPersonDataDaoImpl dao;
 
 	/**
+	 * バリデーター
+	 */
+	@Autowired
+	private Validator validator;
+
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,7 +42,8 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 		//List<MyPersonData> list = repository.findAll(); //☆
 		
 		//this.List08_19_doGet(request,response);
-		this.list_08_21_doGet(request,response);
+		//this.list_08_21_doGet(request,response);
+		this.list_08_28_doGet(request,response);
 	}
 
 	/**
@@ -60,7 +70,8 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 //		request.getRequestDispatcher("/index.jsp").forward(request, response);
 
 		//this.list_08_17_doPost(request,response);
-		this.list_08_23_doPost(request,response);
+		//this.list_08_23_doPost(request,response);
+		this.list_08_28_doPost(request,response);
 	}
 	
 	//=======================================================================
@@ -120,5 +131,63 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 		request.setAttribute("entities", list);
 		request.getRequestDispatcher("/index.jsp").forward(request, response);		
 	}
-	
+	/**
+	 * SpringFramework4_プログラミング入門 : P.422
+	 * @param request リクエスト
+	 * @param response レスポンス
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void list_08_28_doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		request.setAttribute("msg", "please type my person data.");
+		request.setAttribute("name","");
+		request.setAttribute("mail","");
+		request.setAttribute("age","");
+		request.setAttribute("entities", dao.getAllEntity());
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}
+	/**
+	 * SpringFramework4_プログラミング入門 : P.422
+	 * @param request リクエスト
+	 * @param response レスポンス
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void list_08_28_doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		// 画面入力：氏名
+		String name = request.getParameter("name");
+		name = name != "" ? name : null;
+		// 画面入力：メール
+		String mail = request.getParameter("mail");
+		// 画面入力：年齢
+		int age;
+		try{
+			age = Integer.parseInt(request.getParameter("age"));
+		}catch(NumberFormatException e){
+			age = 0;
+		}
+		// 個人データ作成
+		MyPersonData entity = new MyPersonData(name,mail,age);
+		// バリデーションチェック
+		Set<ConstraintViolation<MyPersonData>> result = validator.validate((MyPersonData)entity);
+		if(result.isEmpty()){
+			// エラーなしデータはそのまま出力
+			dao.addEntity(entity);
+			response.sendRedirect("person");
+		}else{
+			// 問題ありのでデータは、データとともにエラーメッセージを出力
+			String msg = "<pre>";
+			for(ConstraintViolation<MyPersonData> viola : result){
+				msg += viola.getPropertyPath() + ":" + viola.getMessage() + "\n";
+			}
+			msg += "<pre>";
+			request.setAttribute("msg", msg);
+			request.setAttribute("name",name);
+			request.setAttribute("mail",mail);
+			request.setAttribute("age",age);
+			request.setAttribute("entities", dao.getAllEntity());
+			request.getRequestDispatcher("/index.jsp").forward(request, response);			
+		}
+		
+	}
 }
