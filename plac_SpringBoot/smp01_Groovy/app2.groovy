@@ -2,7 +2,7 @@
 @Grab("thymeleaf-spring4")
 @Controller
 class App{
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	@RequestMapping("/")
 	@ResponseBody
 	def home(ModelAndView mav){
 		// list_02_01
@@ -20,16 +20,7 @@ class App{
 
 		// list_02_08
 		mav.setViewName("home")
-		mav.addObject("msg","please write your name...")
+		mav.addObject("msg","\u3053\u3093\u306b\u3061\u308f\uff01")
 		mav
 	}
-
-	@RequestMapping(value="/send", method=RequestMethod.POST)
-	@ResponseBody
-	def send(@RequestParam("text1")String str, ModelAndView mav){
-		mav.setViewName("home")
-		mav.addObject("msg","Hello, " + str + "!!")
-		mav.addObject("value", str)
-		mav
-	}	
 }

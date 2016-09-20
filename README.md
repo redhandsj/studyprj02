@@ -1,18 +1,18 @@
-# SpringBoot_ƒvƒƒOƒ‰ƒ~ƒ“ƒO“ü–å.pdf
-* P.074
+# SpringBoot_ï¿½vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½~ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½.pdf
+* P.096
 
-# studyprj02F
-* •¶–@F <http://codechord.com/2012/01/readme-markdown/>
+# studyprj02ï¿½F
+* ï¿½ï¿½ï¿½@ï¿½F <http://codechord.com/2012/01/readme-markdown/>
 
 | SpringFramework Study Project
 
 * Spring Boot CLI
 http://docsspring.lo/spring-boot/docs/current/reference/htmIsingle/#getting-started-installing-the-cli
 
-* ã‹L‚Å‚ÍƒAƒNƒZƒX‚Å‚«‚È‚¢‚Ì‚Å‰º‹L‚©‚çÅV‚ğ’T‚·
+* ï¿½ï¿½Lï¿½Å‚ÍƒAï¿½Nï¿½Zï¿½Xï¿½Å‚ï¿½ï¿½È‚ï¿½ï¿½Ì‚Å‰ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ÅVï¿½ï¿½Tï¿½ï¿½
 http://docs.spring.io/spring-boot/docs/
 
-** ƒ_ƒEƒ“ƒ[ƒh
-** “WŠJ
-** ŠÂ‹«ƒpƒX‚Ì’Ç‰Á
+** ï¿½_ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½h
+** ï¿½Wï¿½J
+** ï¿½Â‹ï¿½ï¿½pï¿½Xï¿½Ì’Ç‰ï¿½
 
