@@ -1,5 +1,5 @@
 # SpringBoot_�v���O���~���O����.pdf
-* P.096
+* P.147 : そのほかのフォームコントロール
 
 # studyprj02�F
 * ���@�F <http://codechord.com/2012/01/readme-markdown/>
