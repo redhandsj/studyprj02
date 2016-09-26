@@ -29,26 +29,74 @@ public class HeloController {
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public ModelAndView index(ModelAndView mav){
 		mav.setViewName("index");
-		mav.addObject("msg","お名前書いて送信してください。");
+		mav.addObject("msg","フォームを送信ください。");
 		return mav;
 	}
 
 	/**
-	 * 数値アクセス(list_03_16)
+	 * POST(list_03_18)
+	 * @param str テキスト
+	 * @param check1 チェックボックス1（必須ではない）
+	 * @param radio1 ラジオボタン1（必須ではない）
+	 * @param select1 選択1（必須ではない）
+	 * @param select2 選択2（必須ではない）
 	 * @param mav データ and Viewモデル
 	 * @return　テンプレート名
 	 */
 	@RequestMapping(value="/",method=RequestMethod.POST)
-	public ModelAndView send(@RequestParam("text1")String str, ModelAndView mav){
-		mav.addObject("msg","こんにちわ、 " + str + " さん！");
-		mav.addObject("value",str);
+	public ModelAndView send(
+			@RequestParam("text1")String str,
+			@RequestParam(value="check1",required=false)boolean check1,
+			@RequestParam(value="radio1",required=false)String radio1,
+			@RequestParam(value="select1",required=false)String select1,
+			@RequestParam(value="select2",required=false)String[] select2,
+			ModelAndView mav){
+		String res="";
+		try{
+			res = "check : " + check1 +
+					"  radio : " + radio1 +
+					"  select : " + select1 +
+					"\nselect2:";
+		}catch(NullPointerException e){}
+		try{
+			res += select2[0];
+			for(int i=1;i<select2.length;i++){
+				res += ", " + select2[i];
+			}
+		}catch(NullPointerException e){
+			res += "null";
+		}
+
+		mav.addObject("msg",res);
 		mav.setViewName("index");
 		return mav;
 	}
 
+	@RequestMapping("/other")
+	public String other(){
+		return "redirect:/";
+	}
+
+	@RequestMapping("/home")
+	public String home(){
+		return "forward:/";
+	}
 
 
 //	/**
+//	 * 数値アクセス(list_03_16)
+//	 * @param mav データ and Viewモデル
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping(value="/",method=RequestMethod.POST)
+//	public ModelAndView send(@RequestParam("text1")String str, ModelAndView mav){
+//		mav.addObject("msg","こんにちわ、 " + str + " さん！");
+//		mav.addObject("value",str);
+//		mav.setViewName("index");
+//		return mav;
+//	}
+
+	//	/**
 //	 * 数値アクセス(list_03_14)
 //	 * @param num URLからのパス
 //	 * @param mav データ and Viewモデル

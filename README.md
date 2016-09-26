@@ -1,5 +1,5 @@
 # SpringBoot_�v���O���~���O����.pdf
-* P.147 : そのほかのフォームコントロール
+* P.155 : 基本は変数式とOGNL
 
 # studyprj02�F
 * ���@�F <http://codechord.com/2012/01/readme-markdown/>
@@ -15,4 +15,7 @@ http://docs.spring.io/spring-boot/docs/
 ** �_�E�����[�h
 ** �W�J
 ** ���p�X�̒ǉ�
+
+* redirect と forward の違い
+** http://himtodo.fc2web.com/java/redirectForward.html
 
