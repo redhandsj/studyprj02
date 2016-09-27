@@ -1,5 +1,5 @@
 # SpringBoot_�v���O���~���O����.pdf
-* P.155 : 基本は変数式とOGNL
+* P.172 : 条件分岐の「th:if」
 
 # studyprj02�F
 * ���@�F <http://codechord.com/2012/01/readme-markdown/>

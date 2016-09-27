@@ -1,17 +1,55 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>top page</title>
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
 <style>
-h1{font-size:18pt; font-weight:bold; color:gray; }
+h1{ font-size:18pt; font-weight:bold; color:gray; }
 body{ font-size:13pt; color:gray; margin:5px 25px; }
 pre{ font-size:13pt; color:gray; padding:5px 10px; border:1px solid gray; }
+tr{ margin:5px; }
+th{ padding:5px; color:white; background:darkgray; }
+td{ padding:5px; color:black; background:#e0e0ff; }
 </style>
 </head>
 <body>
-<h1>Helo Page</h1>
+<!--======================================================================-->
+<p th:text="${id} + ' is ' + ${check} ? ${trueVal} : ${falseVal}"></p>
+<!--======================================================================-->
+<!-- 
+<div th:object="${object}">
+  <p th:text="|my name is *{name}. mail address is *{value}.|">message.</p>
+</div>
+-->
+<!--======================================================================-->
+<!-- 
+<table th:object="${object}">
+<tr><th>ID</th><td th:text="*{id}"></td></tr>
+<tr><th>NAME</th><td th:text="*{name}"></td></tr>
+<tr><th>MAIL</th><td th:text="*{value}"></td></tr>
+</table>
+-->
+<!--======================================================================-->
+<h1 th:text="#{content.title}">Helo Page</h1>
+<!-- プロパティファイルから値を取得 -->
+<p th:text="#{content.message}"></p>
+<!--
+<p><a th:href="@{'/home/' + ${param.id[0]}}">link</a></p>
+-->
+<!--======================================================================-->
+<p th:text="${new java.util.Date().toString()}"></p>
+<p th:text="${#dates.format(new java.util.Date(),'dd/MMM/yyyy HH:mm')}"></p>
+<p th:text="${#numbers.formatInteger(1234,7)}"></p>
+<p th:text="${#strings.toUpperCase('Welcome to Spring.')}"></p>
+<!-- http://localhost:8080/home/?id=ok&name=ttttt
+<p th:text="'from parameter... id=' + ${param.id[0] + ', name=' + param.name[0]}"></p>
+-->
+<!-- エスケープあり 
 <pre th:text="${msg}">please wait...</pre>
+-->
+<!-- エスケープなし-->
+<pre th:utext="${msg}">please wait...</pre>
+
 <form method="post" action="/">
   <div>
     <input type="checkbox" id="check1" name="check1" />
