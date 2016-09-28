@@ -1,5 +1,10 @@
 # SpringBoot_�v���O���~���O����.pdf
-* P.172 : 条件分岐の「th:if」
+* P.190 : その他のテンプレートエンジン
+
+
+* P.171 のテンプレート修正がうまく動かない
+
+
 
 # studyprj02�F
 * ���@�F <http://codechord.com/2012/01/readme-markdown/>

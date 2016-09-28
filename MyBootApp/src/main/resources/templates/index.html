@@ -11,10 +11,88 @@ tr{ margin:5px; }
 th{ padding:5px; color:white; background:darkgray; }
 td{ padding:5px; color:black; background:#e0e0ff; }
 </style>
+<!--======================================================================-->
+<!-- list_04_26 -->
+<script th:inline="javascript">
+function action(){
+	var val = document.getElementById("text1").value;
+	var res = parseInt(val * ((100 + /*[[${tax}]]*/) / 100));
+	document.getElementById("msg").innerHTML = "include tax: " + res;
+}
+</script>
+<!--======================================================================-->
+<!-- list_04_28 -->
+<style th:include="part :: frag_style"></style>
+<!--======================================================================-->
 </head>
 <body>
 <!--======================================================================-->
+<!-- list_04_28 -->
+<div th:include="part :: frag_body">
+  <p>this is original content.</p>
+</div>
+<!--======================================================================-->
+<!-- list_04_26 -->
+<p id="msg"></p>
+<input type="text" id="text1" />
+<button onclick="action()">click</button>
+<!--======================================================================-->
+<!-- list_04_24 -->
+<!--
+<table th:inline="text">
+<tr><th>NAME</th><th>MAIL</th><th>TEL</th></tr>
+<tr th:each="obj : ${data}">
+  <td>[[${obj.id}]]</td>
+  <td>[[${obj.name}]]</td>
+  <td>[[${obj.value}]]</td>
+</tr>
+</table>
+-->
+<!--======================================================================-->
+<!-- list_04_22 -->
+<!--
+<p th:text="|expression[${check}]|"></p>
+<table th:object="${data.get(__${check}__)}">
+  <tr><th>ID</th><td th:text="*{id}"></td></tr>
+  <tr><th>NAME</th><td th:text="*{name}"></td></tr>
+  <tr><th>MAIL</th><td th:text="*{value}"></td></tr>
+</table>
+-->
+ <!--======================================================================-->
+<!-- list_04_20 -->
+<!-- 
+<table>
+<tr><th>NAME</th><th>MAIL</th><th>TEL</th></tr>
+<tr th:each="obj:${data}">
+  <td th:text="${obj[0]}"></td>
+  <td th:text="${obj[1]}"></td>
+  <td th:text="${obj[2]}"></td>
+</tr>
+</table>
+-->
+<!--======================================================================-->
+<!-- list_04_20 -->
+<!--
+<div th:switch="${check}">
+  <p th:case="0" th:text="|${month} - Winter|"></p>
+  <p th:case="1" th:text="|${month} - Spring|"></p>
+  <p th:case="2" th:text="|${month} - Summer|"></p>
+  <p th:case="3" th:text="|${month} - Autumn|"></p>
+  <p th:case="4" th:text="|${month} - Winter|"></p>
+  <p th:case="*">...?</p>
+</div>
+-->
+<!--======================================================================-->
+<!-- list_04_18 -->
+<!--
+<p th:if="${check}" th:text="${id} + ' is ' + ${trueVal}">message.</p>
+<p th:unless="${check}" th:text="${id} + ' is ' + ${falseVal}">message.</p>
+-->
+<!--======================================================================-->
+<!-- list_04_14 -->
+<!--
 <p th:text="${id} + ' is ' + ${check} ? ${trueVal} : ${falseVal}"></p>
+-->
 <!--======================================================================-->
 <!-- 
 <div th:object="${object}">

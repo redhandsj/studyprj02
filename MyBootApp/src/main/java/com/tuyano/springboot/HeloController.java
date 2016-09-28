@@ -1,5 +1,7 @@
 package com.tuyano.springboot;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,22 +25,136 @@ import org.springframework.web.servlet.ModelAndView;
 public class HeloController {
 
 	/**
-	 * 数値アクセス(list_04_13)
-	 * @param id
+	 * 数値アクセス(list_04_29 )
+	 * @param tax
 	 * @param mav データ and Viewモデル
 	 * @return　テンプレート名
 	 */
-	@RequestMapping("/{id}")
-	public ModelAndView index(@PathVariable int id, ModelAndView mav){
+	@RequestMapping("/")
+	public ModelAndView index(ModelAndView mav){
 		mav.setViewName("index");
-		mav.addObject("id",id);
-		mav.addObject("check",id%2==0);
-		mav.addObject("trueVal","Even number!");
-		mav.addObject("falseVal","Odd number...");
 		return mav;
 	}
 
 //	/**
+//	 * 数値アクセス(list_04_25 )tax
+//	 * @param tax
+//	 * @param mav データ and Viewモデル
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping("/{tax}")
+//	public ModelAndView index(@PathVariable int tax, ModelAndView mav){
+//		mav.setViewName("index");
+//		mav.addObject("tax",tax);
+//		return mav;
+//	}
+
+	//	/**
+//	 * 数値アクセス(list_04_23 )インライン
+//	 * @param num
+//	 * @param mav データ and Viewモデル
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping("/")
+//	public ModelAndView index(ModelAndView mav){
+//		mav.setViewName("index");
+//		ArrayList<DataObject> data = new ArrayList<DataObject>();
+//		data.add(new DataObject(0,"taro","taro@yamada"));
+//		data.add(new DataObject(1,"hanako","hanako@flower"));
+//		data.add(new DataObject(2,"sachiko","sachiko@happy"));
+//		mav.addObject("data",data);
+//		return mav;
+//	}
+
+	//	/**
+//	 * 数値アクセス(list_04_21)
+//	 * @param num
+//	 * @param mav データ and Viewモデル
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping("/{num}")
+//	public ModelAndView index(@PathVariable int num, ModelAndView mav){
+//		mav.setViewName("index");
+//		mav.addObject("num",num);
+//		if(num >= 0){
+//			mav.addObject("check","num >= data.size() ? 0 : num");
+//		}else{
+//			mav.addObject("check","num <= data.size() * -1 ? 0 : num * -1");
+//		}
+//		ArrayList<DataObject> data = new ArrayList<DataObject>();
+//		data.add(new DataObject(0,"taro","taro@yamada"));
+//		data.add(new DataObject(1,"hanako","hanako@flower"));
+//		data.add(new DataObject(2,"sachiko","sachiko@happy"));
+//		mav.addObject("data",data);
+//		return mav;
+//	}
+
+	//	/**
+//	 * 数値アクセス(list_04_19)
+//	 * @param month
+//	 * @param mav データ and Viewモデル
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping("/")
+//	public ModelAndView index(ModelAndView mav){
+//		mav.setViewName("index");
+//		ArrayList<String[]> data = new ArrayList<String[]>();
+//		data.add(new String[]{"taro","taro@yamada","090-999-999"});
+//		data.add(new String[]{"hanako","hanako@flower","080-888-888"});
+//		data.add(new String[]{"sachiko","sachiko@happy","070-777-777"});
+//		mav.addObject("data",data);
+//		return mav;
+//	}
+
+//	/**
+//	 * 数値アクセス(list_04_17)
+//	 * @param month
+//	 * @param mav データ and Viewモデル
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping("/{month}")
+//	public ModelAndView index(@PathVariable int month, ModelAndView mav){
+//		mav.setViewName("index");
+//		int m = Math.abs(month) % 12;
+//		m = m == 0 ? 12 : m;
+//		mav.addObject("month",m);
+//		mav.addObject("check",Math.floor(m / 3));
+//		return mav;
+//	}
+
+	//	/**
+//	 * 数値アクセス(list_04_15)
+//	 * @param id
+//	 * @param mav データ and Viewモデル
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping("/{id}")
+//	public ModelAndView index(@PathVariable int id, ModelAndView mav){
+//		mav.setViewName("index");
+//		mav.addObject("id",id);
+//		mav.addObject("check",id>=0);
+//		mav.addObject("trueVal","POSITIVE!");
+//		mav.addObject("falseVal","negative...");
+//		return mav;
+//	}
+
+	//	/**
+//	 * 数値アクセス(list_04_13)
+//	 * @param id
+//	 * @param mav データ and Viewモデル
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping("/{id}")
+//	public ModelAndView index(@PathVariable int id, ModelAndView mav){
+//		mav.setViewName("index");
+//		mav.addObject("id",id);
+//		mav.addObject("check",id%2==0);
+//		mav.addObject("trueVal","Even number!");
+//		mav.addObject("falseVal","Odd number...");
+//		return mav;
+//	}
+
+	//	/**
 //	 * 数値アクセス(list_04_10)
 //	 * @param mav データ and Viewモデル
 //	 * @return　テンプレート名
