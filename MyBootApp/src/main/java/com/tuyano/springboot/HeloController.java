@@ -25,18 +25,92 @@ import org.springframework.web.servlet.ModelAndView;
 public class HeloController {
 
 	/**
-	 * 数値アクセス(list_04_29 )
-	 * @param tax
-	 * @param mav データ and Viewモデル
+	 * 数値アクセス( list_04_36 )
+	 * @param mav
 	 * @return　テンプレート名
 	 */
-	@RequestMapping("/")
+	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ModelAndView index(ModelAndView mav){
 		mav.setViewName("index");
+		mav.addObject("msg","type a number...");
+		return mav;
+	}
+
+	/**
+	 * フォーム送信( list_04_36 )
+	 * @param text1
+	 * @param mav
+	 * @return
+	 */
+	@RequestMapping(value="/", method=RequestMethod.POST)
+	public ModelAndView send(@RequestParam int num, ModelAndView mav){
+		mav.setViewName("index");
+		int total = 0;
+		for(int i= 1 ; i <= num;i++){
+			total += i;
+		}
+		mav.addObject("msg","total: " + total + " !!");
 		return mav;
 	}
 
 //	/**
+//	 * 数値アクセス( list_04_39 )
+//	 * @param mav
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping("/")
+//	public ModelAndView index(ModelAndView mav){
+//		mav.setViewName("index");
+//		return mav;
+//	}
+
+//	/**
+//	 * 数値アクセス( list_04_36 )
+//	 * @param mav
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping(value="/", method=RequestMethod.GET)
+//	public ModelAndView index(ModelAndView mav){
+//		mav.setViewName("index");
+//		mav.addObject("val","please type...");
+//		return mav;
+//	}
+//
+//	/**
+//	 * フォーム送信( list_04_36 )
+//	 * @param text1
+//	 * @param mav
+//	 * @return
+//	 */
+//	@RequestMapping(value="/", method=RequestMethod.POST)
+//	public ModelAndView send(@RequestParam String text1, ModelAndView mav){
+//		mav.setViewName("index");
+//		mav.addObject("val","you typed: '" + text1 + "'.");
+//		return mav;
+//	}
+
+//	/**
+//	 * 数値アクセス( list_04_34 )
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping("/")
+//	public String index(){
+//		return "index";
+//	}
+
+//	/**
+//	 * 数値アクセス(list_04_29 )
+//	 * @param tax
+//	 * @param mav データ and Viewモデル
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping("/")
+//	public ModelAndView index(ModelAndView mav){
+//		mav.setViewName("index");
+//		return mav;
+//	}
+
+	//	/**
 //	 * 数値アクセス(list_04_25 )tax
 //	 * @param tax
 //	 * @param mav データ and Viewモデル
@@ -192,44 +266,44 @@ public class HeloController {
 //		return mav;
 //	}
 
-	/**
-	 * POST(list_03_18)
-	 * @param str テキスト
-	 * @param check1 チェックボックス1（必須ではない）
-	 * @param radio1 ラジオボタン1（必須ではない）
-	 * @param select1 選択1（必須ではない）
-	 * @param select2 選択2（必須ではない）
-	 * @param mav データ and Viewモデル
-	 * @return　テンプレート名
-	 */
-	@RequestMapping(value="/",method=RequestMethod.POST)
-	public ModelAndView send(
-			@RequestParam("text1")String str,
-			@RequestParam(value="check1",required=false)boolean check1,
-			@RequestParam(value="radio1",required=false)String radio1,
-			@RequestParam(value="select1",required=false)String select1,
-			@RequestParam(value="select2",required=false)String[] select2,
-			ModelAndView mav){
-		String res="";
-		try{
-			res = "check : " + check1 +
-					"  radio : " + radio1 +
-					"  select : " + select1 +
-					"\nselect2:";
-		}catch(NullPointerException e){}
-		try{
-			res += select2[0];
-			for(int i=1;i<select2.length;i++){
-				res += ", " + select2[i];
-			}
-		}catch(NullPointerException e){
-			res += "null";
-		}
-
-		mav.addObject("msg",res);
-		mav.setViewName("index");
-		return mav;
-	}
+//	/**
+//	 * POST(list_03_18)
+//	 * @param str テキスト
+//	 * @param check1 チェックボックス1（必須ではない）
+//	 * @param radio1 ラジオボタン1（必須ではない）
+//	 * @param select1 選択1（必須ではない）
+//	 * @param select2 選択2（必須ではない）
+//	 * @param mav データ and Viewモデル
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping(value="/",method=RequestMethod.POST)
+//	public ModelAndView send(
+//			@RequestParam("text1")String str,
+//			@RequestParam(value="check1",required=false)boolean check1,
+//			@RequestParam(value="radio1",required=false)String radio1,
+//			@RequestParam(value="select1",required=false)String select1,
+//			@RequestParam(value="select2",required=false)String[] select2,
+//			ModelAndView mav){
+//		String res="";
+//		try{
+//			res = "check : " + check1 +
+//					"  radio : " + radio1 +
+//					"  select : " + select1 +
+//					"\nselect2:";
+//		}catch(NullPointerException e){}
+//		try{
+//			res += select2[0];
+//			for(int i=1;i<select2.length;i++){
+//				res += ", " + select2[i];
+//			}
+//		}catch(NullPointerException e){
+//			res += "null";
+//		}
+//
+//		mav.addObject("msg",res);
+//		mav.setViewName("index");
+//		return mav;
+//	}
 
 	@RequestMapping("/other")
 	public String other(){
