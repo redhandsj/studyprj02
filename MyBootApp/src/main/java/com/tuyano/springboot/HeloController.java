@@ -2,12 +2,15 @@ package com.tuyano.springboot;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.tuyano.springboot.repositories.MyDataRepository;
 
 /**
  * <ul>
@@ -24,17 +27,53 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HeloController {
 
+	@Autowired
+	MyDataRepository repository;
+
 	/**
-	 * 数値アクセス( list_04_36 )
+	 * 数値アクセス( list_05_05 )
 	 * @param mav
 	 * @return　テンプレート名
 	 */
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ModelAndView index(ModelAndView mav){
 		mav.setViewName("index");
-		mav.addObject("msg","type a number...");
+		mav.addObject("msg","this is sample content.");
+		ArrayList<DataObject> data = new ArrayList<DataObject>();
+		Iterable<MyData> list = repository.findAll();
+		mav.addObject("data",list);
 		return mav;
 	}
+
+
+//	/**
+//	 * 数値アクセス( list_04_48 )
+//	 * @param mav
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping(value="/", method=RequestMethod.GET)
+//	public ModelAndView index(ModelAndView mav){
+//		mav.setViewName("index");
+//		mav.addObject("msg","data table.");
+//		ArrayList<DataObject> data = new ArrayList<DataObject>();
+//		data.add(new DataObject(0,"taro","taro@yamada"));
+//		data.add(new DataObject(1,"hanako","hanako@flower"));
+//		data.add(new DataObject(2,"sachiko","sachiko@happy"));
+//		mav.addObject("data",data);
+//		return mav;
+//	}
+
+//	/**
+//	 * 数値アクセス( list_04_36 )
+//	 * @param mav
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping(value="/", method=RequestMethod.GET)
+//	public ModelAndView index(ModelAndView mav){
+//		mav.setViewName("index");
+//		mav.addObject("msg","type a number...");
+//		return mav;
+//	}
 
 	/**
 	 * フォーム送信( list_04_36 )
