@@ -6,6 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="mydata")
@@ -17,30 +23,38 @@ public class MyData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
+	@NotNull
 	private long id;
 
 	/**
 	 * 名前
 	 */
 	@Column(length = 50, nullable = false)
+	//@NotEmpty(message="空白は不可")
+	@NotEmpty
 	private String name;
 
 	/**
 	 * メールアドレス
 	 */
 	@Column(length = 200, nullable = true)
+	//@Email(message="メールアドレスのみ")
+	@Email
 	private String mail;
 	
 	/**
 	 * 年齢
 	 */
 	@Column(nullable = true)
+	@Min(value=0,message="ゼロ以上")
+	@Max(value=200,message="200以下")
 	private Integer age;
 
 	/**
 	 * メモ
 	 */
 	@Column(nullable = true)
+	@Phone(onlyNumber=true)
 	private String memo;
 
 	//=======================================================================

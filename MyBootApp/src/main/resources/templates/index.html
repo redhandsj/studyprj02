@@ -11,6 +11,7 @@ body{ font-size:13pt; color:gray; margin:5px 25px; }
 tr{ margin:5px; }
 th{ padding:5px; color:white; background:darkgray; }
 td{ padding:5px; color:black; background:#e0e0ff; }
+.err{ color:red; }
 </style>
 <!--======================================================================-->
 <!-- list_04_26 -->
@@ -27,23 +28,105 @@ function action(){
 <!--======================================================================-->
 </head>
 <body>
-<!-- list_05_07 -->
+<!-- list_05_19 -->
+<h1 th:text="#{content.title}">Helo page</h1>
+<p th:text="${msg}"></p>
+<table>
+<form method="post" action="/" th:object="${formModel}">
+<tr>
+<td><label for="name">名前</label></td>
+<td><input type="text" name="name" th:value="*{name}" th:errorclass="err" />
+<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="err"></div></td>
+</tr>
+<tr>
+<td><label for="age">年齢</label></td>
+<td><input type="text" name="age" th:value="*{age}" th:errorclass="err" />
+<div th:if="${#fields.hasErrors('age')}" th:errors="*{age}" th:errorclass="err"></div></td>
+</tr>
+<tr>
+<td><label for="mail">メール</label></td>
+<td><input type="text" name="mail" th:value="*{mail}" th:errorclass="err"/>
+<div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" th:errorclass="err"></div></td>
+</tr>
+<tr>
+<td><label for="memo">メモ</label></td><td><textarea name="memo" th:text="*{memo}" th:errorclass="err" cols="20" rows="5"></textarea>
+<div th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}" th:errorclass="err"></div></td>
+</tr>
+<tr><td></td><td><input type="submit" /></td></tr>
+</form>
+</table>
+<hr/>
+<table>
+<tr><th>ID</th><th>名前</th></tr>
+<tr th:each="obj : ${datalist}">
+  <td th:text="${obj.id}"></td>
+  <td th:text="${obj.name}"></td>
+</tr>
+</table>
+
+<!--======================================================================-->
+<!-- list_05_18
+<h1 th:text="#{content.title}">Helo page</h1>
+<p th:text="${msg}"></p>
+<table>
+<form method="post" action="/" th:object="${formModel}">
+<ul>
+<li th:each="error : ${#fields.detailedErrors()}" class="err" th:text="${error.message}" />
+</ul>
+<tr><td><label for="name">名前</label></td><td><input type="text" name="name" th:field="*{name}" /></td></tr>
+<tr><td><label for="age">年齢</label></td><td><input type="text" name="age" th:field="*{age}" /></td></tr>
+<tr><td><label for="mail">メール</label></td><td><input type="text" name="mail" th:field="*{mail}" /></td></tr>
+<tr><td><label for="memo">メモ</label></td><td><textarea name="memo" th:field="*{memo}" cols="20" rows="5"></textarea></td></tr>
+<tr><td></td><td><input type="submit" /></td></tr>
+</form>
+</table>
+<hr/>
+<table>
+<tr><th>ID</th><th>名前</th></tr>
+<tr th:each="obj : ${datalist}">
+  <td th:text="${obj.id}"></td>
+  <td th:text="${obj.name}"></td>
+</tr>
+</table>
+-->
+<!--======================================================================-->
+<!-- list_05_07
+<h1 th:text="#{content.title}">Helo page</h1>
+<table>
+<form method="post" action="/" th:object="${formModel}">
+<tr><td><label for="name">名前</label></td><td><input type="text" name="name" th:value="*{name}" /></td></tr>
+<tr><td><label for="age">年齢</label></td><td><input type="text" name="age" th:value="*{age}" /></td></tr>
+<tr><td><label for="mail">メール</label></td><td><input type="text" name="mail" th:value="*{mail}" /></td></tr>
+<tr><td><label for="memo">メモ</label></td><td><textarea name="memo" th:text="*{memo}" cols="20" rows="5"></textarea></td></tr>
+<tr><td></td><td><input type="submit" /></td></tr>
+</form>
+</table>
+<hr/>
+<table>
+<tr><th>ID</th><th>名前</th></tr>
+<tr th:each="obj : ${datalist}">
+  <td th:text="${obj.id}"></td>
+  <td th:text="${obj.name}"></td>
+</tr>
+</table>
+ -->
+<!--======================================================================-->
+<!-- list_04_28
 <h1 th:text="#{content.title}">Hello page</h1>
 <pre th:text="${data}"></pre>
+-->
 <!--======================================================================-->
-<!-- list_04_28 -->
-<h1 th:text="#{content.title}">Hello page</h1>
-<pre th:text="${data}"></pre>
-<!--======================================================================-->
-<!-- list_04_28 -->
+<!-- list_04_28
 <div th:include="part :: frag_body">
   <p>this is original content.</p>
 </div>
+-->
 <!--======================================================================-->
-<!-- list_04_26 -->
+<!-- list_04_26
 <p id="msg"></p>
 <input type="text" id="text1" />
 <button onclick="action()">click</button>
+-->
 <!--======================================================================-->
 <!-- list_04_24 -->
 <!--

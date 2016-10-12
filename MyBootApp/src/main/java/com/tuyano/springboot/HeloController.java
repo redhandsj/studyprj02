@@ -1,10 +1,15 @@
 package com.tuyano.springboot;
 
-import java.util.ArrayList;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,20 +36,178 @@ public class HeloController {
 	MyDataRepository repository;
 
 	/**
-	 * 数値アクセス( list_05_05 )
-	 * @param mav
-	 * @return　テンプレート名
+	 * 起動時に実行されるメソッド
 	 */
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public ModelAndView index(ModelAndView mav){
-		mav.setViewName("index");
-		mav.addObject("msg","this is sample content.");
-		ArrayList<DataObject> data = new ArrayList<DataObject>();
-		Iterable<MyData> list = repository.findAll();
-		mav.addObject("data",list);
+	@PostConstruct
+	public void init(){
+		MyData d1 = new MyData();
+		d1.setName("aaaaa");
+		d1.setAge(10);
+		d1.setMail("aaaaa@bbb.com");
+		d1.setMemo("090999999");
+		repository.saveAndFlush(d1);
+		
+		MyData d2 = new MyData();
+		d2.setName("bbbbb");
+		d2.setAge(20);
+		d2.setMail("bbbbb@bbb.com");
+		d2.setMemo("080888888");
+		repository.saveAndFlush(d2);
+
+		MyData d3 = new MyData();
+		d3.setName("ccccc");
+		d3.setAge(30);
+		d3.setMail("ccccc@bbb.com");
+		d3.setMemo("070777777");
+		repository.saveAndFlush(d3);
+	}
+
+	/**
+	 * 削除( list_05_14 )
+	 * @param id データ検索キー
+	 * @param mav モデルビューオブジェクト
+	 * @return モデルビューオブジェクト
+	 */
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+	public ModelAndView delete(@PathVariable int id, ModelAndView mav){
+		mav.setViewName("delete");
+		mav.addObject("title","delete mydata.");
+		MyData data = repository.findById((long)id);
+		mav.addObject("formModel",data);
 		return mav;
 	}
 
+	/**
+	 * 削除の更新( list_05_14 )
+	 * @param mydata フォームデータ
+	 * @param mav モデルビューオブジェクト
+	 * @return モデルビューオブジェクト
+	 */
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	@Transactional(readOnly=false)
+	public ModelAndView remove(@RequestParam long id, ModelAndView mav){
+		repository.delete(id);
+		return new ModelAndView("redirect:/");
+	}
+
+	
+	/**
+	 * 編集( list_05_12 )
+	 * @param mydata フォームデータ
+	 * @param id データ検索キー
+	 * @param mav モデルビューオブジェクト
+	 * @return モデルビューオブジェクト
+	 */
+	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
+	public ModelAndView edit(@ModelAttribute MyData mydata,@PathVariable int id, ModelAndView mav){
+		mav.setViewName("edit");
+		mav.addObject("title","edit mydata.");
+		MyData data = repository.findById((long)id);
+		mav.addObject("formModel",data);
+		return mav;
+	}
+
+	/**
+	 * 更新( list_05_12 )
+	 * @param mydata フォームデータ
+	 * @param mav モデルビューオブジェクト
+	 * @return モデルビューオブジェクト
+	 */
+	@RequestMapping(value="/edit", method=RequestMethod.POST)
+	@Transactional(readOnly=false)
+	public ModelAndView update(@ModelAttribute MyData mydata, ModelAndView mav){
+		repository.saveAndFlush(mydata);
+		return new ModelAndView("redirect:/");
+	}
+
+	
+	/**
+	 * 数値アクセス( list_05_17 )
+	 * @param mydata フォームデータ
+	 * @param mav モデルビューオブジェクト
+	 * @return　テンプレート名
+	 */
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public ModelAndView index(@ModelAttribute("formModel") MyData mydata, ModelAndView mav){
+		mav.setViewName("index");
+		mav.addObject("msg","this is sample content.");
+		mav.addObject("formModel", mydata);
+		Iterable<MyData> list = repository.findAll();
+		mav.addObject("datalist",list);
+		return mav;
+	}
+
+	/**
+	 * 数値アクセス( list_05_17 )
+	 * @param mydata フォームデータ
+	 * @param result バリデーションチェックの結果
+	 * @param mav モデルビューオブジェクト
+	 * @return　テンプレート名
+	 */
+	@RequestMapping(value="/", method=RequestMethod.POST)
+	@Transactional(readOnly=false)
+	public ModelAndView form(
+			@ModelAttribute("formModel") @Validated MyData mydata,
+			BindingResult result,
+			ModelAndView mav){
+		ModelAndView res = null;
+		if(!result.hasErrors()){
+			// バリデーションエラーなし
+			repository.saveAndFlush(mydata);
+			res = new ModelAndView("redirect:/");
+		}else{
+			// バリデーションエラーあり
+			mav.setViewName("index");
+			mav.addObject("msg","sorry, error is occured...");
+			Iterable<MyData> list = repository.findAll();
+			mav.addObject("datalist",list);
+			res = mav;
+		}
+		return res;
+	}
+
+//	/**
+//	 * 数値アクセス( list_05_08 )
+//	 * @param mydata フォームデータ
+//	 * @param mav モデルビューオブジェクト
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping(value="/", method=RequestMethod.GET)
+//	public ModelAndView index(@ModelAttribute("formModel") MyData mydata, ModelAndView mav){
+//		mav.setViewName("index");
+//		mav.addObject("msg","this is sample content.");
+//		Iterable<MyData> list = repository.findAll();
+//		mav.addObject("datalist",list);
+//		return mav;
+//	}
+//
+//	/**
+//	 * 数値アクセス( list_05_08 )
+//	 * @param mydata フォームデータ
+//	 * @param mav モデルビューオブジェクト
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping(value="/", method=RequestMethod.POST)
+//	@Transactional(readOnly=false)
+//	public ModelAndView form(@ModelAttribute("formModel") MyData mydata, ModelAndView mav){
+//		repository.saveAndFlush(mydata);
+//		return new ModelAndView("redirect:/");
+//	}
+
+	//	/**
+//	 * 数値アクセス( list_05_05 )
+//	 * @param mav
+//	 * @return　テンプレート名
+//	 */
+//	@RequestMapping(value="/", method=RequestMethod.GET)
+//	public ModelAndView index(ModelAndView mav){
+//		mav.setViewName("index");
+//		mav.addObject("msg","this is sample content.");
+//		ArrayList<DataObject> data = new ArrayList<DataObject>();
+//		Iterable<MyData> list = repository.findAll();
+//		mav.addObject("data",list);
+//		return mav;
+//	}
 
 //	/**
 //	 * 数値アクセス( list_04_48 )
@@ -75,22 +238,22 @@ public class HeloController {
 //		return mav;
 //	}
 
-	/**
-	 * フォーム送信( list_04_36 )
-	 * @param text1
-	 * @param mav
-	 * @return
-	 */
-	@RequestMapping(value="/", method=RequestMethod.POST)
-	public ModelAndView send(@RequestParam int num, ModelAndView mav){
-		mav.setViewName("index");
-		int total = 0;
-		for(int i= 1 ; i <= num;i++){
-			total += i;
-		}
-		mav.addObject("msg","total: " + total + " !!");
-		return mav;
-	}
+//	/**
+//	 * フォーム送信( list_04_36 )
+//	 * @param text1
+//	 * @param mav
+//	 * @return
+//	 */
+//	@RequestMapping(value="/", method=RequestMethod.POST)
+//	public ModelAndView send(@RequestParam int num, ModelAndView mav){
+//		mav.setViewName("index");
+//		int total = 0;
+//		for(int i= 1 ; i <= num;i++){
+//			total += i;
+//		}
+//		mav.addObject("msg","total: " + total + " !!");
+//		return mav;
+//	}
 
 //	/**
 //	 * 数値アクセス( list_04_39 )
