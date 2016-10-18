@@ -1,5 +1,6 @@
 ★SpringFramework4_プログラミング入門.pdf
-しおり　：　P.466
+しおり　：　P.404
+ - List 8-14
 URL　:　 http://localhost:8080/DataWebApp1/person
 URL　:　 http://localhost:8080/
 -------------------------------------------------------------------------------

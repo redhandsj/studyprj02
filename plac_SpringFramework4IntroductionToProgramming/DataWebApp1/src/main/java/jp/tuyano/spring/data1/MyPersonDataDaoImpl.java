@@ -16,7 +16,11 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Service;
 
 /**
- * 
+ * SpringFramework4_プログラミング入門.pdf P.383 
+ * List 8-4 ～
+ * <ul>
+ * <li> Webアプリケーションの各種サーブレットから呼び出す
+ * </ul>
  */
 @SuppressWarnings("rawtypes")
 @Service
@@ -28,6 +32,9 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 	@Autowired
 	private LocalContainerEntityManagerFactoryBean factory;
 
+	/**
+	 * 永続化コンテキストを設定
+	 */
 	@PersistenceContext
 	private EntityManager manager;
 	
@@ -42,17 +49,16 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 	 * 検索（Select All）
 	 */
 	public List<MyPersonData> getAllEntity() {
-		//return this.list_08_10_getAllEntity();
-		return this.list_08_20_getAllEntity();
+		//return this.list_08_04_getAllEntity();
+		return this.list_08_10_getAllEntity();
+		//return this.list_08_20_getAllEntity();
 	}
 
 	/**
 	 * 検索(select)
 	 */
-	@SuppressWarnings("rawtypes")
 	public List findByField(String field, String find) {
-		Query query = manager.createQuery("from MyPersonData where " + field + " = '" + find + "'");
-		return query.getResultList();
+		return this.list_08_04_findByField(field,find);
 	}
 
 	/**
@@ -60,64 +66,52 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 	 * @param value 検索ワード（名前）
 	 * @return 検索結果エンティティ
 	 */
-	@SuppressWarnings("unchecked")
 	public List<MyPersonData> findByName(String value) {
 		return this.list_08_10_findByName(value);
 	}
-		/**
+	/**
 	 * エンティティ追加（insert）
+	 * @param entity 追加エントリー
 	 */
 	public void addEntity(Object entity) {
-		// エンティティ作成クラス
-		EntityManager manager = factory.getNativeEntityManagerFactory().createEntityManager();
-		// トランザクション管理用のインスタンスを取得
-		EntityTransaction transaction = manager.getTransaction();
-		// トランザクション開始
-		transaction.begin();
-		// キャッシュに処理が登録される
-		manager.persist(entity);
-		System.out.println("add:" + entity);
-		// キャッシュに残っている処理を実行
-		manager.flush();
-		// コミットしてトランザクションを終了
-		transaction.commit();
+		this.list_08_04_addEntity(entity);
 	}
 
 	/**
 	 * エンティティ更新(update)
+	 * @param entity 更新エントリー
 	 */
 	public void updateEntity(Object entity) {
-		EntityManager manager = factory.getNativeEntityManagerFactory().createEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		transaction.begin();
-		manager.merge(entity);
-		manager.flush();
-		transaction.commit();
+		this.list_08_04_updateEntity(entity);
 	}
 
 	/**
 	 * エンティティ削除（delete）
+	 * @param entity 削除エントリー
 	 */
 	public void removeEntity(Object data) {
-		EntityManager manager = factory.getNativeEntityManagerFactory().createEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		transaction.begin();
-		manager.remove(data);
-		manager.flush();
-		transaction.commit();		
+		this.list_08_04_removeEntity(data);
 	}
 
 	/**
 	 * エンティティ削除（delete）
+	 * @param id 更新エントリーキー
 	 */
 	public void removeEntity(Long id) {
-		jp.tuyano.spring.data1.MyPersonData entity = manager.find(jp.tuyano.spring.data1.MyPersonData.class, 1L);
-		this.removeEntity(entity);
+		this.list_08_04_removeEntity(id);
 	}
 	
 	//=======================================================================
-	// リスト別コード
+	// getAllEntity()
 	//=======================================================================
+	/**
+	 * SpringFramework4_プログラミング入門 : P.383
+	 * @return Select * From myPersonData;
+	 */
+	private List<MyPersonData> list_08_04_getAllEntity(){
+		Query query = manager.createNamedQuery("from MyPersonData");
+		return query.getResultList();	
+	}
 	/**
 	 * SpringFramework4_プログラミング入門 : P.389
 	 * @return Select * From myPersonData;
@@ -126,16 +120,6 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 		Query query = manager.createNamedQuery("MyPersonData.getAllEntity");
 		return query.getResultList();	
 	}
-	/**
-	 * SpringFramework4_プログラミング入門 : P.389
-	 * @param value 検索条件
-	 * @return Select * From myPersonData;
-	 */
-	private List<MyPersonData> list_08_10_findByName(final String value){
-		Query query = manager.createNamedQuery("MyPersonData.findByName").setParameter("value", value);
-		return query.getResultList();		
-	}	
-	
 	/**
 	 * SpringFramework4_プログラミング入門 : P.409
 	 * @return Select * From myPersonData;
@@ -153,6 +137,99 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 		List<MyPersonData> list = (List<MyPersonData>)manager.createQuery(query).getResultList();
 		return list;		
 	}
+
+	//=======================================================================
+	// findByField()
+	//=======================================================================
+	/**
+	 * SpringFramework4_プログラミング入門 : P.383
+	 * @return query.getResultList()
+	 */
+	private List list_08_04_findByField(String field, String find) {
+		Query query = manager.createQuery("from MyPersonData where " + field + " = '" + find + "'");
+		return query.getResultList();
+	}
+	//=======================================================================
+	// addEntity()
+	//=======================================================================
+	/**
+	 * SpringFramework4_プログラミング入門 : P.38４
+	 * エンティティ追加（insert）
+	 * @param value 検索ワード（名前）
+	 */
+	private void list_08_04_addEntity(Object entity) {
+		// エンティティ作成クラス
+		EntityManager manager = factory.getNativeEntityManagerFactory().createEntityManager();
+		// トランザクション管理用のインスタンスを取得
+		EntityTransaction transaction = manager.getTransaction();
+		// トランザクション開始
+		transaction.begin();
+		// キャッシュに処理が登録される
+		manager.persist(entity);
+		System.out.println("add:" + entity);
+		// キャッシュに残っている処理を実行
+		manager.flush();
+		// コミットしてトランザクションを終了
+		transaction.commit();
+	}
+	//=======================================================================
+	// updateEntity()
+	//=======================================================================
+	/**
+	 * SpringFramework4_プログラミング入門 : P.38４
+	 * エンティティ更新(update)
+	 * @param entity 更新エントリー
+	 */
+	public void list_08_04_updateEntity(Object entity) {
+		EntityManager manager = factory.getNativeEntityManagerFactory().createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		transaction.begin();
+		manager.merge(entity);
+		manager.flush();
+		transaction.commit();
+	}
+
+	//=======================================================================
+	// removeEntity()
+	//=======================================================================
+	/**
+	 * SpringFramework4_プログラミング入門 : P.38４
+	 * エンティティ削除（delete）
+	 * @param entity 削除エントリー
+	 */
+	public void list_08_04_removeEntity(Object data) {
+		EntityManager manager = factory.getNativeEntityManagerFactory().createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		transaction.begin();
+		manager.remove(data);
+		manager.flush();
+		transaction.commit();		
+	}
+	/**
+	 * SpringFramework4_プログラミング入門 : P.38４
+	 * エンティティ削除（delete）
+	 * @param id 更新エントリーキー
+	 */
+	public void list_08_04_removeEntity(Long id) {
+		jp.tuyano.spring.data1.MyPersonData entity = manager.find(jp.tuyano.spring.data1.MyPersonData.class, 1L);
+		this.removeEntity(entity);
+	}
+	
+	
+	//=======================================================================
+	// findByName()
+	//=======================================================================
+	/**
+	 * SpringFramework4_プログラミング入門 : P.389
+	 * @param value 検索条件
+	 * @return Select * From myPersonData;
+	 */
+	@SuppressWarnings("unchecked")
+	private List<MyPersonData> list_08_10_findByName(final String value){
+		Query query = manager.createNamedQuery("MyPersonData.findByName").setParameter("value", value);
+		return query.getResultList();		
+	}	
+	
 	/**
 	 * SpringFramework4_プログラミング入門 : P.411
 	 * @param value 検索条件
