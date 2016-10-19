@@ -49,9 +49,7 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 	 * 検索（Select All）
 	 */
 	public List<MyPersonData> getAllEntity() {
-		//return this.list_08_04_getAllEntity();
-		return this.list_08_10_getAllEntity();
-		//return this.list_08_20_getAllEntity();
+		return this.list_08_20_getAllEntity();
 	}
 
 	/**
@@ -67,7 +65,7 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 	 * @return 検索結果エンティティ
 	 */
 	public List<MyPersonData> findByName(String value) {
-		return this.list_08_10_findByName(value);
+		return this.list_08_22_findByName(value);
 	}
 	/**
 	 * エンティティ追加（insert）
@@ -108,6 +106,7 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 	 * SpringFramework4_プログラミング入門 : P.383
 	 * @return Select * From myPersonData;
 	 */
+	@SuppressWarnings({ "unused", "unchecked" })
 	private List<MyPersonData> list_08_04_getAllEntity(){
 		Query query = manager.createNamedQuery("from MyPersonData");
 		return query.getResultList();	
@@ -116,14 +115,16 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 	 * SpringFramework4_プログラミング入門 : P.389
 	 * @return Select * From myPersonData;
 	 */
+	@SuppressWarnings({ "unused", "unchecked" })
 	private List<MyPersonData> list_08_10_getAllEntity(){
 		Query query = manager.createNamedQuery("MyPersonData.getAllEntity");
 		return query.getResultList();	
 	}
 	/**
-	 * SpringFramework4_プログラミング入門 : P.409
+	 * SpringFramework4_プログラミング入門 : P.419
 	 * @return Select * From myPersonData;
 	 */
+	@SuppressWarnings("unused")
 	private List<MyPersonData> list_08_20_getAllEntity(){
 		// クエリ―作成の為のビルダーを取得する
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
@@ -231,10 +232,11 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 	}	
 	
 	/**
-	 * SpringFramework4_プログラミング入門 : P.411
+	 * SpringFramework4_プログラミング入門 : P.419
 	 * @param value 検索条件
 	 * @return Select * From myPersonData;
 	 */
+	@SuppressWarnings({ "unused", "unchecked" })
 	private List<MyPersonData> list_08_22_findByName(final String value){
 		// クエリ―作成の為のビルダーを取得する
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
