@@ -152,6 +152,21 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 		request.setAttribute("mail","");
 		request.setAttribute("age","");
 	}	
+
+	/**
+	 * Spring徹底入門 : P.504
+	 * @param request リクエスト
+	 * @param response レスポンス
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@SuppressWarnings("unused")
+	private void p_504_doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		this.common_doGet(request,response);
+		List<MyPersonData> list = dao.getAllEntity(); //☆
+		request.setAttribute("entities", list);
+		request.getRequestDispatcher("/index.jsp").forward(request, response);			
+	}
 	
 	//=======================================================================
 	// doPost

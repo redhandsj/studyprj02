@@ -1,15 +1,17 @@
 package jp.tuyano.spring.entity.room;
-
+/**
+ * JPA
+ */
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import jp.tuyano.spring.entity.equipment.Equipment;
 
@@ -22,23 +24,26 @@ public class Room implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * 楽観ロック用のバージョニング
+	 */
+	@Version
+	private Integer version;
+	
+	/**
 	 * ルームナンバー
 	 */
 	@Id
 	@GeneratedValue
-	@Column(name = "room_id")
-	private Integer roomId;
+	private Integer room_id;
 	
 	/**
 	 * 部屋名
 	 */
-	@Column(name = "room_name")
-	private String roomName;
+	private String room_name;
 
 	/**
 	 * 広さ
 	 */
-	@Column(name = "capacity")
 	private Integer capacity;
 
 	/**
@@ -46,6 +51,7 @@ public class Room implements Serializable{
 	 * <ul>
 	 * <li> room(1) -> equipment(N)
 	 * <li> List ではなく set を使う場合は、評価時に、equalsなどを正しくオーバーライドする必要があるので注意
+	 * <li> 指定ない場合は、「Lazyフェッチ」（プロパティアクセス時に取得）
 	 * </ul>
 	 */
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
@@ -65,8 +71,8 @@ public class Room implements Serializable{
 	 */
 	public Room(final Integer id, final String name, final Integer capacity) {
 		this();
-		this.roomId = id;
-		this.roomName = name;
+		this.room_id = id;
+		this.room_name = name;
 		this.capacity = capacity;
 	}
 
@@ -75,19 +81,19 @@ public class Room implements Serializable{
 	// setter / getter
 	//=======================================================================
 	public Integer getRoomId() {
-		return roomId;
+		return room_id;
 	}
 
 	public void setRoomId(Integer roomId) {
-		this.roomId = roomId;
+		this.room_id = roomId;
 	}
 
 	public String getRoomName() {
-		return roomName;
+		return room_name;
 	}
 
 	public void setRoomName(String roomName) {
-		this.roomName = roomName;
+		this.room_name = roomName;
 	}
 
 	public Integer getCapacity() {

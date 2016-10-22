@@ -1,7 +1,8 @@
 ★Spring徹底入門SpringFrameworkによるJavaアプリケーション開発.pdf
  - (CHAPTER 10) Spring Data JPA
-しおり　：　P.494
-List 8-14
+しおり　：　P.531
+
+
 -------------------------------------------------------------------------------
 URL　:　 http://localhost:8080/SpringDataJPA01/person
 URL　:　 http://localhost:8080/

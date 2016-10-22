@@ -25,19 +25,18 @@ public class Equipment implements Serializable{
 	 */
 	@Id
 	@GeneratedValue
-	@Column(name = "equipment_id")
-	private Integer equipmentId;
+	private Integer equipment_id;
 
 	/**
 	 * 備品名
 	 */
-	@Column(name = "equipment_name")
-	private String equipmentName;
+	private String equipment_name;
 
 	/**
 	 * 部屋
 	 * <ul>
 	 * <li> equipment(N) -> room(1)
+	 * <li> 指定ない場合は、「Eagerフェッチ」（最初のAPI実行時に取得）
 	 * </ul>
 	 */
 	@ManyToOne
@@ -47,14 +46,12 @@ public class Equipment implements Serializable{
 	/**
 	 * 備品数
 	 */
-	@Column(name = "equipment_count")
-	private Integer equipmentCount;
+	private Integer equipment_count;
 	
 	/**
 	 * 備考
 	 */
-	@Column(name = "equipment_remarks")
-	private String equipmentRemarks;
+	private String equipment_remarks;
 	
 	/**
 	 * デフォルトコンストラクタ
@@ -72,11 +69,11 @@ public class Equipment implements Serializable{
 	 */
 	public Equipment(final Integer id, final String name, final Room room, final Integer count, final String remarks) {
 		this();
-		this.equipmentId = id;
-		this.equipmentName = name;
+		this.equipment_id = id;
+		this.equipment_name = name;
 		this.room = room;
-		this.equipmentCount = count;
-		this.equipmentRemarks = remarks;
+		this.equipment_count = count;
+		this.equipment_remarks = remarks;
 	}
 
 	//=======================================================================
@@ -84,19 +81,19 @@ public class Equipment implements Serializable{
 	//=======================================================================
 
 	public Integer getEquipmentId() {
-		return equipmentId;
+		return equipment_id;
 	}
 
 	public void setEquipmentId(Integer equipmentId) {
-		this.equipmentId = equipmentId;
+		this.equipment_id = equipmentId;
 	}
 
 	public String getEquipmentName() {
-		return equipmentName;
+		return equipment_name;
 	}
 
 	public void setEquipmentName(String equipmentName) {
-		this.equipmentName = equipmentName;
+		this.equipment_name = equipmentName;
 	}
 
 	public Room getRoom() {
@@ -108,19 +105,19 @@ public class Equipment implements Serializable{
 	}
 
 	public Integer getEquipmentCount() {
-		return equipmentCount;
+		return equipment_count;
 	}
 
 	public void setEquipmentCount(Integer equipmentCount) {
-		this.equipmentCount = equipmentCount;
+		this.equipment_count = equipmentCount;
 	}
 
 	public String getEquipmentRemarks() {
-		return equipmentRemarks;
+		return equipment_remarks;
 	}
 
 	public void setEquipmentRemarks(String equipmentRemarks) {
-		this.equipmentRemarks = equipmentRemarks;
+		this.equipment_remarks = equipmentRemarks;
 	}
 
 }
