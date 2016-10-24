@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.springframework.samples.service.service</groupId>
-  <artifactId>SpringDataJPA01</artifactId>
+  <groupId>jp.co.stylez.sepl2.team3a.atm</groupId>
+  <artifactId>BankAtm</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
@@ -25,8 +25,6 @@
     <slf4j.version>1.7.5</slf4j.version>
     <!-- Test -->
     <junit.version>4.11</junit.version>
-    <!-- MySQL -->
-    <mysql.version>5.1.9</mysql.version>
   </properties>
 
   <!-- 依存関係 -->
@@ -129,107 +127,11 @@
       <version>${spring-framework.version}</version>
     </dependency>
 
-    <!-- MySQL -->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql.version}</version>
-    </dependency>
-
     <!-- list_08_24 Validation API -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
       <version>5.1.0.Final</version>
     </dependency>
-
-    <!-- Hibernate ToolsのAnt Pluginを使ってmaven-antrun-pluginをたたく -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-tools</artifactId>
-      <version>4.3.1.CR1</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>commons-logging</artifactId>
-          <groupId>commons-logging</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
   </dependencies>	
-  <!-- Hibernate ToolsのAnt Pluginを使ってmaven-antrun-pluginをたた -->
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.7</version>
-        <executions>
-          <execution>
-            <!-- Hibernatetool will generate everything before running tests -->
-            <phase>test-compile</phase>
-            <configuration>
-              <target>
-                <echo message="[gen-ddl] start!"/>
-                <property name="maven_compile_classpath" refid="maven.compile.classpath"/>
-                <property name="maven_test_classpath" refid="maven.test.classpath"/>
-                <echo message="compile classpath: ${maven_compile_classpath}"/>
-                <echo message="maven_test_classpath: ${maven_test_classpath}"/>
-                <path id="hibernatetool.path">
-                  <pathelement path="${maven_compile_classpath}"/>
-                  <pathelement path="${maven_test_classpath}"/>
-                </path>
-                <taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="hibernatetool.path"/>
-                  <property name="ddl.generated.directory" value="${project.build.directory}/generated-ddl"/>
-                  <mkdir dir="${ddl.generated.directory}"/>
-                  <hibernatetool destdir="${ddl.generated.directory}">
-                    <classpath>
-                      <path location="${project.build.directory}/classes/jp/tuyano/spring/entity"/>
-                    </classpath>
-                    <jpaconfiguration persistenceunit="gen-ddl"/>
-                    <hbm2ddl export="false" outputfilename="generated-ddl.sql" format="true"/>
-                  </hibernatetool>
-                <echo message="[gen-ddl] completed!"/>
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-    <pluginManagement>
-    	<plugins>
-    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-    		<plugin>
-    			<groupId>org.eclipse.m2e</groupId>
-    			<artifactId>lifecycle-mapping</artifactId>
-    			<version>1.0.0</version>
-    			<configuration>
-    				<lifecycleMappingMetadata>
-    					<pluginExecutions>
-    						<pluginExecution>
-    							<pluginExecutionFilter>
-    								<groupId>
-    									org.apache.maven.plugins
-    								</groupId>
-    								<artifactId>
-    									maven-antrun-plugin
-    								</artifactId>
-    								<versionRange>[1.7,)</versionRange>
-    								<goals>
-    									<goal>run</goal>
-    								</goals>
-    							</pluginExecutionFilter>
-    							<action>
-    								<ignore></ignore>
-    							</action>
-    						</pluginExecution>
-    					</pluginExecutions>
-    				</lifecycleMappingMetadata>
-    			</configuration>
-    		</plugin>
-    	</plugins>
-    </pluginManagement>
-  </build>
 </project>
