@@ -23,7 +23,7 @@
  	<!-- アノテーションによるBean配置などの処理を行えるようにしたもの -->
  	<context:annotation-config />
  	<!-- コンポーネントを検索するパッケージを指定 -->
-	<context:component-scan base-package="jp.tuyano.spring.srvlet" />
+	<context:component-scan base-package="jp.tuyano.spring" />
 	
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
@@ -43,7 +43,7 @@
 	</jdbc:embedded-database>
 
 	<!-- リポジトリを検索するパッケージ -->
-	<jpa:repositories base-package="jp.tuyano.spring.srvlet" />
+	<jpa:repositories base-package="jp.tuyano.spring" />
 	<!-- リポジトリで使用する transactionManager -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
@@ -52,6 +52,10 @@
 
 	<!-- list_08_25 Validator用のBeanを登録 -->
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+	<!-- 監査情報の設定 -->
+	<jpa:auditing auditor-aware-ref="auditorAware" />
+	<bean id="auditorAware" class="jp.tuyano.spring.domain.service.OsUserAuditorAware" />
 
 	<!-- Open EntityManager in Viewパターンの設定 
 	<mvc:interceptors>

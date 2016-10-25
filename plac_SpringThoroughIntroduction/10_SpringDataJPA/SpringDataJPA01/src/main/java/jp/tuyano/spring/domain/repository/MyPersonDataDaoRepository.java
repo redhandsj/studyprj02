@@ -1,10 +1,12 @@
-package jp.tuyano.spring.entity.myperson;
+package jp.tuyano.spring.domain.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import jp.tuyano.spring.domain.model.MyPersonData;
 
 /**
  * 拡張リポジトリ　list_08_16 P.408

@@ -1,4 +1,4 @@
-package jp.tuyano.spring.srvlet;
+package jp.tuyano.tools;
 
 import java.util.List;
 

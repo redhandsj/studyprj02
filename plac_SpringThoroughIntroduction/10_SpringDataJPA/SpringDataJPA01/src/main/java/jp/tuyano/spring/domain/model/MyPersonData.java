@@ -1,4 +1,4 @@
-package jp.tuyano.spring.entity.myperson;
+package jp.tuyano.spring.domain.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

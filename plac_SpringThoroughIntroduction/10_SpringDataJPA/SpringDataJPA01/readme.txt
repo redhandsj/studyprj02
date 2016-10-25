@@ -1,6 +1,8 @@
 ★Spring徹底入門SpringFrameworkによるJavaアプリケーション開発.pdf
  - (CHAPTER 10) Spring Data JPA
 しおり　：　P.531
+URL　:　 http://localhost:8080/SpringDataJPA01/web
+
 
 
 
@@ -11,13 +13,12 @@ https://blog.ik.am/entries/258
 
 
 -------------------------------------------------------------------------------
-URL　:　 http://localhost:8080/SpringDataJPA01/person
 URL　:　 http://localhost:8080/
 
 
 
-
-
+★ハマったバグ情報（パッケージ構成をちゃんとしよう）
+http://qiita.com/NagaokaKenichi/items/058a7243bd2948de7553
 
 -------------------------------------------------------------------------------
 ★ bean.properties

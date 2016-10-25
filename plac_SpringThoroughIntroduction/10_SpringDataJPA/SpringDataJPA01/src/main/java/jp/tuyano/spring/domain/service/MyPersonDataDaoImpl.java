@@ -1,4 +1,4 @@
-package jp.tuyano.spring.entity.myperson;
+package jp.tuyano.spring.domain.service;
 
 import java.util.List;
 
@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Service;
+
+import jp.tuyano.spring.domain.model.MyPersonData;
 
 /**
  * SpringFramework4_プログラミング入門.pdf P.383 
@@ -212,7 +214,7 @@ public class MyPersonDataDaoImpl extends AbstractMyPersonDataDao {
 	 * @param id 更新エントリーキー
 	 */
 	public void list_08_04_removeEntity(Long id) {
-		jp.tuyano.spring.entity.myperson.MyPersonData entity = manager.find(jp.tuyano.spring.entity.myperson.MyPersonData.class, 1L);
+		jp.tuyano.spring.domain.model.MyPersonData entity = manager.find(jp.tuyano.spring.domain.model.MyPersonData.class, 1L);
 		this.removeEntity(entity);
 	}
 	

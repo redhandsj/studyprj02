@@ -1,4 +1,4 @@
-package jp.tuyano.spring.entity.equipment;
+package jp.tuyano.spring.domain.model;
 
 import java.io.Serializable;
 
@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import jp.tuyano.spring.entity.room.Room;
 
 /**
  * 部屋エンティティ

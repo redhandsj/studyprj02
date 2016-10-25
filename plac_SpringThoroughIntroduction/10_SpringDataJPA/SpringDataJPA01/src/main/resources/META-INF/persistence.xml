@@ -11,20 +11,10 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <properties>
     <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
-    <property name="hibernate.hbm2ddl.auto" value="create" />
     <property name="javax.persistence.jdbc.driver" value="${jdbc.driverClassName}" />
     <property name="javax.persistence.jdbc.url" value="${jdbc.url}" />
     <property name="javax.persistence.jdbc.user" value="${jdbc.username}" />
     <property name="javax.persistence.jdbc.password" value="${jdbc.password}" />
-    </properties>
-  </persistence-unit>
-
-  <persistence-unit name="gen-ddl" transaction-type="RESOURCE_LOCAL">
-    <properties>
-            <!--<property name="hibernate.ejb.naming_strategy"-->
-                      <!--value="org.springframework.boot.orm.jpa.SpringNamingStrategy"></property>-->
-      <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"></property>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"></property>
     </properties>
   </persistence-unit>
 	

@@ -1,22 +1,19 @@
-package jp.tuyano.spring.entity.room;
+package jp.tuyano.spring.domain.service;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
-import javax.persistence.LockTimeoutException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PessimisticLockException;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jp.tuyano.spring.entity.equipment.Equipment;
+import jp.tuyano.spring.domain.model.Room;
+import jp.tuyano.spring.domain.repository.RoomRepository;
+
 
 
 /**
@@ -34,6 +31,25 @@ public class RoomServiceImpl implements RoomService {
 	RoomRepository roomRepository;
 
 	/**
+	 * ページで渡す検索結果
+	 * @param roomName 部屋名
+	 * @param page 希望するページ番号（0～指定）
+	 * @param size １ページ分の件数
+	 * @return ページ情報毎渡す
+	 */
+	@Transactional
+	public List<Room> searchRoomByNameAsc(final String roomName, final int page, final int size){
+		// 取得結果の順番（部屋名の昇順）
+		Sort sort = new Sort(Direction.ASC, "room_name");
+		// 取得データのページ番号、１ページの件数、ソートルールを指定
+		Pageable pageable = new PageRequest(page,size,sort);
+		// ページルールを使って検索しデータを取得する
+		Page<Room> rooms = roomRepository.findByRoomName(roomName, pageable);
+		// ページ情報毎返す
+		return rooms.getContent();
+	}
+	
+	/**
 	 * 部屋の備品一覧を検索
 	 * @param roomId ルームナンバー
 	 * @return 部屋の備品一覧を返す
@@ -50,7 +66,7 @@ public class RoomServiceImpl implements RoomService {
 	 */
 	@Transactional(readOnly = true)
 	public List<Room> getRoomAll(){
-		return roomRepository.findAll(new Sort(Direction.ASC, "roomId"));
+		return roomRepository.findAll();
 	}
 
 	/**
@@ -64,7 +80,7 @@ public class RoomServiceImpl implements RoomService {
 	public Room createRoom(final String roomName, final Integer capacity) {
 		Room room = new Room();
 		if(room != null){
-			room.setRoomName(roomName);
+			room.setRoom_name(roomName);
 			room.setCapacity(capacity);
 			return roomRepository.save(room);
 		}
@@ -81,7 +97,7 @@ public class RoomServiceImpl implements RoomService {
 	public Room updateRoom(final Integer id, final String roomName) {
 		Room room = this.getRoom(id);
 		if(room != null){
-			room.setRoomName(roomName);
+			room.setRoom_name(roomName);
 		}
 		return room;
 	}

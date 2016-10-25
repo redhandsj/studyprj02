@@ -1,4 +1,4 @@
-package jp.tuyano.spring.srvlet;
+package jp.tuyano.spring.web;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,13 +13,15 @@ import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import jp.tuyano.spring.entity.myperson.MyPersonData;
-import jp.tuyano.spring.entity.myperson.MyPersonDataDaoImpl;
+import jp.tuyano.spring.domain.model.MyPersonData;
+import jp.tuyano.spring.domain.model.Room;
+import jp.tuyano.spring.domain.service.MyPersonDataDaoImpl;
+import jp.tuyano.spring.domain.service.RoomServiceImpl;
 
 /**
  * Servlet implementation class MyPersonDataServlet
  */
-public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
+public class WebServlet extends BeanAutowritingFilterServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -27,6 +29,8 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 	 */
 	@Autowired
 	private MyPersonDataDaoImpl dao;
+	@Autowired
+	private RoomServiceImpl roomService;
 
 	/**
 	 * バリデーター
@@ -38,7 +42,14 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		this.list_08_21_doGet(request,response);
+//		this.list_08_21_doGet(request,response);
+		List<MyPersonData> myPersonDatas = dao.getAllEntity(); //☆
+		request.setAttribute("mypersondata", myPersonDatas);
+
+		List<Room> rooms = roomService.searchRoomByNameAsc("aaaaaa",0,2);
+		request.setAttribute("room", rooms);
+		
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 	/**
@@ -51,6 +62,8 @@ public class MyPersonDataServlet extends BeanAutowritingFilterServlet {
 	//=======================================================================
 	// doGet
 	//=======================================================================
+
+	
 	/**
 	 * SpringFramework4_プログラミング入門 : P.391
 	 * @param request リクエスト

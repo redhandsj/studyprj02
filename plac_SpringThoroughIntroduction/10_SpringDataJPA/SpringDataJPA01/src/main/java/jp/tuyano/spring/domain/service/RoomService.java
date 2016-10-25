@@ -1,7 +1,9 @@
 /**
  * JPA
  */
-package jp.tuyano.spring.entity.room;
+package jp.tuyano.spring.domain.service;
+
+import jp.tuyano.spring.domain.model.Room;
 
 public interface RoomService {
 	/**

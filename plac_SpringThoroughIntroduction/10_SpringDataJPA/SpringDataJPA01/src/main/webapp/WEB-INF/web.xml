@@ -28,12 +28,12 @@
   <!-- サーブレット -->
   <servlet>
     <description></description>
-    <display-name>MyPersonDataServlet</display-name>
-    <servlet-name>MyPersonDataServlet</servlet-name>
-    <servlet-class>jp.tuyano.spring.data1.MyPersonDataServlet</servlet-class>
+    <display-name>WebServlet</display-name>
+    <servlet-name>WebServlet</servlet-name>
+    <servlet-class>jp.tuyano.spring.web.WebServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MyPersonDataServlet</servlet-name>
-    <url-pattern>/person</url-pattern>
+    <servlet-name>WebServlet</servlet-name>
+    <url-pattern>/web</url-pattern>
   </servlet-mapping>
 </web-app>
