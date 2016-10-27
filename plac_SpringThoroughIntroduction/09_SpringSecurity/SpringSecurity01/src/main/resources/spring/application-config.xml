@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/data/jpa
+		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/jdbc
+		http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder location="classpath:spring/bean.properties" />
+	
+ 	<!-- アノテーションによるBean配置などの処理を行えるようにしたもの -->
+ 	<context:annotation-config />
+ 	<!-- コンポーネントを検索するパッケージを指定 -->
+	<context:component-scan base-package="jp.tuyano.spring" />
+	
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="generateDdl" value="true" />
+				<property name="database" value="${jdbc.type}" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- jdbc  -->
+	<jdbc:embedded-database id="dataSource" type="H2">
+		<jdbc:script location="${jdbc.scriptLocation}" />
+	</jdbc:embedded-database>
+
+	<!-- リポジトリを検索するパッケージ -->
+	<jpa:repositories base-package="jp.tuyano.spring" />
+	<!-- リポジトリで使用する transactionManager -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- list_08_25 Validator用のBeanを登録 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+	<!-- 監査情報の設定 -->
+	<jpa:auditing auditor-aware-ref="auditorAware" />
+	<bean id="auditorAware" class="jp.tuyano.spring.domain.service.OsUserAuditorAware" />
+
+	<!-- Spring Security -->
+	<!-- Spring Securityの処理を適用しないパスパターンを指定 -->
+	<sec:http pattern="/resources/**" security="none" />
+	<sec:http>
+		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
+		<sec:form-login />
+	</sec:http>
+	<!-- 
+	<sec:http>
+		<sec:form-login login-page="/login" />
+		<sec:intercept-url pattern="/login" access="permitAll" />
+		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
+	</sec:http>
+	-->
+	<!-- 認証用のコンポーネントを定義 -->
+	<sec:authentication-manager />
+
+
+	<!-- Open EntityManager in Viewパターンの設定 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/**/*.html" />
+			<mvc:exclude-mapping path="/**/*.js" />
+			<mvc:exclude-mapping path="/**/*.css" />
+			<mvc:exclude-mapping path="/**/*.png" />
+			<bean class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	-->	
+</beans>
