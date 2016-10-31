@@ -3,6 +3,50 @@
 しおり　：　P.446      (～492)
 URL　:　 http://localhost:8080/SpringSecurity01/web
 
+ログインの場合は以下：
+http://localhost:8080/SpringSecurity01/login
+
+
+９章のサンプルは糞！
+
+-------------------------------------------------------------------------------
+★結局動いたものを参照したページ
+http://javatechnology.net/spring/spring-security-basically/
+
+★★★★★超重要ページ★★★★★
+http://namihira.hatenablog.com/entry/20160817/1471396975
+
+  <sec:http auto-config="true" >
+        <!-- 認可の設定 -->
+        <sec:intercept-url pattern="/top*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+        <sec:intercept-url pattern="/admin*" access="hasRole('ROLE_ADMIN')" />
+        <sec:intercept-url pattern="/user*" access="hasRole('ROLE_USER')" />
+         
+        <!-- 権限なし時の遷移先 -->
+        <sec:access-denied-handler error-page="/403" />
+         
+        <!-- 認証のログイン処理 -->
+        <sec:form-login
+            login-page="/"
+            default-target-url="/top"
+            authentication-failure-url="/error"
+            login-processing-url="/j_spring_security_check"/>
+         
+        <!-- 認証のログアウト処理 -->
+        <sec:logout
+            logout-url="/logout"
+            logout-success-url="/"
+            invalidate-session="true"/>
+        <!-- anonymousユーザのROLE -->
+        <sec:anonymous granted-authority="ROLE_ANONYMOUS" />
+    </sec:http>
+
+
+
+-------------------------------------------------------------------------------
+★eclipseのエラーを防止「Failed to load JavaHL Library」
+http://d.hatena.ne.jp/watanata2000/20100730/1280470753
+
 
 -------------------------------------------------------------------------------
 ★以下のエラーでバージョンを変更（4.3.3.RELEASE に変更）

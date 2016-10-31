@@ -19,8 +19,7 @@
       <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
     </span>
   </c:if>
-  <c:url var="loginUrl" value="/login"/>
-  <form:form action="${loginUrl}">
+  <form:form action="/app/authentication" method="post">
     <table>
       <tr>
         <td><label for="username">ユーザ名</label></td>
@@ -30,6 +29,8 @@
         <td><label for="password">パスワード</label></td>
         <td><input type="password" id="password" name="password"></td>
       </tr>
+      <!-- CSRF対策が入っているため入れる。 -->
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       <tr>
         <td>&nbsp;</td>
         <td><button>ログイン</button></td>

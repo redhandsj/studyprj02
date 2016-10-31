@@ -18,10 +18,17 @@
 		http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:property-placeholder location="classpath:spring/bean.properties" />
+	
+	<!-- Spring MVC	-->
+	<!-- DispatchServletのセットアップ -->
+	<mvc:annotation-driven/>
+	<mvc:view-resolvers><mvc:jsp/></mvc:view-resolvers>
 	
  	<!-- アノテーションによるBean配置などの処理を行えるようにしたもの -->
  	<context:annotation-config />
@@ -61,22 +68,37 @@
 	<bean id="auditorAware" class="jp.tuyano.spring.domain.service.OsUserAuditorAware" />
 
 	<!-- Spring Security -->
-	<!-- Spring Securityの処理を適用しないパスパターンを指定 -->
-	<sec:http pattern="/resources/**" security="none" />
-	<sec:http>
-		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
-		<sec:form-login />
-	</sec:http>
-	<!-- 
-	<sec:http>
-		<sec:form-login login-page="/login" />
-		<sec:intercept-url pattern="/login" access="permitAll" />
-		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
-	</sec:http>
-	-->
-	<!-- 認証用のコンポーネントを定義 -->
-	<sec:authentication-manager />
+	<!-- js,cssが配置されているパスは適用外にする-->
+	<sec:http pattern="/resources/**" security="none"/>
 
+	<sec:http auto-config="false" use-expressions="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
+		<!-- <sec:form-login login-processing-url="/authentication" username-parameter="uid" password-parameter="pwd" /> -->
+		<!-- ログイン画面は全員アクセス可能 -->
+		<sec:intercept-url pattern="/login" access="permitAll" />
+		<!-- 他の画面はUSERロールをもっていないとアクセスできない -->
+		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
+		<!-- POST時にCSRFの検証も行う。処理自体は自動で行われる -->
+		<sec:csrf/>
+	</sec:http>
+
+	<bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<!-- ※ログイン画面の指定。認証なしでアクセスするとここに飛ばされる。 -->
+		<constructor-arg value="/login" />
+	</bean>
+
+
+
+    <!-- 認証用のコンポーネントを定義 -->
+    <!-- <sec:authentication-manager /> -->
+    <!-- ユーザとROLEを定義 -->
+    <sec:authentication-manager>
+        <sec:authentication-provider>
+            <sec:user-service>
+                <sec:user name="admin" password="admin" authorities="ROLE_ADMIN" />
+                <sec:user name="user" password="user" authorities="ROLE_USER" />
+            </sec:user-service>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
 
 	<!-- Open EntityManager in Viewパターンの設定 
 	<mvc:interceptors>
