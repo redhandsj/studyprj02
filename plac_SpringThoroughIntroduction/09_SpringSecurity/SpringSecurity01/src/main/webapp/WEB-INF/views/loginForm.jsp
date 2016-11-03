@@ -19,7 +19,7 @@
       <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
     </span>
   </c:if>
-  <form:form action="/app/authentication" method="post">
+  <form:form action="/SpringSecurity01/authentication" method="post">
     <table>
       <tr>
         <td><label for="username">ユーザ名</label></td>

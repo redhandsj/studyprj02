@@ -11,28 +11,27 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 public class ApplicationUsernamePasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 	@Override
-	    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-	        if (!request.getMethod().equals("POST")) {
-	            throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
-	        }
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+		if (!request.getMethod().equals("POST")) {
+			throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
+		}
 
-	        // Obtain info form request
-	        final String username = super.obtainUsername(request);
-	        final String password = super.obtainPassword(request);
-	        if (username == null || password == null) {
-	            throw new AuthenticationServiceException("Authentication info must be set");
-	        }        
+		// ユーザ名とパスワードを取得
+		final String username = super.obtainUsername(request);
+		final String password = super.obtainPassword(request);
+		if (username == null || password == null) {
+			// 揃ってない場合は、認証失敗
+			throw new AuthenticationServiceException("Authentication info must be set");
+		}
 
-	        // Validate info
-	        // FIXME
-	        if (!username.equals("namihira") || !password.equals("namihira")) {
-	            throw new AuthenticationServiceException("Authentication Error");
-	        }
-	        
-	        // Create token form input
-	        final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
-	        
-	        // Move to identify user phase
-	        return this.getAuthenticationManager().authenticate(authToken);
-	    }
+		// とりあえず認証チェック
+		if (!username.equals("namihira") || !password.equals("namihira")) {
+			// 認証失敗
+			throw new AuthenticationServiceException("認証に失敗しました。");
+		}
+		// ユーザ名とパスワードから認証トークンを作成
+		final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
+		// 認証検証
+		return this.getAuthenticationManager().authenticate(authToken);
+	}
 }

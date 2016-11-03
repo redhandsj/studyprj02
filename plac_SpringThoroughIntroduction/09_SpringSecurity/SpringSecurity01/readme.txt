@@ -1,13 +1,23 @@
 ★Spring徹底入門SpringFrameworkによるJavaアプリケーション開発.pdf
  - (CHAPTER 09) Spring Security
-しおり　：　P.446      (～492)
+しおり　：　P.453      (～492)
+AccountUserDetailsService作成例から
+
 URL　:　 http://localhost:8080/SpringSecurity01/web
 
 ログインの場合は以下：
 http://localhost:8080/SpringSecurity01/login
 
 
+
+
 ９章のサンプルは糞！
+
+-------------------------------------------------------------------------------
+★ Lombok 
+ - http://qiita.com/opengl-8080/items/671ffd4bf84fe5e32557
+ - STS.exeと同じ場所にjarを置く
+ ―STS.ini に「-javaagent:lombok.jar」を追記
 
 -------------------------------------------------------------------------------
 ★結局動いたものを参照したページ

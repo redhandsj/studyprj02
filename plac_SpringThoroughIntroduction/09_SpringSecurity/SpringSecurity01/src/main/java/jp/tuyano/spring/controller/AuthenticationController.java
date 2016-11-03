@@ -16,12 +16,38 @@ public class AuthenticationController {
 	 * @return ログインJSP名
 	 */
 	@RequestMapping(path="/login",method=RequestMethod.GET)
-	public String get(final Model model, 
+	public String auth(final Model model, 
 			@RequestParam(required = false, defaultValue = "") final String error,
 			@RequestParam(required = false, defaultValue = "") final String from) {
 		model.addAttribute("isError", !error.isEmpty());
 		model.addAttribute("fromLogout", from.contains("logout"));
 		return "views/loginForm";
 	}
+	/**
+	 * ログインエラー時の表示
+	 * @return ログインJSP名
+	 */
+	@RequestMapping(path="/login",method=RequestMethod.POST, params="error=true")
+	public String error(final Model model, 
+			@RequestParam(required = false, defaultValue = "") final String error,
+			@RequestParam(required = false, defaultValue = "") final String from) {
+		model.addAttribute("isError", !error.isEmpty());
+		model.addAttribute("fromLogout", from.contains("logout"));
+		return "views/error";
+	}
+
+	/**
+	 * ログイン成功時のホーム
+	 * @return JSP名
+	 */
+	@RequestMapping(path="/home",method=RequestMethod.POST)
+	public String home(final Model model, 
+			@RequestParam(required = false, defaultValue = "") final String error,
+			@RequestParam(required = false, defaultValue = "") final String from) {
+		model.addAttribute("isError", !error.isEmpty());
+		model.addAttribute("fromLogout", from.contains("logout"));
+		return "index";
+	}
+
 
 }
