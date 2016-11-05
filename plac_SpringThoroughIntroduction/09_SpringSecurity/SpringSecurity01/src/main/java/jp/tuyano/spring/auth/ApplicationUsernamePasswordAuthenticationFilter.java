@@ -1,4 +1,4 @@
-package jp.tuyano.spring.web;
+package jp.tuyano.spring.auth;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -102,7 +102,7 @@
 
 	<bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
 		<!-- ※認証成功した後の遷移先。↑ハンドラー自体は既存のものを利用。 -->
-		<property name="defaultTargetUrl" value="/index.jsp"/>
+		<property name="defaultTargetUrl" value="/home"/>
 	</bean>
 
 	<bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
@@ -120,16 +120,13 @@
 
 	<!-- 認証用のコンポーネントを定義 -->
 	<!-- <sec:authentication-manager /> -->
-	<!-- ユーザとROLEを定義
+	<!-- ユーザとROLEを定義-->
 	<sec:authentication-manager>
-		<sec:authentication-provider>
-			<sec:user-service>
-				<sec:user name="admin" password="admin" authorities="ROLE_ADMIN" />
-				<sec:user name="user" password="user" authorities="ROLE_USER" />
-			</sec:user-service>
+		<sec:authentication-provider user-service-ref="accountUserDetailsService">
+			<sec:password-encoder ref="passwordEncoder" />
 		</sec:authentication-provider>
 	</sec:authentication-manager>
-	-->
+	<bean id="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
 	<!-- Open EntityManager in Viewパターンの設定 
 	<mvc:interceptors>

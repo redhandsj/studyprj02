@@ -1,7 +1,4 @@
-package jp.tuyano.spring.web;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+package jp.tuyano.spring.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -11,8 +8,7 @@ import jp.tuyano.spring.domain.repository.MyPersonDataDaoRepository;
 /**
  * サーブレット親
  */
-public class BeanAutowritingFilterServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+public class BeanAutowritingFilter {
 	/**
 	 * リポジトリ
 	 * <ul>
@@ -20,14 +16,12 @@ public class BeanAutowritingFilterServlet extends HttpServlet {
 	 * </ul>
 	 */
 	@Autowired
-	MyPersonDataDaoRepository repository;
+	protected MyPersonDataDaoRepository repository;
 
 	/**
 	 * 共通初期化
 	 */
-	@Override
-	public void init() throws ServletException {
-		super.init();
+	public BeanAutowritingFilter(){
 		// インスタンス生成時に自動でBean設定
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 	}

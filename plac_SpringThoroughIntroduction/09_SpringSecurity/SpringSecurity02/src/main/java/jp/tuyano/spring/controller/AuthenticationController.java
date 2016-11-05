@@ -1,6 +1,7 @@
 package jp.tuyano.spring.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.tuyano.spring.domain.model.Room;
+import jp.tuyano.spring.domain.model.User;
 import jp.tuyano.spring.domain.service.BeanAutowritingFilter;
 
 /**
@@ -50,6 +53,7 @@ public class AuthenticationController extends BeanAutowritingFilter{
 	 */
 	@RequestMapping(path="/home",method=RequestMethod.GET)
 	public void home(HttpServletRequest request, HttpServletResponse response) {
+		this.test(request,response);
 		try {
 			request.getRequestDispatcher("/index.jsp").forward(request,  response);
 		} catch (ServletException e) {
@@ -60,6 +64,22 @@ public class AuthenticationController extends BeanAutowritingFilter{
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * データ格納
+	 * @param request
+	 * @param response
+	 */
+	private void test(HttpServletRequest request, HttpServletResponse response){
+		request.setAttribute("msg", "please type my person data.");
+		List<Room> rooms = roomRepository.findAll();
+		request.setAttribute("room", rooms);
+		List<User> users = userRepository.findAll();
+		request.setAttribute("user", users);
+		
+		
+		
+		
+	}
 
 }

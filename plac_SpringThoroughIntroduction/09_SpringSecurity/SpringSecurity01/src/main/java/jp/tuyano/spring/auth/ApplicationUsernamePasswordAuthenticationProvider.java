@@ -1,4 +1,4 @@
-package jp.tuyano.spring.web;
+package jp.tuyano.spring.auth;
 
 import java.util.Arrays;
 
