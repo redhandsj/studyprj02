@@ -120,14 +120,14 @@
 
 	<!-- 認証用のコンポーネントを定義 -->
 	<!-- <sec:authentication-manager /> -->
-	<!-- ユーザとROLEを定義-->
+	<!-- ユーザとROLEを定義
 	<sec:authentication-manager>
 		<sec:authentication-provider user-service-ref="accountUserDetailsService">
 			<sec:password-encoder ref="passwordEncoder" />
 		</sec:authentication-provider>
 	</sec:authentication-manager>
 	<bean id="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-
+	-->
 	<!-- Open EntityManager in Viewパターンの設定 
 	<mvc:interceptors>
 		<mvc:interceptor>

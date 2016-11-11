@@ -1,4 +1,4 @@
-package jp.tuyano.spring.domain.service.auth;
+package jp.tuyano.spring.domain.model.auth;
 
 import java.io.Serializable;
 import java.util.Collection;

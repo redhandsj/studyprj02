@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.tuyano.spring.domain.model.User;
+import jp.tuyano.spring.domain.model.auth.AccountUserDetails;
+import jp.tuyano.spring.domain.model.auth.UserDetails;
 import jp.tuyano.spring.domain.repository.UserRepository;
 
 @Service
@@ -20,7 +22,7 @@ public class AccountUserDetailsService implements UserDetailsService {
 
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = Optional.ofNullable(userRepository.findOne(username)).orElseThrow(()-> new UsernameNotFoundException("user not found."));
+		User user = Optional.ofNullable(userRepository.findOneByUser_name(username)).orElseThrow(()-> new UsernameNotFoundException("user not found."));
 		return new AccountUserDetails(user, this.getAuthorities(user));
 	}
 	

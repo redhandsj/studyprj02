@@ -7,7 +7,7 @@
 
   <!-- 各種変数 -->
   <properties>
-    <java.version>1.6</java.version>
+    <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- Web -->
@@ -177,6 +177,22 @@
       <version>1.16.10</version>
       <scope>provided</scope>
     </dependency>
-	
   </dependencies>	
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+
+
 </project>

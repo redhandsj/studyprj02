@@ -24,6 +24,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	List<User> findAll();
 
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
-	User findOne(final String username);
+	User findOneByUser_name(final String user_name);
 
 }

@@ -2,6 +2,8 @@ package jp.tuyano.spring.domain.service.auth;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import jp.tuyano.spring.domain.model.auth.UserDetails;
+
 public interface UserDetailsService {
 	/**
 	 * ユーザ名からUserDetailsを取得
