@@ -8,22 +8,22 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Repository;
 
-import jp.tuyano.spring.domain.model.User;
+import jp.tuyano.spring.domain.model.Users;
 
 /**
  * 拡張リポジトリ
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<Users, Integer> {
 
 	/**
 	 * 全件検索
 	 * return 検索結果
 	 */
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
-	List<User> findAll();
+	List<Users> findAll();
 
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
-	User findOneByUser_name(final String user_name);
+	Users findOneByUser_name(final String user_name);
 
 }

@@ -15,7 +15,7 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name = "user")
-public class User implements Serializable{
+public class Users implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	//=======================================================================
@@ -61,7 +61,7 @@ public class User implements Serializable{
 	/**
 	 * デフォルトコンストラクタ
 	 */
-	public User() {
+	public Users() {
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class User implements Serializable{
 	 * @param user_name ユーザ名
 	 * @param password パスワード
 	 */
-	public User(final Integer user_id, final String user_name, final String password) {
+	public Users(final Integer user_id, final String user_name, final String password) {
 		this();
 		this.user_id = user_id;
 		this.user_name = user_name;

@@ -8,7 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import jp.tuyano.spring.domain.model.User;
+import jp.tuyano.spring.domain.model.Users;
 
 public class ApplicationUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
 
@@ -16,7 +16,7 @@ public class ApplicationUsernamePasswordAuthenticationProvider implements Authen
 		// Identify user
 		final String username = authentication.getName();
 		final String password = authentication.getCredentials().toString();
-		final User user = new User();
+		final Users user = new Users();
 
 		user.setUser_name(username);
 		user.setPassword(password);

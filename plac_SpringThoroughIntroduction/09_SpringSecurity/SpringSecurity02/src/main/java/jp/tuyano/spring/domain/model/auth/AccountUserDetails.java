@@ -4,14 +4,14 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import jp.tuyano.spring.domain.model.User;
+import jp.tuyano.spring.domain.model.Users;
 
 public class AccountUserDetails implements UserDetails {
 	
 	private static final long serialVersionUID = 1L;
 
 	
-	private final User user ;
+	private final Users user ;
 	private final Collection<GrantedAuthority> authorities;
 
 	/**
@@ -19,7 +19,7 @@ public class AccountUserDetails implements UserDetails {
 	 * @param user ユーザ情報
 	 * @param authorities 権限情報
 	 */
-	public AccountUserDetails(final User user, final Collection<GrantedAuthority> authorities){
+	public AccountUserDetails(final Users user, final Collection<GrantedAuthority> authorities){
 		this.user = user;
 		this.authorities = authorities;
 		
@@ -53,7 +53,7 @@ public class AccountUserDetails implements UserDetails {
 		return true;
 	}
 	
-	public User getUser(){
+	public Users getUser(){
 		return user;
 	}
 

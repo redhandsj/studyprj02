@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.tuyano.spring.domain.model.Room;
-import jp.tuyano.spring.domain.model.User;
+import jp.tuyano.spring.domain.model.Users;
 import jp.tuyano.spring.domain.service.BeanAutowritingFilter;
 
 /**
@@ -74,7 +74,7 @@ public class AuthenticationController extends BeanAutowritingFilter{
 		request.setAttribute("msg", "please type my person data.");
 		List<Room> rooms = roomRepository.findAll();
 		request.setAttribute("room", rooms);
-		List<User> users = userRepository.findAll();
+		List<Users> users = userRepository.findAll();
 		request.setAttribute("user", users);
 		
 		

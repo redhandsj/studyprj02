@@ -29,7 +29,7 @@
 <hr>
 <h2>User</h2>
 <ol>
-  <% for(User u : (List<User>) request.getAttribute("user")){ %>
+  <% for(User u : (List<Users>) request.getAttribute("user")){ %>
   <li> id : <%=u.getUser_id() %>, name : <%=u.getUser_name() %>, password : <%=u.getPassword()%></li>
   <% } %>
 </ol>
