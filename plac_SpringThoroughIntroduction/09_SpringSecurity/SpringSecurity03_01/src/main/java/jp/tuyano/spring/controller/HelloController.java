@@ -15,13 +15,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HelloController {
 
+	@RequestMapping(path = "/login", method = RequestMethod.GET)
+	public String viewLoginForm(){
+		return "auth/loginForm"; 
+	}
+
+	@RequestMapping(path = "/loginFailure", method = RequestMethod.GET)
+	public String viewLoginErrorForm(){
+		return "auth/loginErr"; 
+	}
+
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 		model.addAttribute("greeting", "Hi, Welcome to mysite. ");
 		return "welcome";
 	}
 	   
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin", method = RequestMethod.POST)
 	public String adminPage(ModelMap model) {
 		model.addAttribute("user", this.getPrincipal());
 		return "admin";
