@@ -38,6 +38,55 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.successForwardUrl("/admin").permitAll()
 					.failureUrl("/loginFailure").permitAll()
 			.and().exceptionHandling().accessDeniedPage("/Access_Denied");
+
+//		http.authorizeRequests()
+//		// 未ログインでもアクセス可能なパス
+//		.antMatchers("/login").permitAll() 
+//		// ログインしないとアクセスできない
+//		.antMatchers("/", "/home").hasAnyRole("ADMIN","DBA","USER")
+////		// 「ROLE_ADMIN」権限でログインしないとアクセスできない
+////		.antMatchers("/admin").hasRole("ADMIN")
+////		// 「ROLE_ADMIN」OR「ROLE_DBA」権限でログインしないとアクセスできない
+////		.antMatchers("/db").hasAnyRole("ADMIN","DBA")
+//		// 全てのURLリクエストは認証されているユーザーしかアクセスできないという記述
+//		.anyRequest().authenticated()
+//		// ログインフォーム指定の設定
+//		.and().formLogin()
+//			// ログイン画面のURL
+//			.loginPage("/login")
+//			// ログインを行う処理
+//			.loginProcessingUrl("/authentication")
+//			// 処理に渡すパラメータ
+//			.usernameParameter("username").passwordParameter("password")
+////			// 認証成功／失敗時のアクセス
+//			// true : ログイン画面した後必ずtopにとばされる
+//			// false : (認証されてなくて一度ログイン画面に飛ばされても)ログインしたら指定したURLに飛んでくれる
+//			.defaultSuccessUrl("/home",true).permitAll()
+////			.successForwardUrl("/admin").permitAll()
+//			// 認証失敗時のアクセス
+////			.failureUrl("/loginFailure").permitAll()
+//		// 認可エラーの場合の遷移先
+////		.and().exceptionHandling().accessDeniedPage("/Access_Denied")
+//		// セッション固定攻撃対策
+//		.and().sessionManagement()
+//			// ログイン後に新しいセッションにする
+//			.sessionFixation().newSession()
+//			// 無効なセッションを検知した後の遷移先
+//			.invalidSessionUrl("/error/invalidSession")
+//		// セキュリティヘッダの選択
+//		.and().headers()
+//			// デフォルトで適用されるヘッダー出力を行う
+//			.defaultsDisabled()
+//			// Cache-Control(Pragma, Expires)ヘッダを出力するコンポーネントを登録
+//			.cacheControl().and()
+//			//  X-Frame-Optionsヘッダーを出力するコンポーネントを登録
+//			.frameOptions().and()
+//			// X-Content-Type-Optionsヘッダーを出力するコンポーネントを登録
+//			.contentTypeOptions().and()
+//			// X-XSS-Protectionヘッダーを出力するコンポーネントを登録
+//			.xssProtection()
+//		;
+
 		
 	}
 }
