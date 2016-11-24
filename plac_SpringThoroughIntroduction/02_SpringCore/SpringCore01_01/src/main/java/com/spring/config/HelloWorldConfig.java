@@ -4,22 +4,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 import com.spring.domain.repository.UserRepository;
 import com.spring.domain.service.HelloWorld;
-import com.spring.domain.service.UserService;
 import com.spring.domain.service.impl.HelloWorldImpl;
-import com.spring.domain.service.impl.UserServiceImpl;
 
 @Configuration
-@ComponentScan("com.spring") 
+@ComponentScan("com.spring")
+@EnableAspectJAutoProxy
 public class HelloWorldConfig {
  
     @Bean
     @Description("This is a sample HelloWorld Bean")
+    @Scope("prototype")
     public HelloWorld helloWorld() {
         return new HelloWorldImpl();
     }
@@ -32,6 +33,8 @@ public class HelloWorldConfig {
     }
 
     @Bean
+// TODO スコープがない場合のデフォルトは、シングルトン
+    @Scope("prototype")
     PasswordEncoder SCPasswordEncoder() {
     	return new SCryptPasswordEncoder();
     }

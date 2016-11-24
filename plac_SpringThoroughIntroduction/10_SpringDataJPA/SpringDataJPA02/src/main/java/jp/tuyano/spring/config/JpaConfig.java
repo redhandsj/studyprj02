@@ -3,13 +3,19 @@ package jp.tuyano.spring.config;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.hibernate.ejb.HibernatePersistence;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactoryBean;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -23,23 +29,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories("jp.tuyano.spring") // RepositoryインターフェイスやカスタムRepositoryクラスが格納されているパッケージ名を指定
+@PropertySource(value = {"classpath:spring/bean.properties"})
 public class JpaConfig {
 
+	@Autowired
+    private Environment env;
+
+
+	
 //	@Value("classpath:spring/script.sql")
 //	private Resource H2_SCHEMA_SCRIPT;
-
-//	/**
-//	 * 使用するデータソース
-//	 */
-//	@Bean
-//	public DataSource configureDataSource() {
-//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//		dataSource.setDriverClassName("org.h2.Driver");
-//		dataSource.setUrl("jdbc:h2:mem:mydata");
-//		dataSource.setUsername("sa");
-//		dataSource.setPassword("");
-//        return dataSource;
-//    }
 
 	// 組込用ではないらしい
 	// http://qiita.com/kazuki43zoo/items/bc036b433444f5c33dc4
@@ -71,11 +70,36 @@ public class JpaConfig {
 //		EmbeddedDatabaseFactoryBean bean = new EmbeddedDatabaseFactoryBean();
 //		bean.setDatabaseType(EmbeddedDatabaseType.H2);
 //		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-//		databasePopulator.addScript(new ClassPathResource("spring/script.sql"));
+//		databasePopulator.addScript(new ClassPathResource(env.getProperty("jdbc.scriptLocation")));
 //		bean.setDatabasePopulator(databasePopulator);
 //		bean.afterPropertiesSet();
 //	    return bean;
-//	  }
+//	}
+
+	/**
+	 * 使用するデータソース
+	 */
+	@Bean
+	public DataSource configureDataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+		dataSource.setUrl(env.getProperty("jdbc.url"));
+		dataSource.setUsername(env.getProperty("jdbc.username"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));
+		return dataSource;
+   }
+
+	/**
+	 * データ構築
+	 * @return
+	 */
+	@Bean(destroyMethod = "shutdown")
+	public EmbeddedDatabase dataSource() {
+		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).
+				addScript(env.getProperty("jdbc.scriptLocation")).
+				build();
+	}
+
 	/**
 	 * 
 	 * @return
