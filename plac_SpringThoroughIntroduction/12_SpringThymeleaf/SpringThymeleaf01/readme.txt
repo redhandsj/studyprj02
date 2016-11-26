@@ -3,7 +3,8 @@
 //==========================================================================================================
  - (CHAPTER 12) Spring + Thymeleaf
 しおり　：　P.576
-URL　:　 http://localhost:8080/SpringThymeleaf01/web
+URL　:
+http://localhost:8080/SpringThymeleaf01/
 
 ★ 2016/11/24(木)に、SpringThymeleaf01の勉強の為にSpringDataJPA02から派生して作成
 

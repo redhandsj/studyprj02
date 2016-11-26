@@ -2,9 +2,12 @@ package jp.tuyano.spring.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 public class ThymeleafConfig {
@@ -24,6 +27,9 @@ public class ThymeleafConfig {
 	@Bean(name ="templateEngine")
 	public SpringTemplateEngine getTemplateEngine() {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		// Thymeleaf Layout Dialect
+		templateEngine.addDialect(new LayoutDialect());
+		templateEngine.addDialect(new SpringSecurityDialect());
 		templateEngine.setTemplateResolver(getTemplateResolver());
 		return templateEngine;
 	}
