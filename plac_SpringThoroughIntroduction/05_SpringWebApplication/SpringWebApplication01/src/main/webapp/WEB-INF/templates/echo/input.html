@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+<h2>入力画面</h2>
+<form href="./output.html"  th:action="@{/echo/output}" th:object="${echoForm}" method="POST">
+<div>テキストを入力してください ：</div>
+<div>
+<!-- 
+フォームの各項目と対応するフォームクラスの各プロパティを紐付けるには、th:field属性を利用
+これはJSPでの<form:input>要素のpath属性に相当
+ -->
+<input type="text" name="text" th:field="*{text}"/><br />
+<!-- 
+実行時にはアプリケーションが生成したエラーメッセージ内容を<span>要素内に出力する必要があるが、その場合にはth:errors属性にフォームオブジェクトのフィールド名を指定
+これはJSPでの<form:errors>要素に相当
+ -->
+<span th:if="${#fields.hasErrors('text')}" th:errors="*{text}">textのエラーメッセージ</span>
+</div>
+<div>
+<button type="submit">送信</button>
+</div>
+</form>
+</body>
+</html>
