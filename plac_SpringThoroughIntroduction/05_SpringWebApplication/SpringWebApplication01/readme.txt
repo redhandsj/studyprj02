@@ -2,7 +2,7 @@
 // Spring徹底入門SpringFrameworkによるJavaアプリケーション開発.pdf
 //==========================================================================================================
  - (CHAPTER 05) Webアプリケーションの開発(P.203 - 307)
-しおり　：　P.221
+しおり　：　P.234 ～ 5.6.6 ～
 URL　:
 http://localhost:8080/SpringWebApplication01/
 
@@ -114,10 +114,75 @@ http://localhost:8080/SpringWebApplication01/
    →　リクエストボディにJSON（メディアタイプがapplication/json）を指定してアクセスするとpostAccountメソッドが実行される
  - 属性値には複数のメディアタイプを指定することもでき、複数の属性値を指定した場合はOR条件
 
+★ Acceptヘッダーの使用
+---------------------------------------
+ @RequestMapping(path = "create", produces = "application/json") ❶
+ @ResponseBody
+ public Account postAccount(@Validated @RequestBody Account account) {
+---------------------------------------
+の場合、
+、レスポンスボディとしてJSON（メディアタイプがapplication/json）を受け取ることができるクライアントがアクセスするとpostAccountメソッドが実行される。
+
+★ リクエストデータの取得
+   → P.222 の 図5.6 が分かりやすい
+
+ - 取得時の注意
+   @PathVariable、@RequestParam、@RequestHeader、@CookieValueのvalue（name）属性を省略する場合、
+   -gオプション（デバッグ情報を出力するモード）またはJava SE 8から追加された-parametersオプション（メ
+   ソッドまたはパラメータにリフレクション用のメタデータを生成するモード）のどちらかのコンパイルオプショ
+   ンを有効にする必要があります。
+
+
+★ バインディング処理のカスタマイズ（WebDataBinder）
+ - まず 
+  --------------------------------------------
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+  --------------------------------------------
+ - で、
+  --------------------------------------------
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+    binder.addCustomFormatter(new DateFormatter("yyyyMMdd"));
+  }
+ --------------------------------------------
+ 
+
+★ アノテーションを使用したフォーマットの指定
+ --------------------------------------------
+@DateTimeFormat(pattern = "yyyyMMdd")
+ private Date dateOfBirth;
+ --------------------------------------------
+
+//==========================================================================================================
+// 5.6 フォームクラスの実装
+//==========================================================================================================
+★ フォームオブジェクトのスコープ
+ - リクエストスコープ
+   - 単にModelにオブジェクトを格納するだけ
+   - 画面遷移する際にフォームデータを<input type="hidden">を使って引き回す必要がある
+ - フラッシュスコープ
+   - 画面遷移をリダイレクトで行う際でも、遷移先に値を渡すための値のスコープ。
+   - 
+ - セッションスコープ
+ 　- @SessionAttributes(types = echoForm.class)
+ 
+★　シンプル型のコレクションとのバインディング
+----------------------
+<input type="checkbox" name="roles" value="1"> 利用者
+<input type="checkbox" name="roles" value="2"> 承認者
+<input type="checkbox" name="roles" value="3"> システム管理者
+----------------------
+の場合に、formで
+List<String> roles;
+となる。
+
+★ ネストしたJavaBeansとのバインディング
 
 
 
 
+//==========================================================================================================
 ★ とりあえずメモ
  - Spring 4.0よりWebSocketの連携モジュールが提供されている
  - Spring 4.2からは、Spring MVCの仕組みを使用したSSE（Server-Sent Events）がサポート

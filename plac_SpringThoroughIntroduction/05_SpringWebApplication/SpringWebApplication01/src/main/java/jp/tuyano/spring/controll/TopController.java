@@ -1,6 +1,7 @@
 package jp.tuyano.spring.controll;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -8,11 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.tuyano.spring.form.AccountCreateForm;
 import jp.tuyano.spring.form.ProductForm;
 import jp.tuyano.spring.form.echoForm;
 
 @Controller
+//@SessionAttributes(types = echoForm.class)
 public class TopController {
 
 //	@Autowired
@@ -27,14 +31,33 @@ public class TopController {
 ////		request.getRequestDispatcher("/index.jsp").forward(request, response);
 //        return "/index";
 //    }
+
+//	/**
+//	 * model.addAttribute(new AccountCreateForm());でなければこれでもよい。
+//	 * @return
+//	 */
+//	@ModelAttribute
+//	public AccountCreateForm setUpForm() {
+//		return new AccountCreateForm();
+//	}
 	
+//	/**
+//	 * 
+//	 * @param model
+//	 * @return
+//	 */
+//	@RequestMapping("create")
+//	public String form(Model model) {
+//		model.addAttribute(new AccountCreateForm());
+//		return "account/createForm";
+//	}
 	/**
 	 * トップ画面
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = { RequestMethod.GET})
-    public String index(@ModelAttribute("echoForm") echoForm form, Model model) {
+    public String index(@ModelAttribute("echoForm") echoForm form, Model model, RedirectAttributes attr) {
 		form.setText("本システムを利用するにあたり、まず<b>ご利用規約の同意</b>を行ってください。");
 		form.setRemark("");
 		form.setSize("M");
@@ -47,8 +70,14 @@ public class TopController {
 		products.add(new ProductForm("berry", 398, 0));
 		model.addAttribute("products", products);
 
-//		ProductForm product = new ProductForm("lemon", 100, 10);
+		// 初期化して渡す
+		model.addAttribute(new AccountCreateForm("name","tel",new Date(),"email@email.com"));
+
+		//		ProductForm product = new ProductForm("lemon", 100, 10);
 //		model.addAttribute("productForm", product);
+
+		// フラッシュスコープ：遷移先画面に渡したい値を追加
+		//attr.addFlashAttribute("message", "メールを送信しました。");  
 		
 		return "/index";
     }
