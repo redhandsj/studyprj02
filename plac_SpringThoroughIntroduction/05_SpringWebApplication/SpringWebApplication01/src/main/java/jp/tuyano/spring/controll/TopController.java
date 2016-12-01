@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,6 +56,17 @@ public class TopController {
 //		model.addAttribute(new AccountCreateForm());
 //		return "account/createForm";
 //	}
+
+
+	/**
+	 *「未入力は許容するが、入力された場合は6文字以上であること」という要件を満たすための処理
+	 * @param binder
+	 */
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		// コンストラクタ引数にtrue（空文字をnullへ変換する）を指定してStringTrimmerEditorのインスタンスを作成
+		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+	}
 	/**
 	 * トップ画面
 	 * @param model
@@ -61,7 +77,7 @@ public class TopController {
 		form.setText("本システムを利用するにあたり、まず<b>ご利用規約の同意</b>を行ってください。");
 		form.setRemark("");
 		form.setSize("M");
-		
+
 		List<ProductForm> products = new ArrayList<ProductForm>();
 		products.add(new ProductForm("lemon", 100, 10));
 		products.add(new ProductForm("apple", 500, 20));
@@ -78,6 +94,8 @@ public class TopController {
 
 		// フラッシュスコープ：遷移先画面に渡したい値を追加
 		//attr.addFlashAttribute("message", "メールを送信しました。");  
+
+		
 		
 		return "/index";
     }
@@ -98,7 +116,12 @@ public class TopController {
 	 * @return
 	 */
 	@RequestMapping(value = "/echo/output", method = { RequestMethod.POST })
-    public String output(@ModelAttribute("echoForm") echoForm form, Model model) {
+    public String output(@ModelAttribute("echoForm") @Validated echoForm form, BindingResult result, Model model) {
+		// 入力チェックエラー
+		if (result.hasErrors()) {
+			// エラーの場合は戻る
+			 return "/echo/input";
+		}
 		return "/echo/output";
 	}
 

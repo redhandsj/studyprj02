@@ -1,7 +1,9 @@
 package jp.tuyano.spring.form;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +29,21 @@ public class AccountCreateForm implements Serializable {
 	@Size(min = 9, max = 256)
 	private String email;
 
+	private AccountForm account;
+	private CardForm card; 
+
+	private List<CardForm> cardList; 
+
+	public List<CardForm> getCardList() {
+		return cardList;
+	}
+
+
+	public void setCardList(List<CardForm> cardList) {
+		this.cardList = cardList;
+	}
+
+
 	/**
 	 * 初期化コンストラクタ
 	 * @param name
@@ -40,6 +57,12 @@ public class AccountCreateForm implements Serializable {
 		this.tel = tel;
 		this.dateOfBirth = dateOfBirth;
 		this.email = email;
+		this.account = new AccountForm("aaaaaaaaaaaaaaaaa","sssssssssssssss");
+		this.card = new CardForm("99999999999999",new Date());
+		this.cardList = new ArrayList<CardForm>();
+		cardList.add(new CardForm("10000000000",new Date()));
+		cardList.add(new CardForm("20000000000",new Date()));
+
 	}
 	
 	
@@ -73,6 +96,18 @@ public class AccountCreateForm implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public AccountForm getAccount() {
+		return account;
+	}
+	public void setAccount(AccountForm account) {
+		this.account = account;
+	}
+	public CardForm getCard() {
+		return card;
+	}
+	public void setCard(CardForm card) {
+		this.card = card;
 	}
 
 }

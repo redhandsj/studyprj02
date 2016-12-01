@@ -2,8 +2,11 @@ package jp.tuyano.spring.form;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Size;
+
 public class echoForm implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@Size(min = 9, max = 10)
 	private String text;
 	private String remark;
 	private String size;
