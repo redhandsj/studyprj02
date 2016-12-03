@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.tuyano.spring.form.AccountCreateForm;
 import jp.tuyano.spring.form.ProductForm;
-import jp.tuyano.spring.form.echoForm;
+import jp.tuyano.spring.form.EchoForm;
 
 @Controller
 //@SessionAttributes(types = echoForm.class)
@@ -73,7 +73,7 @@ public class TopController {
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = { RequestMethod.GET})
-    public String index(@ModelAttribute("echoForm") echoForm form, Model model, RedirectAttributes attr) {
+    public String index(@ModelAttribute("echoForm") EchoForm form, Model model, RedirectAttributes attr) {
 		form.setText("本システムを利用するにあたり、まず<b>ご利用規約の同意</b>を行ってください。");
 		form.setRemark("");
 		form.setSize("M");
@@ -106,7 +106,7 @@ public class TopController {
 	 * @return
 	 */
 	@RequestMapping(value = "/echo/input", method = { RequestMethod.GET})
-    public String input(@ModelAttribute("echoForm") echoForm form, Model model) {
+    public String input(@ModelAttribute("echoForm") EchoForm form, Model model) {
 		return "/echo/input";
     }
 
@@ -116,7 +116,7 @@ public class TopController {
 	 * @return
 	 */
 	@RequestMapping(value = "/echo/output", method = { RequestMethod.POST })
-    public String output(@ModelAttribute("echoForm") @Validated echoForm form, BindingResult result, Model model) {
+    public String output(@ModelAttribute("echoForm") @Validated EchoForm form, BindingResult result, Model model) {
 		// 入力チェックエラー
 		if (result.hasErrors()) {
 			// エラーの場合は戻る

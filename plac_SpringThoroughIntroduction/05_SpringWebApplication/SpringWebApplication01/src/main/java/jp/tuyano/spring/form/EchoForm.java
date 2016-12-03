@@ -2,12 +2,18 @@ package jp.tuyano.spring.form;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
-public class echoForm implements Serializable {
+import org.springframework.context.annotation.PropertySource;
+
+@PropertySource(value = {"classpath:spring/application-messages.properties"})
+public class EchoForm implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@Size(min = 9, max = 10)
+	//@Size(min = 9, max = 10)
+	//@AlphaNumeric
+	@NotNull(message = "{NotNull.name}")
 	private String text;
+
 	private String remark;
 	private String size;
 
