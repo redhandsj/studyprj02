@@ -8,6 +8,7 @@
 <h2>Hello World!</h2>
 <ul>
   <li><a href="./echo/input.html" th:href="@{/echo/input}" >エコーアプリケーションへ</a></li>
+  <li><a href="./tests/test001.html" th:href="@{/tests/test001}" >テスト用画面へ</a></li>
 </ul>
 
 <!-- 属性値に指定した値をXHTMLサニタイジングして出力する -->
@@ -116,9 +117,15 @@
 <span th:text="*{accountCreateForm.cardList[1].no}"></span><br/>
 <span th:text="*{accountCreateForm.cardList[1].validMonth}"></span><br/>
 
+<!--====================================================================================================-->
+<hr/>
+<h3>setString</h3> 
+<span th:text="*{setString}"></span><br/>
 
-<br/>
-<br/>
-<br/>
+
+
+
+<!--====================================================================================================-->
+<br/><br/><br/>
 </body>
 </html>

@@ -99,28 +99,79 @@ public class TopController {
 		
 		return "/index";
     }
+	/**
+	 * 
+	 * @return
+	 */
+	@ModelAttribute("setString") // ←メソッドの戻り値をModelに追加
+	private String setString() {
+		return "call setString method!!!!!!";
+	}
 
+	/*****************************************************************************************************************/
+	/**
+	 * テスト用画面 001
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/tests/test001", method = { RequestMethod.GET})
+	public String test001(@ModelAttribute("echoForm") EchoForm form) {
+		return "/tests/test001";
+	}
+	/**
+	 * テスト用画面 002
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/tests/test002", method = { RequestMethod.GET})
+	public String test002(@ModelAttribute("echoForm") EchoForm form) {
+		//return "/tests/test002";
+		// パラメーラが「003」なので、test003メソッドへ飛ぶ
+		return "redirect:/tests/test?003";
+	}
+	/**
+	 * テスト用画面 003
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/tests/test", method = { RequestMethod.GET}, params="003")
+	public String test003(@ModelAttribute("echoForm") EchoForm form) {
+		return "/tests/test003";
+	}
+
+	
+	
+	/*****************************************************************************************************************/
 	/**
 	 * インプット画面
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/echo/input", method = { RequestMethod.GET})
-    public String input(@ModelAttribute("echoForm") EchoForm form, Model model) {
+	@RequestMapping(value = "/echo/input", method = { RequestMethod.GET , RequestMethod.POST })
+    public String input(@ModelAttribute("echoForm") EchoForm form) {
 		return "/echo/input";
     }
-
+	/*****************************************************************************************************************/
 	/**
 	 * アウトプット画面
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/echo/output", method = { RequestMethod.POST })
-    public String output(@ModelAttribute("echoForm") @Validated EchoForm form, BindingResult result, Model model) {
+    public String output(@ModelAttribute("echoForm") @Validated EchoForm form, BindingResult result, RedirectAttributes redirectAttributes) {
 		// 入力チェックエラー
 		if (result.hasErrors()) {
 			// エラーの場合は戻る
-			 return "/echo/input";
+			// TODO リダイレクトの場合は、クライアントに一度戻るので、リクエスト情報が消える → エラー情報が表示されない
+			// return "redirect:/echo/input";
+			// TODO リダイレクトでリクエスト情報を渡すには以下のようにする
+//			redirectAttributes.addAttribute("aaaaaaaaaa","aaaaaaaaaa"); 
+//			return "redirect:/echo/input";
+			// TODO リダイレクト先のURL内にパス変数を用意する。上記の例では、URL内の{accountId}の部分がパス変数
+//			redirectAttributes.addAttribute("accountId", "aaaa");
+//			 return "redirect:/account/{accountId}?createComplete"; 
+			// TODO フォワードだが、フォワード先にはPOST指定する必要がある
+			return "forward:/echo/input";
 		}
 		return "/echo/output";
 	}

@@ -11,7 +11,7 @@ public class EchoForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 	//@Size(min = 9, max = 10)
 	//@AlphaNumeric
-	@NotNull(message = "{NotNull.name}")
+	@NotNull(message = "何か入力してください。")
 	private String text;
 
 	private String remark;
