@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+<h2>Hello World!</h2>
+<ul>
+  <li><a href="./echo/input.html" th:href="@{/echo/input}" >エコーアプリケーションへ</a></li>
+  <li><a href="./tests/test001.html" th:href="@{/tests/test001}" >テスト用画面へ</a></li>
+</ul>
+
+<!-- 属性値に指定した値をXHTMLサニタイジングして出力する -->
+<span th:text="*{echoForm.text}"><b>ご利用規約へ同意</b>が必要です。</span><br/>
+
+<!-- 属性値に指定した値をXHTMLサニタイジングせずに出力する -->
+<span th:utext="*{echoForm.text}"><b>ご利用規約へ同意</b>が必要です。</span><br/>
+
+<!--====================================================================================================-->
+<hr/>
+<!-- 条件 -->
+<h2>条件（if）</h2>
+<div th:if="${not #strings.isEmpty(echoForm.text)}"> 
+<label>備考</label>
+<span th:text="*{echoForm.remark}">備考が入力されていれば表示</span>
+</div>
+
+<!--====================================================================================================-->
+<hr/>
+<h2>条件（switch）</h2>
+<div th:switch="*{echoForm.size}">
+<label>部屋のサイズ</label>
+<span th:case="'L'">大</span>
+<span th:case="'M'">中</span>
+<span th:case="'S'">小</span>
+<span th:case="*">不明</span>
+</div>
+
+<!--====================================================================================================-->
+<hr/>
+<h2>繰り返し</h2>
+<table>
+	<tr>
+		<th>No</th><th>名前</th><th>価格</th><th>在庫</th>
+	</tr>
+	<tr th:each="prod : ${products}">
+		<td th:text="${prodStat.count}">1</td>
+		<td th:text="${prod.name}">Tomato</td>
+		<td th:text="${prod.price}">498</td>
+		<td th:text="${prod.stock == 0 ? '売り切れ' : prod.stock}">10</td>
+	</tr>
+</table>
+
+<!--====================================================================================================-->
+<hr/>
+<!-- 
+このブロックはThymeleafの処理後もテンプレートに残ります。
+ -->
+<span>コメントの記述方法</span>
+
+<!--/*
+ <div>
+ このブロックはThymeleafの処理時に削除されます。
+</div>
+*/-->
+
+<!--====================================================================================================-->
+<hr/>
+<!-- ■ConversionServiceとの連携 -->
+<span th:text="${@testForm.basicOneDayCost}">1300</span>円<br/>
+<span th:text="${{@testForm.basicOneDayCost}}">1300</span>円
+
+<!--====================================================================================================-->
+<hr/>
+<h2>テンプレートフラグメントA （th:include + frag）</h2>
+<div th:include="parts/footer :: footerA"></div>
+
+<h2>テンプレートフラグメントB （th:include + id）</h2>
+<div th:include="parts/footer :: footerB"></div> 
+
+
+<!--====================================================================================================-->
+<hr/>
+<h2>th:include と th:replace の違い</h2>
+<div th:include="parts/footer :: footerA"></div>
+<div th:replace="parts/footer :: footerA"></div> 
+
+
+<!--====================================================================================================-->
+<hr/>
+<!-- ログイン名を見るとしたらこれ -->
+<!--  <td><span th:text="${#authentication.principal.username}"></span></td> -->
+ 
+<!--====================================================================================================-->
+<hr/>
+<h3>accountCreateForm</h3> 
+<span th:text="*{accountCreateForm.name}"></span><br/>
+<span th:text="*{accountCreateForm.tel}"></span><br/>
+<span th:text="*{accountCreateForm.dateOfBirth}"></span><br/>
+<span th:text="*{accountCreateForm.email}"></span><br/>
+<!--====================================================================================================-->
+<hr/>
+<h3>accountCreateForm.account</h3> 
+<span th:text="*{accountCreateForm.account.name}"></span><br/>
+<span th:text="*{accountCreateForm.account.email}"></span><br/>
+
+<h3>accountCreateForm.card</h3> 
+<span th:text="*{accountCreateForm.card.no}"></span><br/>
+<span th:text="*{accountCreateForm.card.validMonth}"></span><br/>
+
+<h3>accountCreateForm.cardList[0]</h3>
+<span th:text="*{accountCreateForm.cardList[0].no}"></span><br/>
+<span th:text="*{accountCreateForm.cardList[0].validMonth}"></span><br/>
+
+<h3>accountCreateForm.cardList[1]</h3>
+<span th:text="*{accountCreateForm.cardList[1].no}"></span><br/>
+<span th:text="*{accountCreateForm.cardList[1].validMonth}"></span><br/>
+
+<!--====================================================================================================-->
+<hr/>
+<h3>setString</h3> 
+<span th:text="*{setString}"></span><br/>
+
+
+
+
+<!--====================================================================================================-->
+<br/><br/><br/>
+</body>
+</html>

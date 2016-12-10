@@ -332,7 +332,11 @@ public void configureViewResolvers(ViewResolverRegistry registry) {
    - ServletException（またはServletExceptionのサブクラス）やjava.lang.Exceptionに対するエラーページの定義を行なった場合は、原因例外による遷移先の指定はできません。
 
 ★ Spring MVCの例外ハンドラの利用
- - 
+ - HandlerExceptionResolver
+   (1) ExceptionHandlerExceptionResolver
+   (2) ResponseStatusExceptionResolver
+   (3) DefaultHandlerExceptionResolver
+       → (P.303)表 5.64　デフォルトで適用される HandlerExceptionResolver の実装クラス
 
 
  
