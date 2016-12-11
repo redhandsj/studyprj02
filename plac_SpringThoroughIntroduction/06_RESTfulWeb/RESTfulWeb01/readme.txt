@@ -2,7 +2,7 @@
 // Spring徹底入門SpringFrameworkによるJavaアプリケーション開発.pdf
 //==========================================================================================================
  - (CHAPTER 06) RESTful Webサービスの開発(P.307 - 360)
-しおり　：　P.329 -- 検索条件なしで検索した場合のレスポンス例
+しおり　：　P.341 -- 6.5 例外ハンドリング
 URL　:
  - http://localhost:8080/RESTfulWeb01/
 
@@ -56,18 +56,22 @@ REST用URL
 
 ★ Controllerクラスの作成
  - 
-
-
 G:\tools\dev\curl-7.51.0-win64-mingw\bin\curl --help
+C:\00\tools\curl-7.51.0-win64-mingw\bin\curl --help
+
 
 ★ 作成
 G:\tools\dev\curl-7.51.0-win64-mingw\bin\curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d "{\"name\":\"Spring\",\"publishedDate\":\"2016-04-01\"}" http://localhost:8080/RESTfulWeb01/books/create
+C:\00\tools\curl-7.51.0-win64-mingw\bin\curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d "{\"name\":\"Spring\",\"publishedDate\":\"2016-04-01\"}" http://localhost:8080/RESTfulWeb01/books/create
+
 
 ★ 更新
 G:\tools\dev\curl-7.51.0-win64-mingw\bin\curl -D - -H "Content-type: application/json" -X PUT -d "{\"bookId\":\"00000000-0000-0000-0000-000000000000\",\"name\":\"ABCDEFG\",\"publishedDate\":\"2016-07-31\"}" http://localhost:8080/RESTfulWeb01/books/00000000-0000-0000-0000-000000000000
+C:\00\tools\curl-7.51.0-win64-mingw\bin\curl -D - -H "Content-type: application/json" -X PUT -d "{\"bookId\":\"00000000-0000-0000-0000-000000000000\",\"name\":\"ABCDEFG\",\"publishedDate\":\"2016-07-31\"}" http://localhost:8080/RESTfulWeb01/books/00000000-0000-0000-0000-000000000000
 
 ★ 削除
 G:\tools\dev\curl-7.51.0-win64-mingw\bin\curl -D - -X DELETE http://localhost:8080/RESTfulWeb01/books/00000000-0000-0000-0000-000000000000
+C:\00\tools\curl-7.51.0-win64-mingw\bin\curl -D - -X DELETE http://localhost:8080/RESTfulWeb01/books/00000000-0000-0000-0000-000000000000
 
 
 {
@@ -85,6 +89,33 @@ G:\tools\dev\curl-7.51.0-win64-mingw\bin\curl -D - -H "Content-type: application
 
 http://localhost:8080/RESTfulWeb01/books/00000000-0000-0000-0000-000000000000
 
+
+★ CORS(Cross-Origin Resource Sharing)のサポート
+ - Webページの中からAJAX（XMLHttpRequest）を使って「別ドメインのサーバーのリソ
+   ース（JSONなど）」にアクセスできるようにするための仕組み
+ - (P.332) 表 6.6 CORS 機能のオプションを指定する Java Config のメソッド
+
+
+★ URIの組み立て
+ - UriComponentsBuilderを利用したURIの生成
+   - プロトコル、ホスト名、ポート番号、コンテキストパスといった環境依存する部分の隠ぺい
+   - URIテンプレートを使用したURIの組み立て
+ - MvcUriComponentsBuilderを利用したURIの生成
+   - 作成するURI（URIテンプレート）を意識する必要がなくなる
+   - タイプセーフな実装となる
+ - 
+
+
+//==========================================================================================================
+// 6.4 リソースクラスの実装
+//==========================================================================================================
+★ Jacksonの機能を使用したフォーマットの制御
+ - 
+
+
+//==========================================================================================================
+// 6.5 例外ハンドリング
+//==========================================================================================================
 
 
 

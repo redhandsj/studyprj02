@@ -9,8 +9,12 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
 
 @Configuration
 @EnableWebMvc
@@ -30,6 +34,26 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		converters.add(0, mappingJackson2HttpMessageConverter());
 	}
 
+	/**
+	 * Jackson2ObjectMapperBuilder設定
+	 * @return 設定結果
+	 */
+	@Bean
+	ObjectMapper objectMapper() {
+		return Jackson2ObjectMapperBuilder.json()
+				.indentOutput(true) // JSONにインデントを設ける
+				.dateFormat(new StdDateFormat()) // ISO 8601の日時形式をサポート
+				.build();
+	}
+	
+	/**
+	 * CORS機能を適用するパスを指定する
+	 */
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/api/**");
+	}
+	
 //	@Override
 //	public void configureViewResolvers(ViewResolverRegistry registry){
 //		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
