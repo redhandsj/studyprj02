@@ -2,7 +2,7 @@
 // Spring徹底入門SpringFrameworkによるJavaアプリケーション開発.pdf
 //==========================================================================================================
  - (CHAPTER 06) RESTful Webサービスの開発(P.307 - 360)
-しおり　：　P.341 -- 6.5 例外ハンドリング
+しおり　：　P.354 -- 6.6.2 RestTemplateのセットアップ
 URL　:
  - http://localhost:8080/RESTfulWeb01/
 
@@ -116,14 +116,82 @@ http://localhost:8080/RESTfulWeb01/books/00000000-0000-0000-0000-000000000000
 //==========================================================================================================
 // 6.5 例外ハンドリング
 //==========================================================================================================
+※ うまく動かないので、飛ばす
+★ REST APIのエラー応答
+ - 
 
+
+
+//==========================================================================================================
+// 6.6 RESTクライアントの実装
+//==========================================================================================================
+★ JavaアプリケーションからREST APIにアクセスする方法
+ - サードパーティ製のHTTPクライアント用のライブラリを使用する
+ - JDK 1.1から追加されたjava.net.HttpURLConnectionクラスを使用する
+
+★ RestTemplate
+ - アプリケーションは、RestTemplateのメソッドを呼び出してREST APIの呼び出し依頼を行なう
+ - 
+
+
+
+★ RestTemplateを構成するコンポーネント
+ - org.springframework.http.converter.HttpMessageConverter
+   - HTTPのボディ部のメッセージとJavaBeansを相互に変換するためのインターフェイス
+ - org.springframework.http.client.ClientHttpRequestFactory
+   - リクエストを送信するオブジェクトを（org.springframework.http.client.ClientHttpRequestインターフェイスを実装したクラスのオブジェクト）を生成するためのインターフェイス
+ - org.springframework.http.client.ClientHttpRequestInterceptor
+   - HTTP通信の前後に共通処理を組み込むためのインターフェイス
+ - org.springframework.web.client.ResponseErrorHandler
+   - エラー応答の判定とエラー時の処理を実装するためのインターフェイス
 
 
 
 
 
 //==========================================================================================================
-★ とりあえずメモ
+// 問題
+//==========================================================================================================
+★ 例外ハンドラが動かない
+
+
+★ ラムダ式を使ってコンパイルすると起動時にエラーとなる
+
+
+
+
+//==========================================================================================================
+// 未整頓メモ
+//==========================================================================================================
+/RESTfulWeb01/src/main/java/jp/tuyano/spring/exception/GlobalExceptionHandler.java
+//@ControllerAdvice
+//public class GlobalExceptionHandler {
+//
+//	/**
+//	 * 共通エラーメソッド
+//	 * @param e
+//	 * @return
+//	 */
+//	@ExceptionHandler
+//	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//	public String handleException(Exception e) {
+//		System.out.println("★★★★★★★★★★★★");
+//		System.out.println(e.getMessage());
+//		return "error/systemError";
+//	}
+//
+//}
+
+/RESTfulWeb01/src/main/java/jp/tuyano/spring/exception/BookResourceNotFoundException.java
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class BookResourceNotFoundException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
+
+	public BookResourceNotFoundException(String bookId) {
+		super("Book is not found (bookId = " + bookId + ")");
+	}
+}
 
 
 

@@ -22,7 +22,6 @@ import jp.tuyano.spring.domain.resource.BookResource;
 import jp.tuyano.spring.domain.resource.criteria.BookCriteria;
 import jp.tuyano.spring.domain.resource.query.BookResourceQuery;
 import jp.tuyano.spring.domain.service.BookService;
-import jp.tuyano.spring.exception.BookResourceNotFoundException;
 
 @CrossOrigin
 @RestController
@@ -31,7 +30,7 @@ public class BooksRestController {
 
 	@Autowired
 	BookService bookService;
-
+	
 	/**
 	 * リソースアクセス用
 	 * @param bookId アクセス用ID
@@ -41,10 +40,10 @@ public class BooksRestController {
 	@RequestMapping(path = "{bookId}", method = RequestMethod.GET)
 	public BookResource getBook(@PathVariable String bookId) {
 		Book book = bookService.find(bookId);
-		if (book == null) {
-			// 書籍情報がない場合は例外をスローする
-			throw new BookResourceNotFoundException(bookId);
-		}
+//		if (book == null) {
+//			// 書籍情報がない場合は例外をスローする
+//			throw new BookResourceNotFoundException(bookId);
+//		}
 		BookResource resource = new BookResource();
 		resource.setBookId(book.getBookId());
 		resource.setName(book.getName());
