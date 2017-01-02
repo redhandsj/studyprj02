@@ -94,13 +94,21 @@ public class JpaConfig {
 		// JpaVendorAdapterを指定
 		factory.setJpaVendorAdapter(this.jpaVendorAdapter());
 		Properties jpaProperties = new Properties();
-		// NamingStrategy設定
-		jpaProperties.put("hibernate.ejb.naming_strategy","org.hibernate.cfg.ImprovedNamingStrategy");
+		// NamingStrategy設定(ver 4)
+		//jpaProperties.put("hibernate.ejb.naming_strategy","org.hibernate.cfg.ImprovedNamingStrategy");
+		// NamingStrategy設定(ver 5)
+		jpaProperties.put("hibernate.physical_naming_strategy","jp.tuyano.spring.domain.PhysicalNamingStrategyImpl");
 		// generated ddl 設定
-		jpaProperties.put("hibernate.ddl-auto", "create");
-		jpaProperties.put("generate-ddl", "true");
-		jpaProperties.put("hibernate.dialect","org.hibernate.dialect.MySQL5Dialect");
-
+//		jpaProperties.put("hibernate.ddl-auto", "create");
+//		jpaProperties.put("generate-ddl", "true");
+//		jpaProperties.put("hibernate.show_sql", "true");
+//		jpaProperties.put("hibernate.format_sql", "true");
+//		jpaProperties.put("hibernate.hbm2ddl.export", "true");
+//		jpaProperties.put("hibernate.hbm2ddl.delimiter", ";");
+//		jpaProperties.put("hibernate.hbm2ddl.outputfilename", "versioning-ddl.sql");		
+//		jpaProperties.put("hibernate.hbm2ddl.format", "true");		
+//		jpaProperties.put("hibernate.dialect","org.hibernate.dialect.MySQL5Dialect");
+//		jpaProperties.put("hibernate.dialect","org.hibernate.dialect.H2Dialect");
 		factory.setJpaProperties(jpaProperties);
 		factory.afterPropertiesSet();
 		

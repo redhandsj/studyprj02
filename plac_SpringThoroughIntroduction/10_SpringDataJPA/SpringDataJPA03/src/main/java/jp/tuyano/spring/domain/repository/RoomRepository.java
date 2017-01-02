@@ -9,7 +9,7 @@ import jp.tuyano.spring.domain.model.Room;
  * 拡張リポジトリ
  */
 @Repository
-public interface RoomRepository extends JpaRepository<Room, Integer> {
+public interface RoomRepository extends JpaRepository<Room, Long> {
 
 //	/**
 //	 * 全件検索

@@ -7,8 +7,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -41,9 +41,9 @@ public class Room implements Serializable{
 	 * ルームナンバー
 	 */
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//@Column(name="room_id")
-	private Integer roomId;
+	private Long roomId;
 	
 	/**
 	 * 部屋名
@@ -100,6 +100,16 @@ public class Room implements Serializable{
 //		this.roomName = name;
 //		this.setCapacity(capacity);
 //	}
+	/**
+	 * コンストラクタ
+	 * @param name 部屋名
+	 * @param capacity 広さ
+	 */
+	public Room(final String name, final Integer capacity) {
+		this();
+		this.roomName = name;
+		this.setCapacity(capacity);
+	}
 
 	//=======================================================================
 	// setter / getter → Lombok

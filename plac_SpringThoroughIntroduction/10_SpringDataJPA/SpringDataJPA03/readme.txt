@@ -68,6 +68,69 @@ URL　:　 http://localhost:8080/SpringDataJPA03/web
 // 未整頓メモ
 //==========================================================================================================
 
+★ MavenでJPAのエンティティからDDLファイルをエクスポートする
+https://blog.ik.am/entries/258
+
+
+★ pom.xml
+  <!-- create DDL処理 -->
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <!-- Hibernatetool will generate everything before running tests -->
+            <phase>install</phase>
+            <configuration>
+              <target>
+                <echo message="[gen-ddl] start!"/>
+                <property name="maven_compile_classpath" refid="maven.compile.classpath"/>
+                <property name="maven_test_classpath" refid="maven.test.classpath"/>
+                <path id="hibernatetool.path">
+                  <pathelement path="${maven_compile_classpath}"/>
+                  <pathelement path="${maven_test_classpath}"/>
+                </path>
+                <taskdef name="hibernatetool"
+                          classname="org.hibernate.tool.ant.HibernateToolTask"
+                          classpathref="hibernatetool.path"/>
+                <property name="ddl.generated.directory"
+                           value="${project.build.directory}/generated-ddl"/>
+                <mkdir dir="${ddl.generated.directory}"/>
+                <!-- 作成 -->
+                <hibernatetool destdir="${ddl.generated.directory}">
+                  <classpath>
+                    <path location="${project.build.directory}/classes"/>
+                  </classpath>
+                  <jpaconfiguration persistenceunit="gen-ddl"/>
+                  <hbm2ddl export="false" outputfilename="generated-ddl.sql" format="true"/>
+                </hibernatetool>
+                <echo message="[gen-ddl] completed!"/>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+
+
+★ persistence.xml
+  <persistence-unit name="gen-ddl" transaction-type="RESOURCE_LOCAL">
+    <properties>
+    <!--<property name="hibernate.ejb.naming_strategy"-->
+    <!--value="org.springframework.boot.orm.jpa.SpringNamingStrategy"></property>-->
+      <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"></property>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"></property>
+    </properties>
+  </persistence-unit>
+
+
 
 
 //==========================================================================================================

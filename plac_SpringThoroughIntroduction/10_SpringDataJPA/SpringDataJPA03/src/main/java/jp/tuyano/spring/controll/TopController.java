@@ -18,6 +18,10 @@ public class TopController {
 
 	@RequestMapping("/web")
 	public String index(Model model) {
+		Room room = new Room("新しい部屋",100);
+		Room tmproom = roomRepository.save(room);
+		roomRepository.flush();
+		// テーブルの中身表示
 		List<Room> rooms = roomRepository.findAll();
 		model.addAttribute("rooms", rooms);
 		return "index";
