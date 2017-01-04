@@ -26,13 +26,4 @@ public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServ
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
 	}
-
-	/**
-	 * クライアントとの物理的な通信はPOSTメソッドを使用しますが、サーブレットコンテナ内ではリクエストパラメータで
-	 * 送られてきた値に置き換えて処理を行なうことが可能
-	 */
-	@Override
-	protected Filter[] getServletFilters() {
-		return new Filter[] { new HiddenHttpMethodFilter() };
-	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestOperations;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import jp.tuyano.spring.domain.model.Book;
@@ -30,7 +31,7 @@ public class BooksRestController {
 
 	@Autowired
 	BookService bookService;
-	
+
 	/**
 	 * リソースアクセス用
 	 * @param bookId アクセス用ID
@@ -44,6 +45,7 @@ public class BooksRestController {
 //			// 書籍情報がない場合は例外をスローする
 //			throw new BookResourceNotFoundException(bookId);
 //		}
+
 		BookResource resource = new BookResource();
 		resource.setBookId(book.getBookId());
 		resource.setName(book.getName());

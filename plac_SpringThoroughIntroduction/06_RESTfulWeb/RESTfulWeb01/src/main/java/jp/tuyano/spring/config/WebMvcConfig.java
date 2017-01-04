@@ -6,9 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -53,6 +55,23 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/api/**");
 	}
+	
+	/**
+	 * RestTemplateをDIコンテナに登録
+	 * @return RestTemplate
+	 */
+	@Bean
+	RestTemplate restTemplate() {
+		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+		// connectTimeoutプロパティにサーバーとの接続タイムアウト時間（ミリ秒）を設定
+		requestFactory.setConnectTimeout(5000);
+		// readTimeoutプロパティにレスポンスデータの読み込みタイムアウト時間（ミリ秒）を設定
+		requestFactory.setReadTimeout(3000);
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		return restTemplate;
+//		return new RestTemplate();
+	}
+
 	
 //	@Override
 //	public void configureViewResolvers(ViewResolverRegistry registry){

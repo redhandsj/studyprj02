@@ -1,10 +1,19 @@
 package jp.tuyano.spring.controll;
 
+import java.net.URI;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,11 +23,13 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestOperations;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.tuyano.spring.domain.resource.BookResource;
 import jp.tuyano.spring.form.AccountCreateForm;
-import jp.tuyano.spring.form.ProductForm;
 import jp.tuyano.spring.form.EchoForm;
+import jp.tuyano.spring.form.ProductForm;
 
 @Controller
 //@SessionAttributes(types = echoForm.class)
@@ -57,6 +68,8 @@ public class TopController {
 //		return "account/createForm";
 //	}
 
+	@Autowired
+	RestOperations restOperations;
 
 	/**
 	 *「未入力は許容するが、入力された場合は6文字以上であること」という要件を満たすための処理
@@ -91,6 +104,52 @@ public class TopController {
 		// 初期化して渡す
 		model.addAttribute(new AccountCreateForm("name","tel",new Date(),"email@email.com"));
 
+		// URIテンプレートを使用してREST APIを呼び出す実装例
+		String bookId = "00000000-0000-0000-0000-000000000000";
+		// RestTemplate（文字列）
+		String resource1 = restOperations.getForObject(
+				"http://localhost:8080/RESTfulWeb01/books/{bookId}",
+				String.class,
+				bookId);
+		System.out.println(resource1);
+
+		// RestTemplate（専用クラス）
+		BookResource resource2 = restOperations.getForObject(
+				"http://localhost:8080/RESTfulWeb01/books/00000000-0000-0000-0000-000000000000",
+				 BookResource.class);
+		System.out.println(resource2.getName());
+
+		// 作成
+		BookResource resource3 = new BookResource();
+		resource3.setName("Spring徹底入門");
+		resource3.setPublishedDate(LocalDate.of(2016,4,1));
+		URI createdResourceUri = restOperations.postForLocation("http://localhost:8080/RESTfulWeb01/books/create", resource3);
+		System.out.println(createdResourceUri);
+		
+
+		// 作成パターン２：リクエストヘッダーの設定
+		BookResource resource4 = new BookResource();
+		resource4.setName("Spring徹底入門２");
+		resource4.setPublishedDate(LocalDate.of(2016,4,11));
+		RequestEntity<BookResource> requestEntity = RequestEntity
+				.post(URI.create("http://localhost:8080/RESTfulWeb01/books/create"))
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("X-Track-Id", UUID.randomUUID().toString())
+				.body(resource4);
+		ResponseEntity<Void> responseEntity = restOperations.exchange(requestEntity, Void.class);
+
+		
+		// 作成パターン３：HTTPステータスとレスポンスヘッダーの取得
+		BookResource resource5 = new BookResource();
+		resource5.setName("Spring徹底入門２");
+		resource5.setPublishedDate(LocalDate.of(2016,4,11));
+		ResponseEntity<Void> responseEntity2 = restOperations.postForEntity(
+				"http://localhost:8080/RESTfulWeb01/books/create",
+				resource5,
+				Void.class);
+		HttpStatus httpStatus = responseEntity2.getStatusCode();
+		HttpHeaders responseHeaders = responseEntity2.getHeaders();
+		
 		//		ProductForm product = new ProductForm("lemon", 100, 10);
 //		model.addAttribute("productForm", product);
 

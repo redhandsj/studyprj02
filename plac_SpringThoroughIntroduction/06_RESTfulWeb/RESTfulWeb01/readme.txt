@@ -12,6 +12,14 @@ REST用URL
 
 ★ 2016/12/10(土)に、RESTfulWeb01の勉強の為にSpringWebApplication01から派生して作成
 
+
+★ oninputイベント発明
+http://saikyoline.jp/weblog/2005/04/08/013450.html
+
+
+
+
+
 //==========================================================================================================
 // 6.1 REST APIのアーキテクチャ
 //==========================================================================================================
@@ -81,14 +89,20 @@ C:\00\tools\curl-7.51.0-win64-mingw\bin\curl -D - -X DELETE http://localhost:808
 }
 
 
+★
+G:\tools\dev\jq\jq-win64
+
+
+★ 全件表示
+http://localhost:8080/RESTfulWeb01/books/
+
+★ ID指定して表示
+http://localhost:8080/RESTfulWeb01/books/00000000-0000-0000-0000-000000000000
+
 
 
 
 G:\tools\dev\curl-7.51.0-win64-mingw\bin\curl -D - -H "Content-type: application/json" -X POST -d '{"name":"Spring徹底入門","publishedDate":"2016-04-01"}' http://localhost:8080/books
-
-
-http://localhost:8080/RESTfulWeb01/books/00000000-0000-0000-0000-000000000000
-
 
 ★ CORS(Cross-Origin Resource Sharing)のサポート
  - Webページの中からAJAX（XMLHttpRequest）を使って「別ドメインのサーバーのリソ
@@ -146,6 +160,11 @@ http://localhost:8080/RESTfulWeb01/books/00000000-0000-0000-0000-000000000000
    - エラー応答の判定とエラー時の処理を実装するためのインターフェイス
 
 
+★ REST APIの呼び出し
+ - (P.355) 表 6.7 RestTemplate から提供されているメソッド
+
+
+
 
 
 
@@ -163,6 +182,50 @@ http://localhost:8080/RESTfulWeb01/books/00000000-0000-0000-0000-000000000000
 //==========================================================================================================
 // 未整頓メモ
 //==========================================================================================================
+★ Thymeleaf + Javascript
+
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+var jsonData; // JSON格納
+var jsonStr; //  JSON格納（文字列）
+var textValue;  // 作業用のグローバル変数
+/*<![CDATA[*/
+// ロード時に範囲を取得する
+$(function() {
+	var url = /*[[ @{/getresource/pullout/} ]]*/ 'dummy';
+	var bankId = /*[[ ${bank.bankId} ]]*/ 'dummy';
+	//alert('url  = ' + url + bankId);
+	$.getJSON(url + bankId, function(json) {
+		// 成功時の処理
+		jsonData = json;
+		jsonStr = JSON.stringify(json);
+		alert('jsonStr = ' + jsonStr);
+		alert('data[pulloutCommisions] = ' + jsonData["pulloutCommisions"]);
+		alert('data[pulloutCommisions].length = ' + jsonData["pulloutCommisions"].length);
+		alert('data[pulloutCommisions][0][lowerLimit]' + jsonData["pulloutCommisions"][0]["lowerLimit"]);
+		alert('data[pulloutCommisions][0][upperLimit]' + jsonData["pulloutCommisions"][0]["upperLimit"]);
+		alert('data[pulloutCommisions][0][commision]' + jsonData["pulloutCommisions"][0]["commision"]);
+		return;
+	});
+});
+/*]]>*/
+
+function showCommision(keyCode, value) {
+	// テキストが変更されていなかったら処理をしない
+	if (textValue == value) { return; }
+	// 以下処理
+	//alert('(#commisiontext).txt = ' + $('#commisiontext').text);
+	//alert(data["pulloutCommisions"]);
+	
+	$('#commisiontext').text(value);
+	//alert('textValue = ' + textValue + ' / value = ' + value);
+	return;
+}
+</script>
+
+
+
+
 /RESTfulWeb01/src/main/java/jp/tuyano/spring/exception/GlobalExceptionHandler.java
 //@ControllerAdvice
 //public class GlobalExceptionHandler {

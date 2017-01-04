@@ -176,7 +176,19 @@
       <artifactId>hibernate-validator</artifactId>
       <version>5.1.0.Final</version>
     </dependency>
+
+    <!-- ResrTemplateのセットアップ -->
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>4.3.4.RELEASE</version>
+    </dependency>
+
   </dependencies>
+  
+  
+  
   
   <build>
     <plugins>
