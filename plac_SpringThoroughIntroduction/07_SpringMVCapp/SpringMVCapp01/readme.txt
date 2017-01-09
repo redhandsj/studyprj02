@@ -12,7 +12,19 @@ URL　:　 http://localhost:8080/SpringMVCapp01/web
 //==========================================================================================================
 ★ セッション利用の方法
  - セッション属性の（@SessionAttributes）利用
+   - 同じコントロール上でのデータ共有
+   - @SessionAttributes(types = TopForm.class)
+   - @Validated TopForm form
+   - 以下のnewを作成
+     	@ModelAttribute("topForm")
+	    public TopForm setUpTopForm(){
+		    return new TopForm();    
+	    }
+
  - セッションスコープのBean
+   
+
+
  - HttpSessionのAPIの利用
 
 

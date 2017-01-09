@@ -3,7 +3,7 @@
 <head>
 <title>トップ画面</title>
 <meta charset="utf-8"/>
-<script type="text/javascript" src="/staic/js/common.js" th:src="@{/static/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/common.js}"></script>
 </head>
 <body>
 <h1>部屋テーブル</h1>
@@ -15,8 +15,9 @@
   </tr>
 </table>
 <p>
-<form role="form" action="#" th:action="@{/web2}" th:object="${topForm}" method="post">	
-  <input type="button" value="テスト" onclick="submitAction(this,'web2', 'post');"/>
+<form role="form" action="#" th:action="@{/second2}" th:object="${topForm}" method="post">	
+  <div th:text="*{id}">100</div>
+  <input type="button" value="テスト" onclick="submitAction(this,'second2', 'post');"/>
 </form>
 </body>
 </html>

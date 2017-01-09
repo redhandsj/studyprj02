@@ -17,27 +17,26 @@ import jp.tuyano.spring.form.TopForm;
 
 @Controller
 @SessionAttributes(types = TopForm.class)
-public class TopController {
+public class SecondController {
 
 	@Autowired
 	RoomRepository roomRepository;
 
-	@RequestMapping("/web")
+	@RequestMapping("/second")
 	public String index(@Validated TopForm form, Model model) {
 		roomRepository.saveAndFlush(new Room("新しい部屋",100));
 		// テーブルの中身表示
 		List<Room> rooms = roomRepository.findAll();
 		model.addAttribute("rooms", rooms);
-		//form.setId("web");
 		return "index";
 	}
 	
-	@RequestMapping(path = "/web2", method = RequestMethod.POST)
+	@RequestMapping(path = "/second2", method = RequestMethod.POST)
 	public String index2(@Validated TopForm form, Model model) {
 		// テーブルの中身表示
 		List<Room> rooms = roomRepository.findAll();
 		model.addAttribute("rooms", rooms);
-		form.setId("web2");
+		form.setId("second2");
 		return "index2";
 	}
 
