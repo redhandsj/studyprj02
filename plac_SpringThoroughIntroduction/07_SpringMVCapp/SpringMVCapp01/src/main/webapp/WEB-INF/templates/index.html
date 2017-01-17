@@ -19,5 +19,8 @@
   <div th:text="*{id}">100</div>
   <input type="button" value="テスト" onclick="submitAction(this,'second2', 'post');"/>
 </form>
+<form role="form" action="#" th:action="@{/second2}" th:object="${sessionScopeForm}" method="post">	
+  <div th:text="${form.id}">100</div>
+</form>
 </body>
 </html>

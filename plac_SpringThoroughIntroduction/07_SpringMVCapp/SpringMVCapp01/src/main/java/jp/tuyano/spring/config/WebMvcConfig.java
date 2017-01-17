@@ -10,6 +10,8 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
+import jp.tuyano.spring.form.SessionScopeForm;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("jp.tuyano.spring")
@@ -19,6 +21,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**")
 				.addResourceLocations("classpath:/static/");
+	}
+	
+	/**
+	 * Beanに登録
+	 * @return
+	 */
+	@Bean
+	public SessionScopeForm sessionScopeForm() {
+		return new SessionScopeForm();
 	}
 
 	@Bean(name ="templateResolver")

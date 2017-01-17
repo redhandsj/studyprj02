@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jp.tuyano.spring.domain.model.Room;
 import jp.tuyano.spring.domain.repository.RoomRepository;
+import jp.tuyano.spring.form.SessionScopeForm;
 import jp.tuyano.spring.form.TopForm;
 
 @Controller
@@ -21,6 +22,9 @@ public class SecondController {
 
 	@Autowired
 	RoomRepository roomRepository;
+	
+	@Autowired
+	SessionScopeForm sessionScopeForm;
 
 	@RequestMapping("/second")
 	public String index(@Validated TopForm form, Model model) {
@@ -37,6 +41,7 @@ public class SecondController {
 		List<Room> rooms = roomRepository.findAll();
 		model.addAttribute("rooms", rooms);
 		form.setId("second2");
+		model.addAttribute("form", sessionScopeForm);
 		return "index2";
 	}
 

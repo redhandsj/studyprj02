@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jp.tuyano.spring.domain.model.Room;
 import jp.tuyano.spring.domain.repository.RoomRepository;
+import jp.tuyano.spring.form.SessionScopeForm;
 import jp.tuyano.spring.form.TopForm;
 
 @Controller
@@ -22,12 +23,17 @@ public class TopController {
 	@Autowired
 	RoomRepository roomRepository;
 
+	@Autowired
+	SessionScopeForm sessionScopeForm;
+
 	@RequestMapping("/web")
 	public String index(@Validated TopForm form, Model model) {
 		roomRepository.saveAndFlush(new Room("新しい部屋",100));
 		// テーブルの中身表示
 		List<Room> rooms = roomRepository.findAll();
 		model.addAttribute("rooms", rooms);
+		sessionScopeForm.setId("aaa");
+		model.addAttribute("form", sessionScopeForm);
 		//form.setId("web");
 		return "index";
 	}
@@ -38,6 +44,7 @@ public class TopController {
 		List<Room> rooms = roomRepository.findAll();
 		model.addAttribute("rooms", rooms);
 		form.setId("web2");
+		sessionScopeForm.setId("Session2");
 		return "index2";
 	}
 
