@@ -1,6 +1,6 @@
 ★SpringBoot_プログラミング入門.pdf
- - (CHAPTER 01) Groovyによる超簡単アプリケーション開発 (P.067 - 094)
-しおり　：　P.90
+ - (CHAPTER 02) Groovyによる超簡単アプリケーション開発 (P.067 - 094)
+しおり　：　
 URL　:　 
 
 ★ 2017/02/02(木)に、新規作成
@@ -77,6 +77,7 @@ URL　:　
  $ G:\tools\java\jdk1.8.0_45\bin\native2ascii.exe -encoding utf-8 app.groovy  app2.groovy
 
 ★ フォームを送信する
+★ コントローラを修正する
    → ※ ./Groovy07 に作成
 
 
