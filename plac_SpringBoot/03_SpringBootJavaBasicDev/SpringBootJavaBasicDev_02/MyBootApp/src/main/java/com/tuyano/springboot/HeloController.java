@@ -7,23 +7,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HeloController {
 //	/**
-//	 * @return 単純なテキスト
+//	 * 通常コントローラ
+//	 * @return
 //	 */
 //	@RequestMapping("/")
 //	public String index(){
 //		return "Hello Spring-Boot World!!";
 //	}
-	/**
-	 * パラメータ渡す
-	 * @param num パラメータ
-	 * @return
-	 */
+
 	@RequestMapping("/{num}")
 	public String index(@PathVariable int num){
 		int res = 0;
-		for(int i=1; i <= num; i++){
-			res += i;
+		for(int i=1;i <= num ; i++){
+			res+=i;
 		}
-		return "total: " + res;
+		return "total : " + res;
 	}
 }
