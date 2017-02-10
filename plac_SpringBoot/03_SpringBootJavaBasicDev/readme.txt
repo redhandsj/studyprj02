@@ -1,6 +1,6 @@
 ★SpringBoot_プログラミング入門.pdf
  - (CHAPTER 03) JavaによるSpringBoot開発の基本 (P.095 - 152)
-しおり　：P.112 → 130 → 
+しおり　：P.112 → 130 → 147
 URL : http://localhost:8080
 
 ★ 2017/02/06(月)に、新規作成
@@ -93,17 +93,57 @@ G:.
   → ./SpringBootJavaBasicDev_02 を変更
 
 ★ パス変数と@PathVariable
-  → 
 
-
-
+★ オブジェクトをJSONで出力する
+  → ./SpringBootJavaBasicDev_02 を変更
 
 
 //==========================================================================================================
 // 3.3 Controller によるWebページ作成
 //==========================================================================================================
-★ 
+★ Controllerクラスについて
+ - @Cntrollerをクラスに付ける
+ - ぺｰジのテンプレートを用意する
+ - テンプレート用ライブラリを用意する
+ 
+★ Thymeleafを追加する
+  → ./SpringBootJavaBasicDev_02 を変更
 
+
+★ コントローラの修正
+  → ./SpringBootJavaBasicDev_02 を変更
+    ⇒ HeloController2のindex()として実装
+
+★ テンプレートファイルを作る
+  → ./SpringBootJavaBasicDev_02 を変更
+    ⇒ /MyBootApp/src/main/resources/templates/index.html
+
+
+★ テンプレートに値を表示する
+  → ./SpringBootJavaBasicDev_02 を変更
+    ⇒ /MyBootApp/src/main/resources/templates/index.html
+
+★ Modelクラスの利用
+  → ./SpringBootJavaBasicDev_02 を変更
+    ⇒ /MyBootApp/src/main/java/com/tuyano/springboot/HeloController2.java
+
+★ ModelView クラスの利用
+ - Model
+   - データのみ
+ - ModelAndView
+   - データ＋ビュー（戻り値として使用可能）
+  → ./SpringBootJavaBasicDev_02 を変更
+    ⇒ /MyBootApp/src/main/java/com/tuyano/springboot/HeloController2.java index
+
+★ フォームを利用する
+  → ./SpringBootJavaBasicDev_02 を変更
+    ⇒ /MyBootApp/src/main/resources/templates/index.html
+    ⇒ /MyBootApp/src/main/java/com/tuyano/springboot/HeloController2.java
+
+
+★ そのほかのフォームコントロール
+
+ここから
 
 
 
