@@ -22,6 +22,16 @@ URL　:　 http://localhost:8080/SpringDataJPA03/web
 ★ EntityManager
  - ※省略
 
+★ Entityの状態
+ - new : インスタンスのみでDBとは同期されていない
+ - 管理 : DBへの同期中
+ - 分離 : DBとは同期されていない
+ - 削除済み : 削除が予定されている状態
+
+★ 関連
+　-　@OneToMany(mappedBy = "room", cascade = CascadeType.ALL) 
+
+★ JPQL
 
 
 
