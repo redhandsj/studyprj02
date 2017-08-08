@@ -3,8 +3,10 @@
 //==========================================================================================================
  - (CHAPTER 04) SpringMVC (P.163 - 202)
 しおり　：　P.
-URL　:　 http://localhost:8080/SpringMVC01/echo
-※残りは、読んでおく。
+URL　:　 http://localhost:8080/SpringMVC02/
+
+ - 2017/08/08 新規作成
+   - 
 
 //==========================================================================================================
 // 4.1 Spring MVCとは
@@ -44,6 +46,19 @@ URL　:　 http://localhost:8080/SpringMVC01/echo
 
 //==========================================================================================================
 ★ とりあえずメモ
+
+★プロジェクト作成
+ - 通常作成
+   - studyprj02\springFrameworkInfo\samples\springFrameworkThoroughIntroduction\sample-programs\15-appendix\a1
+ - プロジェクトのcoreを直接編集
+   - https://kadoppe.com/archives/2011/03/eclipse-project-facets-dynamic-web-module-version-downgrade.html
+ - サーバに反映
+   - STSを再起動
+   - サーバのクリアとprofile実行
+
+
+
+
 
 //==========================================================================================================
 // <END>
