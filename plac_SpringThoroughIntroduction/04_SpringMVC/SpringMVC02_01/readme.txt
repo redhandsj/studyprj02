@@ -58,7 +58,9 @@ URL　:　 http://localhost:8080/SpringMVC02_01/
 
 
 
-
+1. The superclass "javax.servlet.http.HttpServlet" was not found on the Java Build Path
+　プロジェクトが作成された時点でApacheのライブラリがうまく追加されなかったみたいので、プロジェクトを右クリックし -> Properties -> Java Build Path -> Add Library -> Server Runtime -> Apache Tomcat -> Finish
+をすれば解決できた。
 
 //==========================================================================================================
 // <END>

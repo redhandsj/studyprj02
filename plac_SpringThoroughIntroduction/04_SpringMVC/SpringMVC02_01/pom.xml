@@ -26,10 +26,11 @@
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.taglibs</groupId>
             <artifactId>taglibs-standard-jstlel</artifactId>
         </dependency>
+         -->
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -47,7 +48,6 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>

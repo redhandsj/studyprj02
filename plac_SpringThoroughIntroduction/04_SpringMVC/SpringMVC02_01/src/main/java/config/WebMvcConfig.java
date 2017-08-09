@@ -2,25 +2,24 @@ package config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-// DispatcherServlet—p‚ÌƒRƒ“ƒtƒBƒMƒ…ƒŒ[ƒVƒ‡ƒ“ƒNƒ‰ƒX‚ğì¬
+// DispatcherServletç”¨ã®ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹ã‚’ä½œæˆã™ã‚‹ 
 @Configuration
-// Spring MVC‚ª’ñ‹Ÿ‚µ‚Ä‚¢‚éƒRƒ“ƒtƒBƒMƒ…ƒŒ[ ƒVƒ‡ƒ“ƒNƒ‰ƒX‚ªƒCƒ“ƒ|[ƒg‚³‚êASpring MVC‚ğ—˜—p‚·‚é‚½‚ß‚É•K—v‚Æ‚È‚éƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌBean’è‹`‚ª©“®‚Ås ‚È‚í‚ê‚é 
+// Spring MVCãŒæä¾›ã—ã¦ã„ã‚‹ã‚³ãƒ³ãƒ•ã‚£ã‚®ãƒ¥ãƒ¬ãƒ¼ ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹ãŒã‚¤ãƒ³ãƒãƒ¼ãƒˆã•ã‚Œã€Spring MVCã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã«å¿…è¦ã¨ãªã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®Beanå®šç¾©ãŒè‡ªå‹•ã§è¡Œ ãªã‚ã‚Œã‚‹ 
 @EnableWebMvc
-// w’è‚µ‚½ƒpƒbƒP[ƒW‚Ì”z‰º‚É ‚ ‚éƒXƒeƒŒƒIƒ^ƒCƒvƒAƒmƒe[ƒVƒ‡ƒ“i@Component‚â@Controller‚È‚Çj‚ª•t—^‚³‚ê‚Ä‚¢‚éƒNƒ‰ƒX‚ªƒXƒLƒƒƒ“‚³‚êA ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒRƒ“ƒeƒLƒXƒg‚ÉBean“o˜^‚³‚ê‚é
+// ã€valueå±æ€§ã«æŒ‡å®šã—ãŸãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã®é…ä¸‹ã« ã‚ã‚‹ã‚¹ãƒ†ãƒ¬ã‚ªã‚¿ã‚¤ãƒ—ã‚¢ãƒãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ï¼ˆ@Componentã‚„@Controllerãªã©ï¼‰ãŒä»˜ä¸ã•ã‚Œã¦ã„ã‚‹ã‚¯ãƒ©ã‚¹ãŒã‚¹ã‚­ãƒ£ãƒ³ã•ã‚Œã€ ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã«Beanç™»éŒ²ã•ã‚Œã‚‹
 @ComponentScan("app")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-	// WebMvcConfigurerAdapterƒNƒ‰ƒX‚ğŒp³‚·‚é‚ÆA ƒfƒtƒHƒ‹ƒg‚Å“K—p‚³‚ê‚éBean’è‹`‚ğŠÈ’P‚ÉƒJƒXƒ^ƒ}ƒCƒY‚Å‚«‚é
+//public class WebMvcConfig {
+	// WebMvcConfigurerAdapterã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã™ã‚‹ã¨ã€ ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§é©ç”¨ã•ã‚Œã‚‹Beanå®šç¾©ã‚’ç°¡å˜ã«ã‚«ã‚¹ã‚¿ãƒã‚¤ã‚ºã§ãã‚‹
 
-	// configureViewResolversƒƒ\ƒbƒh‚ğƒI[ƒo[ƒ‰ƒCƒh
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-    	// /WEB-INFƒfƒBƒŒƒNƒgƒŠ”z‰º‚ÉŠi”[‚³‚ê‚Ä‚¢‚é JSPƒtƒ@ƒCƒ‹‚ªView‚Æ‚µ‚Äˆµ‚í ‚ê‚Ü‚·
-        registry.jsp();
+    	// /WEB-INFãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªé…ä¸‹ã«æ ¼ç´ã•ã‚Œã¦ã„ã‚‹ JSPãƒ•ã‚¡ã‚¤ãƒ«ãŒViewã¨ã—ã¦æ‰±ã‚ ã‚Œã¾ã™
+    	registry.jsp();
     }
 
 }
