@@ -66,6 +66,20 @@ URL　:　 http://localhost:8080/SpringMVC02_01/
 // <END>
 //==========================================================================================================
 
+★ (2017/08/11) taglibsは、本に載っているものと異なるものを使用する
+        <!-- 
+        <dependency>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-jstlel</artifactId>
+        </dependency>
+         -->
+        <!-- https://mvnrepository.com/artifact/taglibs/standard -->
+        <dependency>
+          <groupId>taglibs</groupId>
+          <artifactId>standard</artifactId>
+          <version>1.1.2</version>
+        </dependency>
+
 
 -------------------------------------------------------------------------------
 ★以下のエラーでバージョンを変更（4.3.3.RELEASE に変更）

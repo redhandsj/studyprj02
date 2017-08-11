@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+      http://java.sun.com/xml/ns/javaee
+      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd
+    "
+    version="3.0">
+    <!-- 入力値の日本語が文字化けしないようにするためにCharacterEncodingFilterクラスをサーブレットコンテ ナに登録 -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <!-- CharacterEncodingFilterクラスをサーブレットコンテナに登録 -->
+        <filter-class>
+            org.springframework.web.filter.CharacterEncodingFilter
+        </filter-class>
+        <!-- サーブレットフィルタの encodingパラメータにリクエストパラメータの文字エンコーディングを指定 -->
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <!-- サーブレットフィルタの forceEncodingパラメータにリクエストおよびレスポンスの文字エンコーディングを上書 きするかどうかを指定 -->
+        <!-- リクエストの文字エンコーディングはencodingで指定した文字エンコー ディングに強制的に上書きされ、レスポンスのデフォルト文字エンコーディングもencodingで指定した文字エンコーディ ングになる  -->
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <!-- CharacterEncodingFilterを適用するリクエストのURLパターンを指定 -->
+    <!-- Webアプリケーショ ンに対するすべてのリクエストを適用対象 -->
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- サーブレットコンテナのリスナクラスとしてContextLoaderListenerクラスを指定する -->
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <!-- サーブレットコンテナのcontextClassパラメータにAnnotationConfigWebApplicationContextクラスを指定す る  -->
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>
+            org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+        </param-value>
+    </context-param>
+
+    <!-- サーブレットコンテナのcontextConfigLocationパラメータに作成したコンフィギュレーションクラスを指定する -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>config.AppConfig</param-value>
+    </context-param>
+
+    <!-- サーブレット -->
+    <servlet>
+        <servlet-name>app</servlet-name>
+        <!-- DispatcherServletクラスをサーブレットコンテナに登録する  -->
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <!-- サーブレットの contextClassパラメータにAnnotationConfigWebApplicationContextクラスを指定する  -->
+        <init-param>
+            <param-name>contextClass</param-name>
+            <param-value>
+                org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+            </param-value>
+        </init-param>
+        <!-- サーブレットの contextConfigLocationパラメータに作成したコンフィギュレーションクラスを指定する  -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>config.WebMvcConfig</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- DispatcherServletを使用してリクエストをハンドリングするURLのパターンを指定する -->
+    <!-- Webアプリケーションに対するすべてのリクエストをDispatcherServletを使用してハンドリ ングする -->
+    <servlet-mapping>
+        <servlet-name>app</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+            <include-prelude>/WEB-INF/include.jsp</include-prelude>
+        </jsp-property-group>
+    </jsp-config>
+
+</web-app>
