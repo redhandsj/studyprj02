@@ -18,8 +18,7 @@ public class EchoController {
 	// "GET /echo"というリクエスト がこのメソッドにマッピングされる 
     @RequestMapping(method = RequestMethod.GET)
     public String viewInput(Model model) {
-        EchoForm form = new EchoForm();
-        model.addAttribute(form);
+        model.addAttribute(new EchoForm());
         return "echo/input";
     }
 
@@ -33,6 +32,7 @@ public class EchoController {
     @RequestMapping(method = RequestMethod.POST)
     public String echo(@Valid EchoForm form, BindingResult result) {
         if (result.hasErrors()) {
+        	// 何かしらのエラーが発生している場合
             return "echo/input";
         }
         return "echo/output";

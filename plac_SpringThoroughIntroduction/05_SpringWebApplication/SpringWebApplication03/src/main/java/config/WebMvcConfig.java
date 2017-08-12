@@ -19,7 +19,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
     	// /WEB-INFディレクトリ配下に格納されている JSPファイルがViewとして扱わ れます
-    	registry.jsp();
+    	//registry.jsp();
+    	registry.jsp().prefix("/WEB-INF/views/"); 
     }
 
 }
