@@ -90,4 +90,16 @@
         </jsp-property-group>
     </jsp-config>
 
+    <!-- エラーページ -->
+    <error-page>
+        <location>/WEB-INF/views/errors/defaultErroir.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/views/errors/systemErroir.jsp</location>
+    </error-page>
+
+
+
+
 </web-app>

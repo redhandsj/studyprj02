@@ -19,6 +19,7 @@ public class EchoController {
     @RequestMapping(method = RequestMethod.GET)
     public String viewInput(Model model) {
         model.addAttribute(new EchoForm());
+//        int i = 100 /0;
         return "echo/input";
     }
 
