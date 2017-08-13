@@ -1,10 +1,20 @@
+
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>トップ画面</title>
+<title>経理システム</title>
 <meta charset="utf-8"/>
 </head>
 <body>
+
+<h1>科目マスタ</h1>
+<table>
+  <tr th:each="mKamoku : ${mKamokus}" th:object="${mKamoku}">
+    <td th:text="*{kamokuId}">100</td>
+    <td th:text="*{kamokuName}"></td>
+  </tr>
+</table>
+<hr>
 
 <h1>部屋テーブル</h1>
 <table>
