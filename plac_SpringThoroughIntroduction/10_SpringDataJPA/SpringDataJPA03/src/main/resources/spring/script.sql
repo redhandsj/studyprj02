@@ -1,19 +1,39 @@
 -- 科目マスタ
-CREATE TABLE m_kamoku (
+CREATE TABLE kamoku (
 	kamoku_id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	kamoku_name VARCHAR(255) NOT NULL,
 );
-INSERT INTO m_kamoku (kamoku_name) VALUES('事業主貸');
-INSERT INTO m_kamoku (kamoku_name) VALUES('通信費');
-INSERT INTO m_kamoku (kamoku_name) VALUES('現金');
-INSERT INTO m_kamoku (kamoku_name) VALUES('光熱費');
-INSERT INTO m_kamoku (kamoku_name) VALUES('地代家賃');
-INSERT INTO m_kamoku (kamoku_name) VALUES('売掛金');
+INSERT INTO kamoku (kamoku_name) VALUES('元入金');
+INSERT INTO kamoku (kamoku_name) VALUES('事業主貸');
+INSERT INTO kamoku (kamoku_name) VALUES('通信費');
+INSERT INTO kamoku (kamoku_name) VALUES('現金');
+INSERT INTO kamoku (kamoku_name) VALUES('光熱費');
+INSERT INTO kamoku (kamoku_name) VALUES('地代家賃');
+INSERT INTO kamoku (kamoku_name) VALUES('売掛金');
+INSERT INTO kamoku (kamoku_name) VALUES('接待交際費');
+INSERT INTO kamoku (kamoku_name) VALUES('雑費');
+INSERT INTO kamoku (kamoku_name) VALUES('消耗品費');
+INSERT INTO kamoku (kamoku_name) VALUES('旅費交通費');
+INSERT INTO kamoku (kamoku_name) VALUES('普通預金');
+INSERT INTO kamoku (kamoku_name) VALUES('設備費');
+INSERT INTO kamoku (kamoku_name) VALUES('図書費');
 
 
 -- 預金出納帳
-CREATE TABLE t_yokin (
+CREATE TABLE yokin (
 	yokin_id INTEGER PRIMARY KEY AUTO_INCREMENT, 
+	ginko_cd VARCHAR(1) NOT NULL,
+	hiduke DATE NOT NULL,
+	kamoku_id INTEGER NOT NULL,
+	tekiyo VARCHAR(255) NOT NULL,
+	nyuukin INTEGER NOT NULL,
+	syukkin INTEGER NOT NULL,
+	zandaka INTEGER NOT NULL
+);
+
+-- 現金出納帳
+CREATE TABLE genkin (
+	genkin_id INTEGER PRIMARY KEY AUTO_INCREMENT, 
 	hiduke DATE NOT NULL,
 	kamoku_id INTEGER NOT NULL,
 	tekiyo VARCHAR(255) NOT NULL,

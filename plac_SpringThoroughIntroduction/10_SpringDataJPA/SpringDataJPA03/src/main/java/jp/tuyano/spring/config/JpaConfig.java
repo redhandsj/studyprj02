@@ -58,6 +58,7 @@ public class JpaConfig {
 	@Bean(destroyMethod = "shutdown")
 	public EmbeddedDatabase dataSource() {
 		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).
+				setScriptEncoding("UTF-8").
 				addScript(env.getProperty("jdbc.scriptLocation")).
 				build();
 	}

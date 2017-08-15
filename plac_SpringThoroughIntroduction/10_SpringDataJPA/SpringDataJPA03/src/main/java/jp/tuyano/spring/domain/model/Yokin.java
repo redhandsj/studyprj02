@@ -3,6 +3,7 @@ package jp.tuyano.spring.domain.model;
  * JPA
  */
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -17,7 +18,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 科目マスタ
+ * 預金出納
  */
 @Entity
 //@Table(name = "room")
@@ -25,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MKamoku implements Serializable{
+public class Yokin implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	//=======================================================================
@@ -38,18 +39,47 @@ public class MKamoku implements Serializable{
 //	private Integer version;
 	
 	/**
-	 * 科目ID
+	 * 預金ID
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@Column(name="room_id")
-	private Long kamokuId;
+	private Long yokinId;
 	
 	/**
-	 * 科目名
+	 * 銀行コード
 	 */
-	//@Column(name="room_name")
-	private String kamokuName;
+	private String ginkoCd;
+
+	/**
+	 * 取引日付
+	 */
+	private Date hiduke;
+
+	/**
+	 * 科目ID
+	 */
+	private Long kamokuId;
+
+	/**
+	 * 適用
+	 */
+	private String tekiyo;
+
+	/**
+	 *　入金（借方）
+	 */
+	private Long nyuukin;
+
+	/**
+	 *　出金（貸方）
+	 */
+	private Long syukkin;
+
+	/**
+	 *　差引残高
+	 */
+	private Long zandaka;
+
 
 	
 	//=======================================================================
@@ -59,25 +89,27 @@ public class MKamoku implements Serializable{
 	//=======================================================================
 	// コンストラクタ
 	//=======================================================================
-//	/**
-//	 * コンストラクタ
-//	 * @param id ルームナンバー
-//	 * @param name 部屋名
-//	 * @param capacity 広さ
-//	 */
-//	public Room(final Integer id, final String name, final Integer capacity) {
-//		this();
-//		this.roomId = id;
-//		this.roomName = name;
-//		this.setCapacity(capacity);
-//	}
 	/**
 	 * コンストラクタ
-	 * @param name 科目名
+	 * @param ginkoCd　銀行コード
+	 * @param hiduke　取引日付
+	 * @param kamokuId　科目ID
+	 * @param tekiyo　適用
+	 * @param nyuukin　入金（借方）
+	 * @param syukkin　出金（貸方）
+	 * @param zandaka　差引残高
 	 */
-	public MKamoku(final String name) {
+	public Yokin(final String ginkoCd, 
+			final Date hiduke, final Long kamokuId, final String tekiyo,
+			final Long nyuukin, final Long syukkin, final Long zandaka) {
 		this();
-		this.kamokuName = name;
+		this.ginkoCd = ginkoCd;
+		this.hiduke = hiduke;
+		this.kamokuId = kamokuId;
+		this.tekiyo = tekiyo;
+		this.nyuukin = nyuukin;
+		this.syukkin = syukkin;
+		this.zandaka = zandaka;
 	}
 
 	//=======================================================================

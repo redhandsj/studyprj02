@@ -7,15 +7,22 @@
 </head>
 <body>
 
+<h1>科目格納テストフォーム</h1>
+<!-- text -->
+<form method="post" action="#" th:action="@{/confirm}" th:object="${simpleInputForm}">
+  科目名：<input type="text"  th:field="*{name}" />
+  <input type="submit" value="confirm"/>
+</form>
+
+<hr>
 <h1>科目マスタ</h1>
 <table>
-  <tr th:each="mKamoku : ${mKamokus}" th:object="${mKamoku}">
+  <tr th:each="kamoku : ${kamokus}" th:object="${kamoku}">
     <td th:text="*{kamokuId}">100</td>
     <td th:text="*{kamokuName}"></td>
   </tr>
 </table>
 <hr>
-
 <h1>部屋テーブル</h1>
 <table>
   <tr th:each="room : ${rooms}" th:object="${room}">
