@@ -10,8 +10,14 @@
 <h1>科目格納テストフォーム</h1>
 <!-- text -->
 <form method="post" action="#" th:action="@{/confirm}" th:object="${simpleInputForm}">
-  科目名：<input type="text"  th:field="*{name}" />
-  <input type="submit" value="confirm"/>
+  <ul>
+  <li>日付<input type="date" name="date" id="date" required />
+  <li>フリー：<input type="text"  th:field="*{name}" />
+  <li>科目名：<select id="jobId" name="jobId">
+    <option th:each="kamoku : ${kamokus}" th:value="${kamoku.kamokuId}" th:selected="${kamoku.kamokuId == id}" th:inline="text">[[${kamoku.kamokuName}]]</option>
+  </select>
+  </ul>
+  <input type="submit" value="格納"/><br>
 </form>
 
 <hr>
