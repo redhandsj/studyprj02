@@ -102,7 +102,6 @@ public class Yokin implements Serializable{
 	public Yokin(final String ginkoCd, 
 			final Date hiduke, final Long kamokuId, final String tekiyo,
 			final Long nyuukin, final Long syukkin, final Long zandaka) {
-		this();
 		this.ginkoCd = ginkoCd;
 		this.hiduke = hiduke;
 		this.kamokuId = kamokuId;

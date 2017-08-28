@@ -76,7 +76,6 @@ public class Kamoku implements Serializable{
 	 * @param name 科目名
 	 */
 	public Kamoku(final String name) {
-		this();
 		this.kamokuName = name;
 	}
 

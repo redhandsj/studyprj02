@@ -43,7 +43,7 @@ public class Room implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//@Column(name="room_id")
-	private Long roomId;
+	private Integer roomId;
 	
 	/**
 	 * 部屋名
@@ -100,16 +100,15 @@ public class Room implements Serializable{
 //		this.roomName = name;
 //		this.setCapacity(capacity);
 //	}
-	/**
-	 * コンストラクタ
-	 * @param name 部屋名
-	 * @param capacity 広さ
-	 */
-	public Room(final String name, final Integer capacity) {
-		this();
-		this.roomName = name;
-		this.setCapacity(capacity);
-	}
+//	/**
+//	 * コンストラクタ
+//	 * @param name 部屋名
+//	 * @param capacity 広さ
+//	 */
+//	public Room(final String name, final Integer capacity) {
+//		this.roomName = name;
+//		this.setCapacity(capacity);
+//	}
 
 	//=======================================================================
 	// setter / getter → Lombok
