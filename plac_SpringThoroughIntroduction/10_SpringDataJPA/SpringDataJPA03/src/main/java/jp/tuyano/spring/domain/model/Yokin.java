@@ -46,9 +46,9 @@ public class Yokin implements Serializable{
 	private Long yokinId;
 	
 	/**
-	 * 銀行コード
+	 * 金融コード
 	 */
-	private String ginkoCd;
+	private String kinyuCd;
 
 	/**
 	 * 取引日付
@@ -56,9 +56,9 @@ public class Yokin implements Serializable{
 	private Date hiduke;
 
 	/**
-	 * 科目ID
+	 * 科目コード
 	 */
-	private Long kamokuId;
+	private String kamokuCd;
 
 	/**
 	 * 適用
@@ -91,20 +91,20 @@ public class Yokin implements Serializable{
 	//=======================================================================
 	/**
 	 * コンストラクタ
-	 * @param ginkoCd　銀行コード
+	 * @param kinyuCd　銀行コード
 	 * @param hiduke　取引日付
-	 * @param kamokuId　科目ID
+	 * @param kamokuCd　科目ID
 	 * @param tekiyo　適用
 	 * @param nyuukin　入金（借方）
 	 * @param syukkin　出金（貸方）
 	 * @param zandaka　差引残高
 	 */
-	public Yokin(final String ginkoCd, 
-			final Date hiduke, final Long kamokuId, final String tekiyo,
+	public Yokin(final String kinyuCd, 
+			final Date hiduke, final String kamokuCd, final String tekiyo,
 			final Long nyuukin, final Long syukkin, final Long zandaka) {
-		this.ginkoCd = ginkoCd;
+		this.kinyuCd = kinyuCd;
 		this.hiduke = hiduke;
-		this.kamokuId = kamokuId;
+		this.kamokuCd = kamokuCd;
 		this.tekiyo = tekiyo;
 		this.nyuukin = nyuukin;
 		this.syukkin = syukkin;

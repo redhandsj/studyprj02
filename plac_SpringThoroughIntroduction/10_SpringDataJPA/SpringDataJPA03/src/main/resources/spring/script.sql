@@ -22,14 +22,18 @@ INSERT INTO kamoku (kamoku_name) VALUES('図書費');
 -- 預金出納帳
 CREATE TABLE yokin (
 	yokin_id INTEGER PRIMARY KEY AUTO_INCREMENT, 
-	ginko_cd VARCHAR(1) NOT NULL,
+	kinyu_cd VARCHAR(4) NOT NULL,
 	hiduke DATE NOT NULL,
-	kamoku_id INTEGER NOT NULL,
+	kamoku_cd VARCHAR(4) NOT NULL,
 	tekiyo VARCHAR(255) NOT NULL,
 	nyuukin INTEGER NOT NULL,
 	syukkin INTEGER NOT NULL,
 	zandaka INTEGER NOT NULL
 );
+
+-- テストデータ
+INSERT INTO yokin (kinyu_cd, hiduke, kamoku_cd, tekiyo, nyuukin, syukkin, zandaka) VALUES('0001','2007-03-09','0001','tekiyo0001',100,0,100);
+
 
 -- 現金出納帳
 CREATE TABLE genkin (

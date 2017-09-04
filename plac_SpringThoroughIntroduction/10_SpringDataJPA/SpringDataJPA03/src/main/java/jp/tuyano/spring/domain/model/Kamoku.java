@@ -14,7 +14,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 科目マスタ
@@ -23,6 +25,7 @@ import lombok.NoArgsConstructor;
 //@Table(name = "room")
 @EntityListeners(AuditingEntityListener.class) // 監査用リスナーの登録
 @Data
+//@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Kamoku implements Serializable{

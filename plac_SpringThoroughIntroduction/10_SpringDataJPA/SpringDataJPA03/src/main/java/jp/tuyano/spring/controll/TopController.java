@@ -62,8 +62,7 @@ public class TopController {
 			@ModelAttribute("simpleInputForm") SimpleInputForm simpleInputForm) {
 //		yokinRepository.count();
 		Kamoku kamoku = new Kamoku(simpleInputForm.getName());
-		kamokuRepository.save(kamoku);
-		kamokuRepository.flush();
+		kamokuRepository.saveAndFlush(kamoku);
 		//return "index";
 		return "forward:web";
 	}
