@@ -1,0 +1,50 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>経理システム</title>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="../css/table.css">
+</head>
+<body>
+
+<h1>預金出納帳</h1>
+<!-- <form method="post" action="#" th:action="@{/confirm}" th:object="${yokinForm}"> -->
+<form th:object="${yokinForm}">
+<table class="example">
+<caption>預金出納帳</caption>
+<thead>
+<tr>
+<th>取引日付</th>
+<th>適用</th>
+<th>入金（借方）</th>
+<th>出金（貸方）</th>
+<th>差引残高</th>
+</tr>
+</thead>
+
+<tfoot>
+<tr>
+<td>フッタセル1</td>
+<td>フッタセル2</td>
+<td>フッタセル3</td>
+<td>フッタセル4</td>
+<td>フッタセル5</td>
+</tr>
+</tfoot>
+
+<tbody>
+  <tr th:each="yokin : ${yokins}" th:object="${yokins}">
+    <td th:text="*{hiduke}"></td>
+    <td th:text="*{tekiyo}"></td>
+    <td th:text="*{nyuukin}"></td>
+    <td th:text="*{syukkin}"></td>
+    <td th:text="*{zandaka}"></td>
+  </tr>
+</tbody>
+
+</table>
+</form>
+
+</body>
+</html>

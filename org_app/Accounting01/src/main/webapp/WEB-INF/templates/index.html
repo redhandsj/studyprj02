@@ -1,0 +1,47 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>経理システム</title>
+<meta charset="utf-8"/>
+</head>
+<body>
+
+<h1>他画面へ</h1>
+<input type="submit" name="goToYokin" value="預金画面へ" />
+
+
+<hr>
+<h1>科目格納テストフォーム</h1>
+<!-- text -->
+<form method="post" action="#" th:action="@{/confirm}" th:object="${simpleInputForm}">
+  <ul>
+  <li>日付<input type="date" name="date" id="date" required />
+  <li>フリー：<input type="text"  th:field="*{name}" />
+  <li>科目名：<select id="jobId" name="jobId">
+    <option th:each="kamoku : ${kamokus}" th:value="${kamoku.kamokuId}" th:selected="${kamoku.kamokuId == id}" th:inline="text">[[${kamoku.kamokuName}]]</option>
+  </select>
+  </ul>
+  <input type="submit" value="格納"/><br>
+</form>
+
+<hr>
+<h1>科目マスタ</h1>
+<table>
+  <tr th:each="kamoku : ${kamokus}" th:object="${kamoku}">
+    <td th:text="*{kamokuId}">100</td>
+    <td th:text="*{kamokuName}"></td>
+  </tr>
+</table>
+<hr>
+<h1>部屋テーブル</h1>
+<table>
+  <tr th:each="room : ${rooms}" th:object="${room}">
+    <td th:text="*{roomId}">100</td>
+    <td th:text="*{roomName}"></td>
+    <td th:text="*{capacity}"></td>
+  </tr>
+</table>
+
+</body>
+</html>
