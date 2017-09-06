@@ -13,6 +13,11 @@ import lombok.Setter;
 public class YokinForm {
 
 	/**
+	 * テスト用文字列
+	 */
+	private String testStr;
+	
+	/**
 	 * 預金出能帳
 	 */
 	private List<Yokin> yokinList;

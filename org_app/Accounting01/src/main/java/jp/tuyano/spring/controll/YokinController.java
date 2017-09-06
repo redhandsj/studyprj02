@@ -14,6 +14,7 @@ import jp.tuyano.spring.form.YokinForm;
 import jp.tuyano.spring.service.YokinService;
 
 @Controller
+@RequestMapping("/goToYokin")
 public class YokinController {
 
 	@Autowired
@@ -36,6 +37,8 @@ public class YokinController {
 	@RequestMapping
 	public String index(@ModelAttribute("yokinForm") YokinForm yokinForm) {
 
+		yokinForm.setTestStr("aaaaaaaaaaa");
+		
 		// 預金テーブル取得
 		List<Yokin> yokins = yokinService.findAll();
 		yokinForm.setYokinList(yokins);

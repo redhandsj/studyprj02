@@ -8,8 +8,9 @@
 <body>
 
 <h1>他画面へ</h1>
-<input type="submit" name="goToYokin" value="預金画面へ" />
-
+<form method="post" action="#" th:action="@{/goToYokin}" th:object="${yokinForm}">
+<input type="submit" value="預金画面へ" />
+</form>
 
 <hr>
 <h1>科目格納テストフォーム</h1>

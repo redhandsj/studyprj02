@@ -8,9 +8,16 @@
 </head>
 <body>
 
+
+<!--/* th:text */-->
+<div th:text="${yokinForm.testStr}">This text is going to be replaced</div>
+<div th:text="${yokinForm.yokinList}">This text is going to be replaced</div>
+
+
 <h1>預金出納帳</h1>
 <!-- <form method="post" action="#" th:action="@{/confirm}" th:object="${yokinForm}"> -->
-<form th:object="${yokinForm}">
+<!-- <form th:object="${yokinForm}"> -->
+
 <table class="example">
 <caption>預金出納帳</caption>
 <thead>
@@ -34,17 +41,31 @@
 </tfoot>
 
 <tbody>
-  <tr th:each="yokin : ${yokins}" th:object="${yokins}">
-    <td th:text="*{hiduke}"></td>
-    <td th:text="*{tekiyo}"></td>
-    <td th:text="*{nyuukin}"></td>
-    <td th:text="*{syukkin}"></td>
-    <td th:text="*{zandaka}"></td>
+<tr th:each="yokin, stat : ${yokinForm.yokinList}" th:object="${yokin}">
+    <td th:text="*{hiduke}">1111</td>
+    <td th:text="*{tekiyo}">22222</td>
+    <td th:text="*{nyuukin}">33333</td>
+    <td th:text="*{syukkin}">44444</td>
+    <td th:text="*{zandaka}">55555</td>
+  </tr>
+<!-- <tr th:each="yokin , stat : ${yokinList}" th:object="${yokin}">
+    <td th:text="${yokin.hiduke}">1111</td>
+    <td th:text="${tekiyo}">22222</td>
+    <td th:text="${yokin.nyuukin}">33333</td>
+    <td th:text="${syukkin}">44444</td>
+    <td th:text="${zandaka}">55555</td>
+  </tr> -->  
+  <tr>
+    <td>1111</td>
+    <td>22222</td>
+    <td>33333</td>
+    <td>44444</td>
+    <td>55555</td>
   </tr>
 </tbody>
 
 </table>
-</form>
+<!-- </form> -->
 
 </body>
 </html>
