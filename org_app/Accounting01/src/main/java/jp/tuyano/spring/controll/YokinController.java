@@ -30,7 +30,7 @@ public class YokinController {
 	}
 	
 	/**
-	 * 
+	 * 初期表示
 	 * @param model
 	 * @return
 	 */
@@ -44,6 +44,18 @@ public class YokinController {
 		yokinForm.setYokinList(yokins);
 		
 		return "html/yokin";
+    }	
+
+	/**
+	 * 登録
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/regist")
+	public String regist(@ModelAttribute("yokinForm") YokinForm yokinForm) {
+
+		yokinService.regist(yokinForm.getYokin());
+		return "foward:html/yokin";
     }	
 }
 

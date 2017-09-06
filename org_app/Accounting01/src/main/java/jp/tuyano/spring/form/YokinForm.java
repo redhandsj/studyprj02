@@ -18,8 +18,12 @@ public class YokinForm {
 	private String testStr;
 	
 	/**
-	 * 預金出能帳
+	 * 預金出能帳の最新状態保持
 	 */
 	private List<Yokin> yokinList;
-	
+
+	/**
+	 * 預金出能帳登録用オブジェクト
+	 */
+	private Yokin yokin;
 }

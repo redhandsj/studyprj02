@@ -18,10 +18,18 @@ public class YokinService {
 	private YokinRepository yokinRepository;
 
 	/**
-	 * 
+	 * 全件取得
 	 * @return
 	 */
 	public List<Yokin> findAll() {
 		return yokinRepository.findAll();
+	}
+
+	/**
+	 * 全件取得
+	 * @return
+	 */
+	public void regist(final Yokin yokin) {
+		yokinRepository.saveAndFlush(yokin);
 	}
 }

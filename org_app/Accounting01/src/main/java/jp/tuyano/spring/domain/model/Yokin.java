@@ -23,13 +23,10 @@ import lombok.Setter;
  * 預金出納
  */
 @Entity
-//@Table(name = "room")
 @EntityListeners(AuditingEntityListener.class) // 監査用リスナーの登録
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class Yokin implements Serializable{
 	private static final long serialVersionUID = 1L;
 
