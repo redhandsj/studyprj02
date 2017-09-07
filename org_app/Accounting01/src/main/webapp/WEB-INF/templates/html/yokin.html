@@ -17,7 +17,12 @@
 <h2>登録フォーム</h2>
 <form method="post" action="#" th:action="@{/goToYokin/regist}" th:object="${yokinForm}">
   <ul>
+  <li>金融コード：<input type="number" required th:field="*{yokin.kinyuCd}" min="0000" max="9999"/>
+  <li>取引日付<input type="date" name="date" id="date" required  th:field="*{dateStr}"/>
+  <li>科目コード：<input type="number" required th:field="*{yokin.kamokuCd}" min="0000" max="9999"/>
   <li>適用：<input type="text"  th:field="*{yokin.tekiyo}" />
+  <li>入金（借方）：<input type="number" required th:field="*{yokin.nyuukin}" />
+  <li>出金（貸方）：<input type="number" required th:field="*{yokin.syukkin}" />
   </ul>
   <input type="submit" value="格納"/><br>
 </form>
@@ -31,7 +36,9 @@
 <caption>預金出納帳</caption>
 <thead>
 <tr>
+<th>金融コード</th>
 <th>取引日付</th>
+<th>科目コード</th>
 <th>適用</th>
 <th>入金（借方）</th>
 <th>出金（貸方）</th>
@@ -46,12 +53,16 @@
 <td>フッタセル3</td>
 <td>フッタセル4</td>
 <td>フッタセル5</td>
+<td>フッタセル6</td>
+<td>フッタセル7</td>
 </tr>
 </tfoot>
 
 <tbody>
 <tr th:each="yokin, stat : ${yokinForm.yokinList}" th:object="${yokin}">
+    <td th:text="*{kinyuCd}">1111</td>
     <td th:text="*{hiduke}">1111</td>
+    <td th:text="*{kamokuCd}">1111</td>
     <td th:text="*{tekiyo}">22222</td>
     <td th:text="*{nyuukin}">33333</td>
     <td th:text="*{syukkin}">44444</td>

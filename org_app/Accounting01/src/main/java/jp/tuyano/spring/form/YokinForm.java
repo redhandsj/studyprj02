@@ -3,13 +3,13 @@ package jp.tuyano.spring.form;
 import java.util.List;
 
 import jp.tuyano.spring.domain.model.Yokin;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Data
-@Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class YokinForm {
 
 	/**
@@ -26,4 +26,10 @@ public class YokinForm {
 	 * 預金出能帳登録用オブジェクト
 	 */
 	private Yokin yokin;
+
+	/**
+	 * 一旦文字列で日付を受ける
+	 */
+	private String dateStr;
+
 }

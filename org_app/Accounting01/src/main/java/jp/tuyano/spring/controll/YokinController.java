@@ -1,5 +1,9 @@
 package jp.tuyano.spring.controll;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +57,21 @@ public class YokinController {
 	 */
 	@RequestMapping("/regist")
 	public String regist(@ModelAttribute("yokinForm") YokinForm yokinForm) {
-
+		
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date;
+		try {
+			date = sdFormat.parse(yokinForm.getDateStr());
+			yokinForm.getYokin().setHiduke(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 残高を仮
+		yokinForm.getYokin().setZandaka(0L);
+		
 		yokinService.regist(yokinForm.getYokin());
-		return "foward:html/yokin";
+		return "redirect:html/yokin";
     }	
 }
 
