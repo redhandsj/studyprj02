@@ -26,10 +26,17 @@ public class YokinService {
 	}
 
 	/**
-	 * 全件取得
+	 * 記録
 	 * @return
 	 */
 	public void regist(final Yokin yokin) {
 		yokinRepository.saveAndFlush(yokin);
+	}
+	/**
+	 * 削除
+	 * @return
+	 */
+	public void detele(final Long yokinId) {
+		yokinRepository.delete(yokinId);
 	}
 }

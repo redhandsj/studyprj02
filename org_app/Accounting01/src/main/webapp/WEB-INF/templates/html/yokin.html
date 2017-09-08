@@ -27,8 +27,6 @@
   <input type="submit" value="格納"/><br>
 </form>
 
-
-
 <hr><!-- ----------------------------------------------- -->
 <!-- <form method="post" action="#" th:action="@{/confirm}" th:object="${yokinForm}"> -->
 <!-- <form th:object="${yokinForm}"> -->
@@ -36,6 +34,7 @@
 <caption>預金出納帳</caption>
 <thead>
 <tr>
+<th>預金ID</th>
 <th>金融コード</th>
 <th>取引日付</th>
 <th>科目コード</th>
@@ -43,9 +42,28 @@
 <th>入金（借方）</th>
 <th>出金（貸方）</th>
 <th>差引残高</th>
+<th>編集</th>
+<th>削除</th>
 </tr>
 </thead>
-
+<tbody>
+  <tr th:each="yokin, stat : ${yokinForm.yokinList}" th:object="${yokin}">
+    <td th:text="*{yokinId}">1111</td>
+    <td th:text="*{kinyuCd}">1111</td>
+    <!-- <td th:text="*{hiduke}">1111</td> -->
+    <td th:text="*{#dates.format(hiduke, 'yyyy/MM/dd')}">1111</td>
+    <td th:text="*{kamokuCd}">1111</td>
+    <td th:text="*{tekiyo}">22222</td>
+    <!-- <td th:text="*{nyuukin}">33333</td> -->
+    <td th:text="*{#strings.prepend(#numbers.formatInteger(nyuukin,1,'COMMA'),'¥')}">¥999,999,999</td>
+    <!-- <td th:text="*{syukkin}">44444</td> -->
+    <td th:text="*{#strings.prepend(#numbers.formatInteger(syukkin,1,'COMMA'),'¥')}">¥999,999,999</td>
+    <!-- <td th:text="*{zandaka}">55555</td> -->
+    <td th:text="*{#strings.prepend(#numbers.formatInteger(zandaka,1,'COMMA'),'¥')}">¥999,999,999</td>
+    <td><input type="submit" th:action="@{/goToYokin/regist}"　value="編集"/></td>
+    <td><input type="submit" value="削除"/></td>
+  </tr>
+</tbody>
 <tfoot>
 <tr>
 <td>フッタセル1</td>
@@ -55,20 +73,11 @@
 <td>フッタセル5</td>
 <td>フッタセル6</td>
 <td>フッタセル7</td>
+<td>フッタセル6</td>
+<td>フッタセル7</td>
+<td>フッタセル6</td>
 </tr>
 </tfoot>
-
-<tbody>
-<tr th:each="yokin, stat : ${yokinForm.yokinList}" th:object="${yokin}">
-    <td th:text="*{kinyuCd}">1111</td>
-    <td th:text="*{hiduke}">1111</td>
-    <td th:text="*{kamokuCd}">1111</td>
-    <td th:text="*{tekiyo}">22222</td>
-    <td th:text="*{nyuukin}">33333</td>
-    <td th:text="*{syukkin}">44444</td>
-    <td th:text="*{zandaka}">55555</td>
-  </tr>
-</tbody>
 </table>
 <!-- </form> -->
 

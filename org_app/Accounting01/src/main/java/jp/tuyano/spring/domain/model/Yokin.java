@@ -10,6 +10,9 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -49,16 +52,19 @@ public class Yokin implements Serializable{
 	/**
 	 * 金融コード
 	 */
+	@NotNull
 	private String kinyuCd;
 
 	/**
 	 * 取引日付
 	 */
+	@NotNull
 	private Date hiduke;
 
 	/**
 	 * 科目コード
 	 */
+	@NotNull
 	private String kamokuCd;
 
 	/**
@@ -69,19 +75,21 @@ public class Yokin implements Serializable{
 	/**
 	 *　入金（借方）
 	 */
+	@NotNull
 	private Long nyuukin;
 
 	/**
 	 *　出金（貸方）
 	 */
+	@NotNull
 	private Long syukkin;
 
 	/**
 	 *　差引残高
 	 */
+	@NotNull
+	@Min(0)
 	private Long zandaka;
-
-
 	
 	//=======================================================================
 	// 関連 TODO 
