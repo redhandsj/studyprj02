@@ -1,5 +1,6 @@
 package jp.tuyano.spring.form;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.tuyano.spring.domain.model.Yokin;
@@ -21,6 +22,11 @@ public class YokinForm {
 	 * 預金出能帳の最新状態保持
 	 */
 	private List<Yokin> yokinList;
+
+	/**
+	 * 編集用オブジェクト
+	 */
+	private Yokin editYokin;
 
 	/**
 	 * 預金出能帳登録用オブジェクト

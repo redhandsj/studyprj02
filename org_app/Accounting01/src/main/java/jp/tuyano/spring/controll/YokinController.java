@@ -3,6 +3,7 @@ package jp.tuyano.spring.controll;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import jp.tuyano.spring.domain.model.Yokin;
 import jp.tuyano.spring.form.YokinForm;
@@ -40,13 +45,14 @@ public class YokinController {
 	 * @return
 	 */
 	@RequestMapping
-	public String index(@Validated @ModelAttribute("yokinForm") YokinForm yokinForm, BindingResult result) {
+	public ModelAndView index(@Validated @ModelAttribute("yokinForm") YokinForm yokinForm, BindingResult result) {
+		ModelAndView mv = new ModelAndView("html/yokin");
 		yokinForm.setTestStr("aaaaaaaaaaa");		
 		// 預金テーブル取得
 		List<Yokin> yokins = yokinService.findAll();
 		yokinForm.setYokinList(yokins);
-		
-		return "html/yokin";
+				
+		return(mv);
     }	
 
 	/**
@@ -55,8 +61,9 @@ public class YokinController {
 	 * @param result
 	 * @return
 	 */
-	@RequestMapping("/regist")
-	public String regist(@Validated @ModelAttribute("yokinForm") YokinForm yokinForm, BindingResult result) {
+	@RequestMapping(params = "/regist")
+	public ModelAndView regist(@Validated @ModelAttribute("yokinForm") YokinForm yokinForm, BindingResult result) {
+		ModelAndView mv = new ModelAndView("redirect:/goToYokin");
 		if (result.hasErrors()) {
 		      return null;
 		}
@@ -81,24 +88,45 @@ public class YokinController {
 		yokinForm.getYokin().setZandaka(0L);
 		
 		yokinService.regist(yokinForm.getYokin());
-		return "redirect:/goToYokin";
+		
+		return(mv);
     }	
 
-
 	/**
-	 * 登録
+	 * 編集 @PathVariabLeintnum
 	 * @param yokinForm
 	 * @param result
 	 * @return
 	 */
-	@RequestMapping("/delete/{num}")
-	public String delete(@Validated @ModelAttribute("yokinForm") YokinForm yokinForm, BindingResult result) {
+	@RequestMapping(params = "/edit/{id}")
+	public ModelAndView edit(
+			@Validated @ModelAttribute("yokinForm") YokinForm yokinForm,
+			@PathVariable("id") String id,
+			BindingResult result) {
+		ModelAndView mv = new ModelAndView("redirect:/goToYokin");
 		if (result.hasErrors()) {
 		      return null;
 		}
-		yokinService.regist(yokinForm.getYokin());
 		
-		return "redirect:/goToYokin";
+		return(mv);
+	}
+	/**
+	 * 削除
+	 * @param yokinForm
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping(params = "/delete/{id}")
+	public ModelAndView delete(
+			@Validated @ModelAttribute("yokinForm") YokinForm yokinForm, 
+			@PathVariable("id") String id,
+			BindingResult result) {
+		ModelAndView mv = new ModelAndView("redirect:/goToYokin");
+		if (result.hasErrors()) {
+		      return null;
+		}
+		
+		return(mv);
 	}
 }
 

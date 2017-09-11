@@ -15,7 +15,7 @@
 
 <hr><!-- ----------------------------------------------- -->
 <h2>登録フォーム</h2>
-<form method="post" action="#" th:action="@{/goToYokin/regist}" th:object="${yokinForm}">
+<form method="post" action="#" th:action="@{/goToYokin}" th:object="${yokinForm}">
   <ul>
   <li>金融コード：<input type="number" required th:field="*{yokin.kinyuCd}" min="0000" max="9999"/>
   <li>取引日付<input type="date" name="date" id="date" required  th:field="*{dateStr}"/>
@@ -24,12 +24,13 @@
   <li>入金（借方）：<input type="number" required th:field="*{yokin.nyuukin}" />
   <li>出金（貸方）：<input type="number" required th:field="*{yokin.syukkin}" />
   </ul>
-  <input type="submit" value="格納"/><br>
+  <input type="submit" name="/regist" value="格納"/><br>
 </form>
 
 <hr><!-- ----------------------------------------------- -->
 <!-- <form method="post" action="#" th:action="@{/confirm}" th:object="${yokinForm}"> -->
 <!-- <form th:object="${yokinForm}"> -->
+<form method="post" action="#" th:action="@{/goToYokin}" th:object="${yokinForm}">
 <table class="example">
 <caption>預金出納帳</caption>
 <thead>
@@ -60,8 +61,8 @@
     <td th:text="*{#strings.prepend(#numbers.formatInteger(syukkin,1,'COMMA'),'¥')}">¥999,999,999</td>
     <!-- <td th:text="*{zandaka}">55555</td> -->
     <td th:text="*{#strings.prepend(#numbers.formatInteger(zandaka,1,'COMMA'),'¥')}">¥999,999,999</td>
-    <td><input type="submit" th:action="@{/goToYokin/regist}"　value="編集"/></td>
-    <td><input type="submit" value="削除"/></td>
+    <td><input type="submit" th:name="'/edit/' + ${yokin.yokinId}" value="編集"/></td>
+    <td><input type="submit" th:name="'/delete/' + ${yokin.yokinId}" value="削除"/></td>
   </tr>
 </tbody>
 <tfoot>
@@ -80,6 +81,8 @@
 </tfoot>
 </table>
 <!-- </form> -->
+</form>
+
 
 </body>
 </html>

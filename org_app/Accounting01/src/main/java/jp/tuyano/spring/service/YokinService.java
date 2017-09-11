@@ -32,6 +32,15 @@ public class YokinService {
 	public void regist(final Yokin yokin) {
 		yokinRepository.saveAndFlush(yokin);
 	}
+
+	/**
+	 * 記録
+	 * @return
+	 */
+	public void edit(final Yokin yokin) {
+		yokinRepository.saveAndFlush(yokin);
+	}
+
 	/**
 	 * 削除
 	 * @return
