@@ -1,9 +1,7 @@
 package jp.tuyano.spring.controll;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import jp.tuyano.spring.domain.model.Yokin;
@@ -93,12 +90,12 @@ public class YokinController {
     }	
 
 	/**
-	 * 編集 @PathVariabLeintnum
+	 * 編集
 	 * @param yokinForm
 	 * @param result
 	 * @return
 	 */
-	@RequestMapping(params = "/edit/{id}")
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView edit(
 			@Validated @ModelAttribute("yokinForm") YokinForm yokinForm,
 			@PathVariable("id") String id,

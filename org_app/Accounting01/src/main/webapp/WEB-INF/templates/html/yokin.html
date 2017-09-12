@@ -61,7 +61,8 @@
     <td th:text="*{#strings.prepend(#numbers.formatInteger(syukkin,1,'COMMA'),'¥')}">¥999,999,999</td>
     <!-- <td th:text="*{zandaka}">55555</td> -->
     <td th:text="*{#strings.prepend(#numbers.formatInteger(zandaka,1,'COMMA'),'¥')}">¥999,999,999</td>
-    <td><input type="submit" th:name="'/edit/' + ${yokin.yokinId}" value="編集"/></td>
+    <!-- <td><input type="submit" th:name="'/edit/' + ${yokin.yokinId}" value="編集"/></td> -->
+    <td><a th:href="@{'/goToYokin/edit/' + *{yokinId}}">編集</a></td>
     <td><input type="submit" th:name="'/delete/' + ${yokin.yokinId}" value="削除"/></td>
   </tr>
 </tbody>
