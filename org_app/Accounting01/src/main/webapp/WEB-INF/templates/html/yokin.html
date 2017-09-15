@@ -11,6 +11,7 @@
 <div th:text="${yokinForm.testStr}">This text is going to be replaced</div>
 <div th:text="${yokinForm.yokinList}">This text is going to be replaced</div>
 */-->
+<div th:text="${yokinForm.editId}">This text is going to be replaced</div>
 <h1>預金出納帳</h1>
 
 <hr><!-- ----------------------------------------------- -->
@@ -30,7 +31,7 @@
 <hr><!-- ----------------------------------------------- -->
 <!-- <form method="post" action="#" th:action="@{/confirm}" th:object="${yokinForm}"> -->
 <!-- <form th:object="${yokinForm}"> -->
-<form method="post" action="#" th:action="@{/goToYokin}" th:object="${yokinForm}">
+<form method="post" name="yokinForm" action="#" th:action="@{/goToYokin}" th:object="${yokinForm}">
 <table class="example">
 <caption>預金出納帳</caption>
 <thead>
@@ -50,7 +51,15 @@
 <tbody>
   <tr th:each="yokin, stat : ${yokinForm.yokinList}" th:object="${yokin}">
     <td th:text="*{yokinId}">1111</td>
-    <td th:text="*{kinyuCd}">1111</td>
+    <td th:if="${yokinForm.editId} == *{yokinId}">
+      <!-- 編集中 -->
+      <!-- dodo ここが問題 -->
+      <input type="number" required th:field="*{kinyuCd}" min="0000" max="9999"/>
+    </td>
+    <td th:if="${yokinForm.editId} != *{yokinId}">
+      <!-- 編集してない-->
+      <div th:text="*{kinyuCd}">1111</div>
+    </td>
     <!-- <td th:text="*{hiduke}">1111</td> -->
     <td th:text="*{#dates.format(hiduke, 'yyyy/MM/dd')}">1111</td>
     <td th:text="*{kamokuCd}">1111</td>

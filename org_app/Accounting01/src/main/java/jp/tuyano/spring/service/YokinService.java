@@ -18,6 +18,14 @@ public class YokinService {
 	private YokinRepository yokinRepository;
 
 	/**
+	 * 1件取得
+	 * @return
+	 */
+	public Yokin findById(Long id) {
+		return yokinRepository.findOne(id);
+	}
+
+	/**
 	 * 全件取得
 	 * @return
 	 */

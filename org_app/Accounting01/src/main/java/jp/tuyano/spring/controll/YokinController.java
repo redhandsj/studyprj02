@@ -48,7 +48,8 @@ public class YokinController {
 		// 預金テーブル取得
 		List<Yokin> yokins = yokinService.findAll();
 		yokinForm.setYokinList(yokins);
-				
+		yokinForm.setEditId(1L);
+
 		return(mv);
     }	
 
@@ -104,6 +105,11 @@ public class YokinController {
 		if (result.hasErrors()) {
 		      return null;
 		}
+//      if ((model.get("yokinForm") != null && model.get("yokinForm") instanceof YokinForm)) {
+//      BeanUtils.copyProperties(yokinForm, model.get("yokinForm"));
+//  }
+		Yokin entity = yokinService.findById(Long.valueOf(id));
+		
 		
 		return(mv);
 	}
