@@ -50,29 +50,77 @@
 </thead>
 <tbody>
   <tr th:each="yokin, stat : ${yokinForm.yokinList}" th:object="${yokin}">
+    <!-- 預金ID -->
     <td th:text="*{yokinId}">1111</td>
+    <!-- 金融コード -->
     <td th:if="${yokinForm.editId} == *{yokinId}">
       <!-- 編集中 -->
-      <!-- dodo ここが問題 -->
-      <input type="number" required th:field="*{kinyuCd}" min="0000" max="9999"/>
+      <!-- <input type="number" required th:field="${yokin[__${stat.index}__].kinyuCd}" min="0000" max="9999"/> -->
+      <input type="number" required th:field="${yokinForm.editYokin.kinyuCd}" min="0000" max="9999"/>
     </td>
     <td th:if="${yokinForm.editId} != *{yokinId}">
       <!-- 編集してない-->
       <div th:text="*{kinyuCd}">1111</div>
     </td>
     <!-- <td th:text="*{hiduke}">1111</td> -->
-    <td th:text="*{#dates.format(hiduke, 'yyyy/MM/dd')}">1111</td>
-    <td th:text="*{kamokuCd}">1111</td>
-    <td th:text="*{tekiyo}">22222</td>
-    <!-- <td th:text="*{nyuukin}">33333</td> -->
-    <td th:text="*{#strings.prepend(#numbers.formatInteger(nyuukin,1,'COMMA'),'¥')}">¥999,999,999</td>
+    <!-- 取引日付 -->
+    <td th:if="${yokinForm.editId} == *{yokinId}">
+      <!-- 編集中 -->
+      <input type="date" name="date" id="date" required  th:field="${yokinForm.editDateStr}" value='${yokinForm.editDateStr}'/>
+    </td>
+    <td th:if="${yokinForm.editId} != *{yokinId}">
+      <!-- 編集してない-->
+      <div th:text="*{#dates.format(hiduke, 'yyyy/MM/dd')}">1111</div>
+    </td>
+
+    <!-- 科目コード -->
+    <td th:if="${yokinForm.editId} == *{yokinId}">
+      <!-- 編集中 -->
+      <input type="number" required th:field="${yokinForm.editYokin.kamokuCd}" min="0000" max="9999"/>
+    </td>
+    <td th:if="${yokinForm.editId} != *{yokinId}">
+      <!-- 編集してない-->
+        <div th:text="*{kamokuCd}">1111</div>
+    </td>
+
+    <!-- 適用 -->
+    <td th:if="${yokinForm.editId} == *{yokinId}">
+      <!-- 編集中 -->
+      <input type="text"  th:field="${yokinForm.editYokin.tekiyo}" />
+    </td>
+    <td th:if="${yokinForm.editId} != *{yokinId}">
+      <!-- 編集してない-->
+      <div th:text="*{tekiyo}">22222</div>
+    </td>
+
+    <!-- 入金（借方） -->
+    <td th:if="${yokinForm.editId} == *{yokinId}">
+      <!-- 編集中 -->
+      <!-- ここの調査から -->
+      <input type="number" required th:field="*{yokinForm.editYokin.nyuukin}" />
+    </td>
+    <td th:if="${yokinForm.editId} != *{yokinId}">
+      <!-- 編集してない-->
+      <!-- <td th:text="*{nyuukin}">33333</td> -->
+      <div th:text="*{#strings.prepend(#numbers.formatInteger(nyuukin,1,'COMMA'),'¥')}">¥999,999,999</div>
+    </td>
+
     <!-- <td th:text="*{syukkin}">44444</td> -->
     <td th:text="*{#strings.prepend(#numbers.formatInteger(syukkin,1,'COMMA'),'¥')}">¥999,999,999</td>
     <!-- <td th:text="*{zandaka}">55555</td> -->
     <td th:text="*{#strings.prepend(#numbers.formatInteger(zandaka,1,'COMMA'),'¥')}">¥999,999,999</td>
     <!-- <td><input type="submit" th:name="'/edit/' + ${yokin.yokinId}" value="編集"/></td> -->
-    <td><a th:href="@{'/goToYokin/edit/' + *{yokinId}}">編集</a></td>
-    <td><input type="submit" th:name="'/delete/' + ${yokin.yokinId}" value="削除"/></td>
+    <!-- 編集ボタン -->
+    <td th:if="${yokinForm.editId} == 0">
+      <a th:href="@{'/goToYokin/edit/' + *{yokinId}}">編集</a>
+    </td>
+    <td th:if="${yokinForm.editId} == *{yokinId}">
+      <a th:href="@{'/goToYokin/update/' + *{yokinId}}">確定</a>
+    </td>
+    <!-- 削除ボタン -->
+    <td th:if="${yokinForm.editId} == 0">
+      <input type="submit" th:name="'/delete/' + ${yokin.yokinId}" value="削除"/>
+    </td>
   </tr>
 </tbody>
 <tfoot>

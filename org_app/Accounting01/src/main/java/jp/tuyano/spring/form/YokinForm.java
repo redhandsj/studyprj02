@@ -23,15 +23,15 @@ public class YokinForm {
 	 */
 	private List<Yokin> yokinList;
 
-//	/**
-//	 * 編集用オブジェクト
-//	 */
-//	private Yokin editYokin;
+	/**
+	 * 編集用オブジェクト
+	 */
+	private Yokin editYokin;
 
 	/**
 	 * 編集中ID
 	 */
-	private Long editId;
+	private Long editId = 0L;
 	/**
 	 * 預金出能帳登録用オブジェクト
 	 */
@@ -41,5 +41,10 @@ public class YokinForm {
 	 * 一旦文字列で日付を受ける
 	 */
 	private String dateStr;
+
+	/**
+	 * 一旦文字列で日付を受ける
+	 */
+	private String editDateStr;
 
 }

@@ -5,8 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,7 +50,7 @@ public class YokinController {
 		// 預金テーブル取得
 		List<Yokin> yokins = yokinService.findAll();
 		yokinForm.setYokinList(yokins);
-		yokinForm.setEditId(1L);
+		//yokinForm.setEditId(1L);
 
 		return(mv);
     }	
@@ -101,18 +103,43 @@ public class YokinController {
 			@Validated @ModelAttribute("yokinForm") YokinForm yokinForm,
 			@PathVariable("id") String id,
 			BindingResult result) {
-		ModelAndView mv = new ModelAndView("redirect:/goToYokin");
+		//ModelAndView mv = new ModelAndView("redirect:/goToYokin");
 		if (result.hasErrors()) {
 		      return null;
 		}
 //      if ((model.get("yokinForm") != null && model.get("yokinForm") instanceof YokinForm)) {
 //      BeanUtils.copyProperties(yokinForm, model.get("yokinForm"));
 //  }
-		Yokin entity = yokinService.findById(Long.valueOf(id));
+//		Yokin entity = yokinService.findById(Long.valueOf(id));
+		yokinForm.setEditYokin(yokinService.findById(Long.valueOf(id)));
+		String str = new SimpleDateFormat("yyyy-MM-dd").format(yokinForm.getEditYokin().getHiduke());
+		yokinForm.setEditDateStr(str);
+		yokinForm.setEditId(Long.valueOf(id));
 		
-		
-		return(mv);
+//		return(mv);
+		return(this.index(yokinForm,result));
 	}
+
+	/**
+	 * 編集確定
+	 * @param yokinForm
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+	public ModelAndView update(
+			@Validated @ModelAttribute("yokinForm") YokinForm yokinForm,
+			@PathVariable("id") String id,
+			BindingResult result, ModelMap model) {
+
+		if ((model.get("yokinForm") != null && model.get("yokinForm") instanceof YokinForm)) {
+			BeanUtils.copyProperties(yokinForm, model.get("yokinForm"));
+		}
+		yokinService.regist(yokinForm.getEditYokin());
+		yokinForm.setEditId(0L);
+		return(this.index(yokinForm,result));
+	}	
+	
 	/**
 	 * 削除
 	 * @param yokinForm
