@@ -5,6 +5,22 @@
 <meta charset="utf-8"/>
 <!-- <link rel="stylesheet" type="text/css" href="/css/table.css"> -->
 <link rel="stylesheet" type="text/css" media="all" th:href="@{/static/css/table.css}">
+<!-- ---------------------------------------------------------------------------- -->
+<script type="text/javascript">
+function disp(){
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+	if(window.confirm('本当にいいんですね？')){
+		location.href = "example_confirm.html"; // example_confirm.html へジャンプ
+	}
+	// 「OK」時の処理終了
+	// 「キャンセル」時の処理開始
+	else{
+		window.alert('キャンセルされました'); // 警告ダイアログを表示
+	}
+	// 「キャンセル」時の処理終了
+}
+</script>
+<!-- ---------------------------------------------------------------------------- -->
 </head>
 <body>
 <!--/* th:text 
@@ -86,7 +102,7 @@
     <!-- 適用 -->
     <td th:if="${yokinForm.editId} == *{yokinId}">
       <!-- 編集中 -->
-      <input type="text"  th:field="${yokinForm.editYokin.tekiyo}" />
+      <input type="text" th:field="${yokinForm.editYokin.tekiyo}" />
     </td>
     <td th:if="${yokinForm.editId} != *{yokinId}">
       <!-- 編集してない-->
@@ -96,8 +112,7 @@
     <!-- 入金（借方） -->
     <td th:if="${yokinForm.editId} == *{yokinId}">
       <!-- 編集中 -->
-      <!-- ここの調査から -->
-      <input type="number" required th:field="*{yokinForm.editYokin.nyuukin}" />
+      <input type="number" required th:field="${yokinForm.editYokin.nyuukin}" />
     </td>
     <td th:if="${yokinForm.editId} != *{yokinId}">
       <!-- 編集してない-->
@@ -105,24 +120,58 @@
       <div th:text="*{#strings.prepend(#numbers.formatInteger(nyuukin,1,'COMMA'),'¥')}">¥999,999,999</div>
     </td>
 
-    <!-- <td th:text="*{syukkin}">44444</td> -->
-    <td th:text="*{#strings.prepend(#numbers.formatInteger(syukkin,1,'COMMA'),'¥')}">¥999,999,999</td>
-    <!-- <td th:text="*{zandaka}">55555</td> -->
-    <td th:text="*{#strings.prepend(#numbers.formatInteger(zandaka,1,'COMMA'),'¥')}">¥999,999,999</td>
+    <!-- 出金（貸方） -->
+    <td th:if="${yokinForm.editId} == *{yokinId}">
+      <!-- 編集中 -->
+      <input type="number" required th:field="${yokinForm.editYokin.syukkin}" />
+    </td>
+    <td th:if="${yokinForm.editId} != *{yokinId}">
+      <!-- 編集してない-->
+      <!-- <td th:text="*{syukkin}">44444</td> -->
+      <div th:text="*{#strings.prepend(#numbers.formatInteger(syukkin,1,'COMMA'),'¥')}">¥999,999,999</div>
+    </td>
+
+    <!-- 差引残高 -->
+    <td th:if="${yokinForm.editId} == *{yokinId}">
+      <!-- 編集中 -->
+      <input type="number" required th:field="${yokinForm.editYokin.zandaka}" />
+    </td>
+    <td th:if="${yokinForm.editId} != *{yokinId}">
+      <!-- 編集してない-->
+      <!-- <td th:text="*{zandaka}">55555</td> -->
+      <div th:text="*{#strings.prepend(#numbers.formatInteger(zandaka,1,'COMMA'),'¥')}">¥999,999,999</div>
+    </td>
+
     <!-- <td><input type="submit" th:name="'/edit/' + ${yokin.yokinId}" value="編集"/></td> -->
     <!-- 編集ボタン -->
     <td th:if="${yokinForm.editId} == 0">
+      <!-- 編集しているものがない -->
       <a th:href="@{'/goToYokin/edit/' + *{yokinId}}">編集</a>
     </td>
-    <td th:if="${yokinForm.editId} == *{yokinId}">
+    <td th:if="${yokinForm.editId != 0} and ${yokinForm.editId} == *{yokinId}">
+    <!-- <td th:if="${(yokinForm.editId != 0) and (yokinForm.editId == yokinId)}"> -->
+      <!-- 編集中 -->
       <a th:href="@{'/goToYokin/update/' + *{yokinId}}">確定</a>
     </td>
+    <td th:if="${yokinForm.editId != 0} and ${yokinForm.editId} != *{yokinId}">
+      <!-- 編集してない-->
+    </td>
+
     <!-- 削除ボタン -->
     <td th:if="${yokinForm.editId} == 0">
-      <input type="submit" th:name="'/delete/' + ${yokin.yokinId}" value="削除"/>
+      <!-- 編集しているものがない -->
+      <!-- <input type="submit" th:name="'/delete/' + ${yokin.yokinId}" value="削除"/> -->
+      <!-- <a href="#" onClick="disp(); return false;">確認ダイアログの表示</a> -->
+      <a th:href="@{'/goToYokin/delete/' + *{yokinId}}" >削除</a>
+      <a th:href="@{'/goToYokin/delete/' + *{yokinId}}" onClick="disp(); return false;">削除</a>
     </td>
+    <td th:if="${yokinForm.editId} != 0">
+      <!-- 編集しているものがある -->
+    </td>
+
   </tr>
 </tbody>
+<!-- 
 <tfoot>
 <tr>
 <td>フッタセル1</td>
@@ -137,6 +186,7 @@
 <td>フッタセル6</td>
 </tr>
 </tfoot>
+ -->
 </table>
 <!-- </form> -->
 </form>

@@ -146,7 +146,8 @@ public class YokinController {
 	 * @param result
 	 * @return
 	 */
-	@RequestMapping(params = "/delete/{id}")
+	//@RequestMapping(params = "/delete/{id}")
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public ModelAndView delete(
 			@Validated @ModelAttribute("yokinForm") YokinForm yokinForm, 
 			@PathVariable("id") String id,
@@ -155,7 +156,7 @@ public class YokinController {
 		if (result.hasErrors()) {
 		      return null;
 		}
-		
+		yokinService.detele(Long.valueOf(id));
 		return(mv);
 	}
 }
