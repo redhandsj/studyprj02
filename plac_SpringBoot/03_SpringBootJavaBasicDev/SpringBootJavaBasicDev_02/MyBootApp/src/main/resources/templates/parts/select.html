@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>ラジオボタン</title>
+<title>セレクトボックス</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <style>
 h1 { font-size:18pt; font-weight:bold; color:gray; }
@@ -10,18 +10,24 @@ body { font-size:13pt; color:gray; matgin:5px 25px; }
 </style>
 </head>
 <body>
-<h1>ラジオボタン</h1>
+<h1>セレクトボックス</h1>
 <p class="msg">this is Thymeleaf sample page.</p>
 <p class="msg" th:text="${msg}">please wait...</p>
-<form method="post" action="sendRadio">
-<div>
-<input type="radio" id="rdoA" name="radio1"  value="man" />
-<label for="checkA">男性</label>
-</div>
-<div>
-<input type="radio" id="rdoB" name="radio1"  value="woman"  />
-<label for="checkA">女性</label>
-</div>
+<form method="post" action="sendSelect">
+
+<select id="select1" name="sel1" size="4">
+  <option value="Windows">Windows</option>
+  <option value="Mac">Mac</option>
+  <option value="linux">Linux</option>
+</select>
+
+<select id="select2" name="sel2" size="4"  multiple="multiple" >
+  <option value="Android">Android</option>
+  <option value="iphone">iphone</option>
+  <option value="Winfone">Windows phone</option>
+</select>
+
+
 
 <input type="submit" value="Click"/>
 </form>

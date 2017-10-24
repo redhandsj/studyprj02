@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>ラジオボタン</title>
+<title>動作確認（リダイレクト）</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <style>
 h1 { font-size:18pt; font-weight:bold; color:gray; }
@@ -10,21 +10,12 @@ body { font-size:13pt; color:gray; matgin:5px 25px; }
 </style>
 </head>
 <body>
-<h1>ラジオボタン</h1>
+<h1>動作確認（リダイレクト）</h1>
 <p class="msg">this is Thymeleaf sample page.</p>
 <p class="msg" th:text="${msg}">please wait...</p>
-<form method="post" action="sendRadio">
-<div>
-<input type="radio" id="rdoA" name="radio1"  value="man" />
-<label for="checkA">男性</label>
-</div>
-<div>
-<input type="radio" id="rdoB" name="radio1"  value="woman"  />
-<label for="checkA">女性</label>
-</div>
-
-<input type="submit" value="Click"/>
-</form>
+<!-- ------------------------------------------------------ -->
+<!-- ------------------------------------------------------ -->
+<h2>このページはリダイレクト</h2>
 <!-- ------------------------------------------------------ -->
 <hr>
 <a th:href="@{/}" >先頭へ</a>

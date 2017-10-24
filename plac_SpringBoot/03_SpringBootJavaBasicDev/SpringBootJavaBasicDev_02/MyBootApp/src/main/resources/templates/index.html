@@ -8,6 +8,12 @@
 h1 { font-size:18pt; font-weight:bold; color:gray; }
 body { font-size:13pt; color:gray; matgin:5px 25px; }
 </style>
+<script type="text/javascript" th:inline="javascript">
+<!--
+  var foo = {}; // namespace
+  foo.CONTEXT_ROOT = /*[[${#httpServletRequest.contextPath}]]*/ '';
+//-->
+</script>
 </head>
 <body>
 <h1>Helo page</h1>
@@ -18,9 +24,21 @@ body { font-size:13pt; color:gray; matgin:5px 25px; }
 <input type="submit" value="Click"/>
 </form>
 <!-- ------------------------------------------------------ -->
-<Hr>
-<h2>チェックボックス</h2>
+<hr>
+<h2>Parts</h2>
+<dl>
+<li><a th:href="@{/parts/chkbox}" >チェックボックス</a>
+<li><a th:href="@{/parts/radio}" >ラジオボタン</a>
+<li><a th:href="@{/parts/select}" >セレクトボックス</a>
+<dl>
+<!-- ------------------------------------------------------ -->
+<hr>
+<h2>リダイレクト・フォワード</h2>
+<dl>
+<li><a th:href="@{/redirect_foward/red}" >リダイレクト</a>
+<dl>
 
+<!-- ------------------------------------------------------ -->
 
 
 
