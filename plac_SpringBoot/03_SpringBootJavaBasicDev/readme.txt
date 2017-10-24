@@ -141,9 +141,12 @@ G:.
     ⇒ /MyBootApp/src/main/java/com/tuyano/springboot/HeloController2.java
 
 
+----------
 ★ そのほかのフォームコントロール
+ - チェックボックス・ラジオボタン・選択ボックス
+  /MyBootApp/src/main/java/com/tuyano/springboot/PartsController.java 作成
 
-ここから
+ → http://localhost:8082/parts/chkbox
 
 
 
@@ -160,6 +163,12 @@ G:.
   [環境設定]→[一般]→[コンテンツ・タイプ]→[テキスト]→[HTML]を選択して[追加]
   *.inc と入力して[OK]
   ファイルを開き直せばおk
+
+
+★ 起動ポートの変更
+ - /MyBootApp/src/main/resources/application.properties に以下を追記
+   - server.port=8082
+
 
 
 //==========================================================================================================

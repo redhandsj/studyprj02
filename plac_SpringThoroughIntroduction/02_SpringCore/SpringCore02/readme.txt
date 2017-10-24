@@ -31,15 +31,110 @@ URL　:　 http://localhost:8080/SpringCore02_MVC/
  - @Scope("prototype")
  - Webアプリケーションの場合にはrequest ＜ session ＜ singletonの順に長寿命
 
-★Beanのライフサイクル
+★(2.1.8) Beanのライフサイクル
  - 初期化フェーズ
+   - Bean定義の読み込み 
+     - org.springframework.beans.factory.config.BeanFactoryPostProcessor
+       - Bean Factory Post Processor（BFPP）によるBean定義情報の書き換え処理
+       - Bean定義中のプロパティのプレースホルダにプロパティ値を埋 め込む処理
+       
+      - Beanのインスタンスが生成され、インジェクション
+        - コンストラクタインジェクション
+        - フィールドインジェクション
+        - セッターインジェクション
+      - Post Construct
+        - 初期化処理
+           - @javax.annotation.PostConstructアノテーションが付与されたメソッド
+             → 
+           - org.springframework.beans.factory.InitializingBeanインターフェイスのafterPropertiesSetメ ソッド 
+           
+           - Bean定義中の@BeanのinitMethod属性、または <bean>要素のinit-method属性で指定したメソッド
+           
  - 利用フェーズ
+    
  - 終了フェーズ
- 
+   - DIコンテナが破棄されるタイミング
+     - Pre	Destroy
+       - @javax.annotation.PreDestroyアノテーションが付与されたメソッド
+       - org.springframework.beans.factory.DisposableBeanインターフェイスのdestroyメソッド 
+       - Bean定義中の@BeanのdestroyMethod属性、または <bean>要素のdestroy-method属性で指定したメ ソッド
+   - DIコンテナの破棄 
+     - ApplicationContextを拡張したorg.springframework.context.ConfigurableApplicationContextイン ターフェイスのcloseメソッド
+
+★(2.1.9) Configurationの分割
+ - @org.springframework.context.annotation.Importアノテーション
+
+★(2.1.10)Configurationのプロファイル化
+ ■ プロファイル定義
+   - @org.springframework.context.annota tion.Profileアノテーション
+
+ ■使用するプロファイルの選択方法
+  - java プロセスの実行時に次のように指定してください。
+     -Dspring.profiles.active=production
+  - 環境変数の場合
+     export SPRING_PROFILES_ACTIVE=production
+  - web.xmlの場合
+    <context-param><param-name>spring.profiles.active</param-name><param-value>production</param-value></context-param>
+  
+
+★(2.1.11) JSR 330: Dependency Injection for Java 
+  - 表2.5　SpringとJSR 330の主なアノテーションの対応関係
+  
+  
+  
 
 //==========================================================================================================
 // 2.2 AOP
 //==========================================================================================================
+ - セキュリティ
+ - ログ出力
+ - トランザクション
+ - モニタリング
+ - キャッシュ
+ - 例外ハンドリング
+
+★(2.2.1) AOPの概要
+ - Advice
+   - 特定のJoin Pointで実行されるコード(Around、Before、After)
+ - Pointcut
+   - Join Pointのグループ
+ - Weaving
+   - Aspectを入れ込む処理。、Spring のAOPは実行時にWeavingを行ないます。
+ - Target
+   - AOP処理によって処理フローが変更されたオブジェクト
+
+ 
+
+★(2.2.2) Spring AOP
+ - 必要依存
+   - <dependency>    <groupId>org.springframework</groupId>    <artifactId>spring-context</artifactId> </dependency>
+   - <dependency>    <groupId>org.springframework</groupId>    <artifactId>spring-aop</artifactId> </dependency> 
+   - <dependency>    <groupId>org.aspectj</groupId>    <artifactId>aspectjweaver</artifactId> </dependency>
+
+
+
+★(2.2.3) Adviceの実装方法
+ → ※※※　動作確認（http://localhost:8080/SpringCore02_MVC/）
+
+
+★(2.2.4) XMLでAdviceを定義
+ → 省略
+
+
+★(2.2.5) Pointcut式
+ - execution(* com.example.domain.*Service.find*(..))
+ - within(com.example.service.*) 
+   - クラス名のパターンを指定
+ -  bean(*Service) 
+   - SpringのDIコンテナに管理されており、Bean名が「Service」で終わるBeanのメソッドを対象
+ - @annotation(com.example.annotation.TraceLog)
+   - @com.example.annotation.TraceLogアノテーションが付いたメソッドを対象
+
+ - ■名前付きPointcut 
+   - org.aspectj.lang.annotati on.Pointcutアノテーションで定義
+   - 戻り値はvoid
+
+ - ■Adviceの対象オブジェクトや引数を取得 
 
 
 
@@ -78,6 +173,17 @@ URL　:　 http://localhost:8080/SpringCore02_MVC/
 
 //==========================================================================================================
 ★ とりあえずメモ
+ - springのシングルトン問題を@Scopeを使って回避する
+   - http://javatechnology.net/spring/spring-singleton-scope/
+
+ - Formのセッション管理
+   - https://terasolunaorg.github.io/guideline/public_review/ArchitectureInDetail/SessionManagement.html#id3
+
+
+
+ - Tomcat8の起動が遅い問題の解決方法
+   - http://blog.w-hippo.com/entry/2017/05/09/Tomcat8%E3%81%AE%E8%B5%B7%E5%8B%95%E3%81%8C%E9%81%85%E3%81%84%E5%95%8F%E9%A1%8C%E3%81%AE%E8%A7%A3%E6%B1%BA%E6%96%B9%E6%B3%95
+
 
 //==========================================================================================================
 // <END>
