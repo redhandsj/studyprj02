@@ -4,11 +4,44 @@
 URL : http://localhost:8082
 
 ★ 2017/10/25(水)に、新規作成
+★ プロジェクト
+ 03_SpringBootJavaBasicDev\SpringBootJavaBasicDev_02\MyBootApp
+   ↓
+ 05_ModelAndDatabase\ModelAndDataBase_01\MyBootApp
 
 //==========================================================================================================
 // 5.1 JPAによるデータベースの利用
 //==========================================================================================================
-★ 
+★ Spring Framework における永続性のアプローチ
+ - SpringMVCの中には､モデルに関する部分はないのです
+ - ベー スとなっているJavaEEの技術｢JPA｣も含まれています
+ - 
+
+★ モデルに必要な技術について
+ - データの永続化
+ - HSQLDB
+ - JTA : JavaTransactionAPIの略で、JavaEEにトランザクション処理を提供します
+ - SpringORM : SpringFrameworkに用意されているORM(Object-RelationalMappmg)フレームワーク 
+ - SpringAspects/SpringAOP : 
+ - ｢データベース本体(ここではHSQLDB)」と｢SpringBootStarterDataJPA｣
+
+
+★ pom.xmlの変更
+ ⇒ ModelAndDataBase_01\MyBootApp\pom.xml
+
+★ エンティティクラスについて
+ - DBのテーブル → Entity
+ - POJO + @Entity｣というアノテーション
+
+★ MyDataクラスの作成
+ ⇒ src/main/java/com/tuyano/springboot/MyData.java
+
+★ エンティティクラスのアノテーションについて
+
+★ リポジトリについて
+
+★ リポジトリ用パッケージを用意する
+
 
 
 

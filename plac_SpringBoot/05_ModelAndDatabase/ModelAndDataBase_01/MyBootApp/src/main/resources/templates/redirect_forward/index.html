@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>動作確認ページ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style>
+h1 { font-size:18pt; font-weight:bold; color:gray; }
+body { font-size:13pt; color:gray; matgin:5px 25px; }
+</style>
+</head>
+<body>
+<h1>動作確認ページ</h1>
+<p class="msg">this is Thymeleaf sample page.</p>
+<p class="msg" th:text="${msg}">please wait...</p>
+<!-- ------------------------------------------------------ -->
+<!-- ------------------------------------------------------ -->
+<hr>
+<h2>Parts</h2>
+<dl>
+<li><a th:href="@{/redirect_forward/redirect}" >リダイレクト</a>
+<li><a th:href="@{/redirect_forward/forward}" >フォワード</a>
+<dl>
+<!-- ------------------------------------------------------ -->
+<hr>
+<a th:href="@{/}" >先頭へ</a>
+</body>
+</html>
