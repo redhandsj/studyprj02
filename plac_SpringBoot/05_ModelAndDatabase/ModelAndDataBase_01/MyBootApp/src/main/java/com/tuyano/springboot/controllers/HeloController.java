@@ -1,4 +1,4 @@
-package com.tuyano.springboot;
+package com.tuyano.springboot.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,4 +1,4 @@
-package com.tuyano.springboot;
+package com.tuyano.springboot.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

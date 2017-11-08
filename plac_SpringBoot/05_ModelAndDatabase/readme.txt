@@ -42,7 +42,20 @@ URL : http://localhost:8082
 
 ★ リポジトリ用パッケージを用意する
 
+★ リポジトリクラス「MyDataRepository」を作成する
+ ⇒ com/tuyano/springboot/repositories/MyDataRepository.java
 
+★ リポジトリを利用する
+ ⇒ com/tuyano/springboot/controllers/RepositoriesController.java
+
+★ リポジトリのメソッドをチェックする
+ - アプリ起動時に@Repositoryを検索し、Bean登録
+ - @Autowired があれば、自動でフィールドを割り当てる
+ - 『extends JpaRepository<MyData,Long>』
+   -  MyDataエンティティ／Long型のプライマリーキー
+
+★ テンプレートを用意する
+ ⇒ resources/templates/repos/index.html
 
 
 //==========================================================================================================
