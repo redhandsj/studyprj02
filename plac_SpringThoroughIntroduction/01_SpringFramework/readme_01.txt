@@ -9,8 +9,11 @@ URL　:　
 //==========================================================================================================
 // 1.1 　Spring Frameworkの概要
 //==========================================================================================================
-
-
+ - 2004年 ver1.0
+ - 2006年 ver2.0
+ - 2009年 ver3.0
+ - 2013年 ver4.0
+ - 「新旧のインフラ環境で最新プログラミング思想で開発可能」
 
 
 //==========================================================================================================
@@ -23,8 +26,88 @@ URL　:　
 // 1.3 　Spring の各種プロジェクトについて
 //==========================================================================================================
 
+■1.3.1 Spring MVC
+ - アクションベースのStrutsと同等
+ - サードパーティ
+  - Jackson （JSON操作）
+  - Apach Tiles（レイアウトエンジン）
+  - FreeMarker（テンプレートエンジン）
+  - Rome（RSS/Feed 操作）
+  - JasperReports（帳票出力）
+  - Hibernate Validator（Bean Validation）
+  - Jota-Time（日付操作）
+  - Thymeleaf（テンプレートエンジン）
+  
+■1.3.2 Spring Security
+ - Authentication（認証）と Authorization（認可）
+ - Basic認証
+ - ダイジェスト認証
+ - X.509クライアント証明書
+ - LDAP（Lightweight Directory Access Protocol）
+ - Open ID
+ - CSRF（Cross-Site Request Forgery）対策機能
+ - セキュリティヘッダ出力
+ - セッション管理機能
 
 
+■1.3.3 Spring Data
+ - リレーショナルデータベース
+ - NoSQL
+ - Key-Valueストア
+ - アンブレラプロジェクト
+ 　- Spring Data Commons
+     - Repositoryインターフェイス
+   - Spring Data JPA
+     - JPAを用いてデータアクセスを行う為のRepository
+   - Spring Data MongoDB、Spring Data Redis、Spring Data Solr
+
+■1.3.4 Spring Batch
+ - 大容量データ処理に必要な共通機能を提供
+ - リスタート、スキップ、ファイルやDBなどの入出力
+ - トランザクション管理、リソース管理
+
+
+■1.3.5 Spring Integration
+ - システム間連携の仕組み解決の為のフレームワーク
+ - 非同期でのメッセージ駆動アプリケーション
+ - メッセージチャンネルを経由してヘッダ＋ペイロード（データ本体）
+ - エンドポイント
+   - AMQP、ファイル、FTP/SFTP、REST/HTTP、JDBC、JPA、JMS、XML、GemFile、MongoDB、Redis、RMI、STOMP、TCP/IP、電子メール
+ - 同機能
+   - Apache Camel   
+
+
+■1.3.6 Spring Cloud
+ - 分散環境でのCloud Nativeなアプリ
+ - Spring Cloud Config
+   - 設定情報をGitなどの外部環境で配布する仕組み
+ - Spring Cloud Bus
+   - AMQPといった軽量のメッセージ
+ - Spring Cloud Connectors
+   - クラウド環境への接続の仕組み
+ - Spring Cloud Netflix
+   - Netflix が提供するOSSを使用
+
+
+■1.3.7 Spring Tool Suite(STS)
+ - Eclipseベースの開発環境
+ - 
+
+■1.3.8 Spring IO Platform
+ - Springベースの開発でライブラリバージョンを管理し、依存関係を解決する
+
+
+■1.3.9 Spring Boot
+ - 最小限のプロダクションレベルのSpringアプリケーション
+
+
+//==========================================================================================================
+// 1.4 Java EE との関係
+//==========================================================================================================
+ - 一応 JavaEEのアプリケーション
+
+
+#################### P.030 ####################
 
 
 

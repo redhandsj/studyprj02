@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
+// Spring MVC が提供しているコンフィギュレーションクラスがインポートされる
 @EnableWebMvc
 @ComponentScan("org.rhpj")
 public class WebMvcConfig  extends WebMvcConfigurerAdapter {
