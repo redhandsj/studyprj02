@@ -11,16 +11,122 @@ URL :
 //==========================================================================================================
 // 8.2 DIコンテナ管理のBeanに対するテスト
 //==========================================================================================================
+■8.2.1 Beanの単体テスト
+ ⇒ /SpringTest001/src/test/java/org/rhpj/service/MessageServiceTest.java
 
 
+■8.2.2 DIコンテナ内のBeanに対する結合テスト
+
+
+
+■8.2.3 Spring TestContext Framework
+
+
+■8.2.4 DIコンテナのコンフィギュレーション
+ - @ContextConfiguration
+   - 属性を省略し た場合は、「テストケースクラス内のstaticなコンフィギュレーションクラス（内部クラス）」または「ネーミング ルールベースで解決されたXMLファイル」
+   - ネーミングルールベースで解決するXMLファイルは、
+     テストケースクラスが com.example.domain.Message ServiceIntegrationTestの場合、
+     クラスパス内の com/example/domain/MessageServiceIntegrationTestcontext.xml
+ - @WebAppConfiguration
+   - Webアプリケーション（war）内のファイルにアクセス
+   - 開発プロジェクト内のsrc/main/webappディレクトリが「Webアプリケーションのルートディレクトリ」
+
+■8.2.5 DIコンテナのライフサイクル制御
+ - Spring TestContext Framework上に生成されたDIコンテナは、テスト実行時のJava VMが終了するまで キャッシュされ、必要に応じてテストケース間で共有される
+ - @ContextConfigurationなどに指定した属性値【10】が同じであれば、 キャッシュ済みのDIコンテナが利用されます
+ - @DirtiesContext を付与してclassMode属性に破棄タイミングを指定
+
+
+■8.2.6 プロファイル指定
+ - @Profile("dev")
+   → P.413の例
+ - プロファイルを明示的に指定しない場合は、 "default"という名前のプロファイルが適用
+
+
+■8.2.7 テスト用のプロパティ値の指定
+ - アノテーションに直接
+   - @TestPropertySource(properties = "auth.failureCountToLock=3") 
+
+ - プロパティファイル
+   - @TestPropertySource(locations = "/test.properties")
+
+ - @TestPropertySourceのlocations属性とproperties属性を省略した場合
+   - テストケースクラスがcom.example.do main.AuthenticationIntegrationTestの場合、
+   クラスパス内の com/example/domain/AuthenticationIn tegrationTest.propertiesが利用
+ 
 //==========================================================================================================
 // 8.3 データベースアクセスを伴う処理のテスト
 //==========================================================================================================
+■8.3.1 テスト用のデータソースの設定
+ ⇒ org.rhpj.config.TestConfig
+ 
+
+■8.3.2 テストデータのセットアップ
+ - @Sql("/account-delete.sql")
+   ⇒ P.417の例
+ - 実行するSQLファイルの指定を省略した場合
+   - ネーミングルールベースで解決したSQLファイルを使用
+
+   - クラスレベルに@Sqlを指定し、
+     テストケースクラスが com.example.domain.Acco untRepositoryTestの場合、
+     クラスパス内の com/example/domain/AccountRepositoryTest.sql
+
+   - メソッドレベルに @Sqlを指定し、
+     テストケースメソッド名が「testFindOne」の場合
+     クラスパス 内のcom/example/domain/AccountRepositoryTest.testFindOne.sql
+
+■8.3.3 テストケース用のトランザクション制御
+ - JUnit専用のデータベースを用意しておくと確実
+ - Spring Testが 提供しているテスト用のトランザクション制御の仕組みを利用
+ - @Sqlで指定したSQLファイルの実行とテストを同一トランザクション内で行なう
+ - @Transactional
+
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   テスト対象のトランザクションの伝播方法がREQUIRES_NEW（常に新規のトランザクションを作成して実行する）の場合は、
+   トランザクション境界をテストケースメソッドの前に移動しても同一トラ ンザクション内で実行することはできません。
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+   - @Transactionalを指定してトランザクション境界をテストケースメソッドの前に移動した場合は、
+     デフォル トの動作ではテスト終了時にロールバック
+
+   - トランザクション境界をテストケースメソッドの前へ移動した状態でJPAやHibernateを使った
+     更新系のテス トを行なう場合は、永続コンテキストを明示的にフラッシュしてSQLが発行されるようにする必要があります。 
+   - MyBatisをバッチモードで利用する場合も同様
+     ⇒ P.420の例
+
+■8.3.4 テーブルの中身の検証
 
 
 //==========================================================================================================
 // 8.4 Spring MVCのテスト
 //==========================================================================================================
+■8.4.1 org.springframework.test.web.servlet.MockMvcとは
+ - Spring Testは、MockMvcとHtmlUnit【11】を連携する機能も提供
+ - ユーザー指定のDIコンテナと連携するモード 
+ - スタンドアロンモード
+
+
+■8.4.2 MockMvcのセットアップ
+ - 依存コンポーネントのモック化
+   ⇒ P.425の例
+
+■8.4.3 テスト実行
+
+
+■8.4.4 リクエストデータのセットアップ
+   ⇒ P.427 の例
+
+
+■8.4.5 実行結果の検証
+   ⇒ P.428 の例
+
+
+■8.4.6 実行結果の出力
+   ⇒ P.429 の例
+
+
+########## P.429 ####################
 
 
 //==========================================================================================================
@@ -31,7 +137,17 @@ URL :
 //==========================================================================================================
 // 未整頓メモ
 //==========================================================================================================
+ - H2 の起動について
+   - https://qiita.com/yutaka-tanaka/items/3a67d03008073b5cf6c3
+     > cd C:\00\works\repos\gits\redhandsj\studyprj02\plac_SpringThoroughIntroduction\03_DataAccess\DataAccess001\libs
+     > java -cp h2-1.4.196.jar org.h2.tools.Server -webAllowOthers
 
+★ Spring メッセージ管理
+ - https://qiita.com/kawa123/items/8fcd9d619272354e9df7
+
+★ WebApplicationエラー
+ - Caused by: java.lang.ClassNotFoundException: javax.servlet.SessionCookieConfig
+ - https://jira.spring.io/browse/SPR-11049
 
 
 //==========================================================================================================

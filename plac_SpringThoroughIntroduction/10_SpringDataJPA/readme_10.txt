@@ -126,19 +126,68 @@ URL :
 //==========================================================================================================
 // 10.5 Spring Data JPA のセットアップ
 //==========================================================================================================
- ⇒　04_SpringMVC\SpringMVC001 に追加する形で進める
+ ⇒　10_SpringDataJPA\SpringDataJPA001 に追加する形で進める
+
+■10.5.1 依存ライブラリ
 
 
-########## P.517 ####################
+■10.5.2 DataSourceの定義
 
 
+■10.5.3 EntityManagerFactoryの定義
+ - Springが提供するLoc alContainerEntityManagerFactoryBean
+   → EntityManagerFactory
+
+■10.5.4 JpaTransactionManagerの定義
+ - トランザクション管理
+
+■10.5.5 Spring Data JPAの有効化
+
+
+■10.5.6 Open EntityManager in Viewパターンの設定
+ - LazyフェッチをWeb画面のレンダリング時に使用できます
+ - トランザクションが終了した後もEntityManagerを閉じず、さらに Entityを管理状態のまま維持し、Web画面レ ンダリングが完了するまでLazyフェッチが可能なようにする手法
+ - OpenEntityManagerInViewInterceptor
+ - OpenEntityManagerInViewFilter → 期間が長い（ServletFilterでフェッチ可能）
 
 //==========================================================================================================
 // 10.6 Repository の作成と適用
 //==========================================================================================================
+■10.6.1 Spring Data JPA標準のCRUD操作
+ → P.525 の例
+
+■10.6.2 JPQLによるデータアクセス
+ - クエリメソッドに@Queryアノテーションが定義され ている場合はそちらが優先
+ → P.526 の例
+ - @Query で、LIKE %バインド変数が可能
+
+
+■10.6.3 排他制御
+ - Repositoryのクエリメソッドに @org.springframework.data.jpa.repository.Lockアノテーション
+ 
+■10.6.4 ページネーション
+ - 複数のページに分けてデータを一覧化し、現在閲覧してい るページに表示するデータのみをデータベースから取得
+ - るJpaRepositoryはPagingAndSortingRepositoryを継承している
+ - クエリメソッドの引数にPageable型の引数を追加
+   → P.530 の例
+
+■10.6.5 Repositoryへのカスタムメソッドの追加
+ → P.531の図
+ → P.532の例
+ 
+■10.6.6 監査情報の付与
+ - @EntityListeners(AuditingEntityListener.class)
+   - データ作成者、作成日付、最終更新者、最終更新日付
+     → P.532 の例
+   - orm.xml に全Entityに一括設定可能
+     → P.534 の例
+ - AuditorAware
+   - 記録する監査情報を指定
+     → P.531 の例
 
 
 
+########## P.529 ####################
 
 //==========================================================================================================
 //==========================================================================================================
@@ -154,6 +203,14 @@ URL :
 
 ★ 楽観的ロックと悲観的ロック
  - http://k-webs.jp/javaindex/post-1881
+
+★ Hibernate
+ - Hibernate は O/R マッパーと呼ばれるものです。
+ - http://www.techscore.com/tech/Java/Others/Hibernate/01/
+
+
+★ 画面のレンダリング
+ - http://web-directors.net/modules/pico/index.php?content_id=93
 
 
 

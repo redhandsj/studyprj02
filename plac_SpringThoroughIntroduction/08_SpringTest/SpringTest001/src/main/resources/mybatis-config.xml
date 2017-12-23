@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <settings>
+    <!-- 、Javaのnull値をJDBCのNULL型と扱う -->
+    <setting name="jdbcTypeForNull" value="NULL" />
+    <!-- デフォルトのフェッチサイズを指定 -->
+    <setting name="defaultFetchSize" value="100"/> 
+  </settings>
+  <typeAliases>
+    <!-- マッピングファイル内で繰り返し使用されるパッケージ名 -->
+    <package name="org.rhpj.domain.model" />
+  </typeAliases>
+  <environments default="development">
+    <environment id="development">
+     <transactionManager type="JDBC" />
+      <dataSource type="POOLED">
+        <property name="driver" value="org.h2.Driver" />
+        <property name="url" value="jdbc:h2:mem:test" />
+        <property name="username" value="sa" />
+        <property name="password" value="" />
+      </dataSource>
+    </environment>
+  </environments>
+</configuration>

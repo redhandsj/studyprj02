@@ -37,6 +37,11 @@
       <artifactId>hibernate-validator</artifactId>
       <version>6.0.5.Final</version>
     </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.2.12.Final</version>
+    </dependency>
     <!-- Logging with SLF4J & LogBack -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -76,9 +81,12 @@
       <version>${jsp.version}</version>
       <scope>provided</scope>
     </dependency>
-
-
-
+    <!-- ★ 10_SpringDataJPA -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>2.0.2.RELEASE</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>SpringDataJPA001</finalName>
