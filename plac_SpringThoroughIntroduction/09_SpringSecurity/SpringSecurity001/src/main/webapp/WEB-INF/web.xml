@@ -9,4 +9,23 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>springbook.config.WebSecurityConfig</param-value>
+    </context-param>
+    <!-- 
+    FilterChainProxyが受け取ったリクエストに対して適用する 「Security Filterのリスト」を管理するためのインターフェイス
+     -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
+    </filter>
+    <!-- 
+    フレームワーク処理のエントリーポイントとなるサーブレットフィルタクラス
+    フレームワーク処理の全体の流れを制御し、具体的なセキュリティ対策処理はSecurity Filter に委譲
+     -->
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

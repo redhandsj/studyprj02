@@ -11,13 +11,14 @@
   <properties>
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <spring-framework.version>4.3.3.RELEASE</spring-framework.version>
+    <spring-framework-security.version>4.2.3.RELEASE</spring-framework-security.version>
     <hibernate.version>4.2.1.Final</hibernate.version>
     <logback.version>1.0.13</logback.version>
     <slf4j.version>1.7.5</slf4j.version>
     <jsp.version>2.2</jsp.version>
     <jstl.version>1.2</jstl.version>
     <servlet.version>2.5</servlet.version>
-    <java.version>1.7</java.version>
+    <java.version>1.8</java.version>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.source>${java.version}</maven.compiler.source>
   </properties>
@@ -184,6 +185,38 @@
       <artifactId>spring-expression</artifactId>
       <version>${spring-framework.version}</version>
     </dependency>
+    <!-- ★ 09_SpringSecurity -->
+    <!-- Webアプリケーションのセキュリティ対策を実現するためのコンポーネント -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>${spring-framework-security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId> 
+      <version>${spring-framework-security.version}</version>
+    </dependency>
+    <!-- 各モジュールから提供されているコンポーネントのセットアップをサポート -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>${spring-framework-security.version}</version>
+    </dependency>
+    <!-- 認証情報や認可機能にアクセスするためのJSPタグライブラリ -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-taglibs</artifactId>
+      <version>${spring-framework-security.version}</version>
+    </dependency>
+    <!-- セキュリティテスト -->
+    <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-test -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <version>4.0.0.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
   <build>
@@ -203,7 +236,7 @@
             </includes>
           </fileset>
           <fileset>
-            <directory>src/main/java/org/rhpj/domain/client</directory>
+            <directory>src/main/java/org/rhpj/domain/mapper</directory>
             <includes>
               <include>*</include>
             </includes>
