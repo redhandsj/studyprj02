@@ -22,7 +22,7 @@
    →　① (3) 
 
  - (CHAPTER 07) Spring MVC の応用 (P.361 - 400)
-   →　① (2) 
+   →　★① (2) 
 
  - (CHAPTER 08) Spring Test (P.401 - 430)
    →　★① (2) 
@@ -79,7 +79,7 @@
    →　★① (5) 1/1 - 1/5
 
  - (CHAPTER 07) Spring MVC の応用 (P.361 - 400)
-   →　① (2) 1/6 - 1/7
+   →　★① (2) 1/6 - 1/7
 
  - (CHAPTER 06) RESTful Webサービスの開発 (P.307 - 360)
    →　① (3) 1/8 - 1/10
@@ -105,6 +105,8 @@
 ■ 05_SpringWebApplication\SpringWebApplication001 ⇒ 2018/01/03(水) 作成
      ↓ コピー
 ■ 07_SpringMVCapp\SpringMVCapp001 ⇒ 2018/01/08(月) 作成
+     ↓ コピー
+■ 06_RESTfulWeb\RESTfulWeb001 ⇒ 2018/01/12(金) 作成
 
 
 
